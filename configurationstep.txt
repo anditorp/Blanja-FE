@@ -1,0 +1,41 @@
+A. Install React dengan Vite 
+https://vitejs.dev/guide/
+
+npm create vite@latest
+
+cd <nama-project>
+npm install
+npm run dev (buat test)
+
+B. Install Tailwind
+https://tailwindcss.com/docs/guides/vite
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+... tinggal ikutin langkahnya aja
+
+C. Install Package
+@reduxjs/toolkit
+axios
+react-redux
+react-router-dom
+react-slick
+redux
+redux-thunk
+slick-carousel
+
+npm i react-router-dom axios redux react-redux redux-thunk @reduxjs/toolkit react-slick slick-carousel
+
+D. Instalasi Folder
+App.css di dalam src tidak digunakan harusnya, tapi gak aku hapus.
+Buat folder: 
+components: base, module (tanpa protectedRoute)
+configs: redux (action, reducer, store), router (MainRouter), api.js
+pages: Auth, Main, Landing.jsx
+
+Setting ENV (.gitignore), vercel.json, ... lupa tadi ngapain aja lagi hehe. Kira-kira itu aja sih tapi
+
+
+
+
