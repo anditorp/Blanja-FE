@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Logo from '../../assets/logo.svg'
 import RegisterCustomer from '../../components/module/RegisterCustomer'
 import RegisterSeller from '../../components/module/RegisterSeller'
 
 const Register = () => {
     
-
     const [toggle, setToggle] = useState(1)
     const handleToggle = (id) => {
         setToggle(id)
