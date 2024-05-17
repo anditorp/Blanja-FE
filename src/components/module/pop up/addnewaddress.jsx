@@ -1,6 +1,6 @@
 import React from 'react';
-import Textfield from '@/component/base/textfield/textfield';
-import ButtonWhite from '@/component/base/button/buttonwhite';
+import Textfield from '@/components/base/textfield/textfield';
+import ButtonWhite from '@/components/base/button/buttonwhite';
 
 const AddNewAddress = () => {
   return (
