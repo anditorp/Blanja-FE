@@ -1,0 +1,25 @@
+.category-container {
+    padding: 50px 0px 0px 100px;
+    font-family: 'Metropolis', serif;
+}
+
+.category-container.parameter {
+    margin: 10px 0;
+    color: #9B9B9B;
+}
+
+.category-container .parameter a,
+.category-container .parameter span{
+    color: #9B9B9B;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.category-container .parameter a:hover{
+    text-decoration: underline;
+}
+
+
+.category-container .parameter span{
+    font-weight: 600;
+}
