@@ -11,14 +11,16 @@ import Register from '../../pages/Auth/Register'
 import MyBag from '../../pages/Main/MyBag'
 import Checkout from '../../pages/Main/Checkout'
 import SellerProfile from '../../pages/Main/SellerProfile'
+import ShippingPage from '@/pages/customer/shipping';
 
 
 const MainRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login />} />
                 <Route element={<PageLayout/>}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/product" element={<Product />} />
                 </Route>
@@ -27,11 +29,11 @@ const MainRouter = () => {
                 <Route path="/product" element={<Product />} />
                 <Route path="/category" element={<Category />} />
                 <Route path="/customer-profile" element={<MyAccount />} />
-                </Route>
-                <Route path="/register" element={<Register />} />
+                <Route path="/shipping-address" element={<ShippingPage />} />
                 <Route path="/mybag" element={<MyBag />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/sellerprofile" element={<SellerProfile />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
