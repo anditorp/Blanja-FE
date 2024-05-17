@@ -1,12 +1,12 @@
 import React from 'react';
-import Carousel from '../../component/module/slider/carousel';
-import Category from '../../component/module/category/category';
-import New from '../../component/module/new/new';
-import Popular from '../../component/module/popular/popular';
+import Carousel from '../../components/module/slider/carousel';
+import Category from '../../components/module/category/category';
+import New from '../../components/module/new/new';
+import Popular from '../../components/module/popular/popular';
 
 const Home = () => {
   return (
-    <div className='py-10'>
+    <div className='py-32'>
       <Carousel/>
       <div className='flex py-10 px-16'>
         <Category/>

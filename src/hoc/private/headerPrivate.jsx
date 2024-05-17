@@ -1,11 +1,11 @@
 import React from 'react';
 import LogoBlanja from '../../assets/logo/Group 1158.png'
-import SearchBar from '../../component/base/search/search';
-import Category from '../../component/base/sort/sort';
-import Cart from '../../component/base/cart/cart';
-import Notification from '../../component/base/notification/notification';
-import Mail from '../../component/base/mail/mail';
-import Profile from '../../component/base/profile/profile';
+import SearchBar from '../../components/base/search/search';
+import Category from '../../components/base/sort/sort';
+import Cart from '../../components/base/cart/cart';
+import Notification from '../../components/base/notification/notification';
+import Mail from '../../components/base/mail/mail';
+import Profile from '../../components/base/profile/profile';
 
 const headerPrivate = (props) => {
   return (

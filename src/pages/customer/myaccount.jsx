@@ -1,7 +1,7 @@
 import React from 'react';
-import Profilebar from '../../component/module/profile/profilebar';
+import Profilebar from '../../components/module/profile/profilebar';
 import profileimg from '../../../src/assets/profile/image profile.svg';
-import FormProfile from '../../component/module/profile/formprofile';
+import FormProfile from '../../components/module/profile/formprofile';
 
 const MyAccount = () => {
   return (

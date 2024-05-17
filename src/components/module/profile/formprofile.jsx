@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Textfield from './../../base/textfield/textfield';
+import Textfield from '../../base/textfield/textfield';
 import './formprofile.css';
 
 const FormProfile = () => {

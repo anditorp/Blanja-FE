@@ -6,7 +6,12 @@ import PageLayout from '../../pages/pageLayout';
 import MainPage from './../../pages/mainPage';
 import Product from '../../pages/product/product';
 import Category from '../../pages/category/category';
-import MyAccount from '../../pages/custormer/myaccount';
+import MyAccount from '../../pages/customer/myaccount';
+import Register from '../../pages/Auth/Register'
+import MyBag from '../../pages/Main/MyBag'
+import Checkout from '../../pages/Main/Checkout'
+import SellerProfile from '../../pages/Main/SellerProfile'
+
 
 const MainRouter = () => {
     return (
@@ -23,6 +28,10 @@ const MainRouter = () => {
                 <Route path="/category" element={<Category />} />
                 <Route path="/customer-profile" element={<MyAccount />} />
                 </Route>
+                <Route path="/register" element={<Register />} />
+                <Route path="/mybag" element={<MyBag />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/sellerprofile" element={<SellerProfile />} />
             </Routes>
         </BrowserRouter>
     );

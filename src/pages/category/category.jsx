@@ -1,6 +1,6 @@
 import React from 'react';
 import './category.css';
-import Card from '../../component/base/card/card';
+import Card from '../../components/base/card/card';
 
 const Category = () => {
   return (
@@ -49,7 +49,7 @@ const Category = () => {
                     rating={3.5}
                 />
             </div>
-            <div className='flex flex-row justify-center gap-6 py-5'>
+            <div className='flex flex-row justify-center gap-6 relative right-5 py-5'>
                 <Card
                     image="/src/assets/card/product.svg"
                     name="Men's formal suit - Black & White"

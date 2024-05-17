@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Textfield from '../../component/base/textfield/textfield';
-import Button from '../../component/base/button/button';
+import Textfield from './base/textfield/textfield';
+import Button from './base/button/button';
 
 const loginSeller = () => {
     const [form, setForm] = useState({

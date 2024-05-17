@@ -1,10 +1,10 @@
 import React from 'react';
 import LogoBlanja from '../../assets/logo/Group 1158.png'
-import SearchBar from '../../component/base/search/search';
-import Category from '../../component/base/sort/sort';
-import Cart from '../../component/base/cart/cart';
-import HeaderButton from '../../component/base/button/headerButton';
-import ButtonWhite from '../../component/base/button/buttonwhite';
+import SearchBar from '../../components/base/search/search';
+import Category from '../../components/base/sort/sort';
+import Cart from '../../components/base/cart/cart';
+import HeaderButton from '../../components/base/button/headerButton';
+import ButtonWhite from '../../components/base/button/buttonwhite';
 
 const headerPublic = (props) => {
 

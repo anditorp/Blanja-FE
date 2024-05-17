@@ -6,7 +6,7 @@ const Recommend = () => {
     <div>
         <h1 className='text-4xl font-semibold'>You can also like this</h1>
         <p className='text-md text-gray-400 py-2'>You’ve never seen it before!</p>
-        <div className='flex flex-row justify-center gap-6 py-5'>
+        <div className='flex flex-row justify-center gap-6 py-5 relative right-10'>
                 <Card
                     image="/src/assets/card/product.svg"
                     name="Men's formal suit - Black & White"
@@ -43,7 +43,7 @@ const Recommend = () => {
                     rating={3.5}
                 />
             </div>
-            <div className='flex flex-row justify-center gap-6 py-5'>
+            <div className='flex flex-row justify-center gap-6 py-5 relative right-10'>
                 <Card
                     image="/src/assets/card/product.svg"
                     name="Men's formal suit - Black & White"
@@ -80,7 +80,7 @@ const Recommend = () => {
                     rating={4.5}
                 />
             </div>
-            <div className='flex flex-row justify-center gap-6 py-5'>
+            <div className='flex flex-row justify-center gap-6 py-5 relative right-10'>
                 <Card
                     image="/src/assets/card/product.svg"
                     name="Men's formal suit - Black & White"

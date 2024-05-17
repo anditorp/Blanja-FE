@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './product.css';
 
 import tshirt1 from '../../assets/products/tshirt1.svg';
-import ProductInfo from '../../component/module/productpage/productInfo';
-import Review from '../../component/module/product review/review';
-import Recommend from '../../component/module/recommend/recommend';
-import Button from '../../component/base/button/button';
-import ButtonWhite from '../../component/base/button/buttonwhite';
+import ProductInfo from '../../components/module/productpage/productInfo';
+import Review from '../../components/module/product review/review';
+import Recommend from '../../components/module/recommend/recommend';
+import Button from '../../components/base/button/button';
+import ButtonWhite from '../../components/base/button/buttonwhite';
 
 const Product = () => {
     const images = [
@@ -124,7 +124,7 @@ const Product = () => {
                     <Review />
                 </div>
                 <div className='relative top-80'>
-                    <hr />
+                    <hr className='w-286'/>
                     <div className='py-5'>
                         <Recommend />
                     </div>
