@@ -16,28 +16,62 @@ import MyOrder from '@/pages/customer/myorder';
 
 import PrivateRoute from '@/components/module/privateroute/privateroute';
 
-
-
 const MainRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/auth/login" element={<Login />} />
+                <Route path="/auth/register" element={<Register />} />
                 <Route element={<PageLayout />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/product" element={<Product />} />
                 </Route>
                 <Route element={<MainPage />}>
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/product" element={<Product />} />
-                    <Route path="/category" element={<Category />} />
-                    <Route path="/customer-profile" element={<MyAccount />} />
-                    <Route path="/shipping-address" element={<ShippingPage />} />
-                    <Route path="/myorder" element={<MyOrder />} />
-                    <Route path="/mybag" element={<MyBag />} />
-                    <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/sellerprofile" element={<SellerProfile />} />
+                    <Route path="/home" element={
+                    <PrivateRoute>
+                    <Home />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/products" element={
+                    <PrivateRoute>
+                    <Product />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/category" element={
+                    <PrivateRoute>
+                    <Category />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/customer-profile" element={
+                    <PrivateRoute>
+                    <MyAccount />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/shipping-address" element={
+                    <PrivateRoute>
+                    <ShippingPage />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/myorder" element={
+                    <PrivateRoute>
+                    <MyOrder />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/mybag" element={
+                    <PrivateRoute>
+                    <MyBag />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/checkout" element={
+                    <PrivateRoute>
+                    <Checkout />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/sellerprofile" element={
+                    <PrivateRoute>
+                    <SellerProfile />
+                    </PrivateRoute>
+                    } />
                 </Route>
             </Routes>
         </BrowserRouter>
