@@ -14,7 +14,7 @@ import SellerProfile from '../../pages/Main/SellerProfile'
 import ShippingPage from '@/pages/customer/shipping';
 import MyOrder from '@/pages/customer/myorder';
 
-import PrivateRoute from '@/components/module/private route/privateroute';
+import PrivateRoute from '@/components/module/privateroute/privateroute';
 
 
 
