@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Modal from '@/components/base/Modal';
-import { Link } from 'react-router-dom';
 import AddNewAddress from '../pop up/addnewaddress';
 
 const FormShipping = ({name, address, onChange, ...props}) => {

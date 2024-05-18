@@ -17,6 +17,10 @@ const Profilebar = ({ name, image }) => {
         navigate('/shipping-address');
     }
 
+    const handleOrder = () => {
+        navigate('/myorder');
+    }
+
     return (
         <div className='flex flex-row bg-white shadow-md w-96 h-208 py-36 px-28 gap-5'>
             <img src={image} alt={`${name}'s profile`} className='w-14 h-14 rounded-full' /> 
@@ -34,7 +38,7 @@ const Profilebar = ({ name, image }) => {
                 </div>
                 <div className='flex flex-row relative right-32 px-2 bottom-5'>
                     <img className='relative bottom-8 right-5 w-40 h-40' src={myorder} alt="myaccount" />
-                    <label className='text-nowrap relative right-16 top-5'>My Order</label>
+                    <label onClick={handleOrder} className='text-nowrap relative right-16 top-5'>My Order</label>
                 </div>
             </div>
             </div>

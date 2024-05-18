@@ -2,6 +2,15 @@
   @tailwind components;
   @tailwind utilities;
 
+  .custom-underline {
+    @applytext-red-maroon:;
+    text-decoration: underline;
+    z-index: 10;
+    text-decoration-thickness: 6px;
+    text-decoration-color: #DB3022;
+    -moz-text-decoration-color: #DB3022;
+}
+
 @import url("https://fonts.cdnfonts.com/css/metropolis-2")
 
   @layer base {

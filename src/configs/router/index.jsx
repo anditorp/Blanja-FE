@@ -12,6 +12,8 @@ import MyBag from '../../pages/Main/MyBag'
 import Checkout from '../../pages/Main/Checkout'
 import SellerProfile from '../../pages/Main/SellerProfile'
 import ShippingPage from '@/pages/customer/shipping';
+import MyOrder from '@/pages/customer/myorder';
+
 
 
 const MainRouter = () => {
@@ -30,6 +32,7 @@ const MainRouter = () => {
                 <Route path="/category" element={<Category />} />
                 <Route path="/customer-profile" element={<MyAccount />} />
                 <Route path="/shipping-address" element={<ShippingPage />} />
+                <Route path="/myorder" element={<MyOrder />} />
                 <Route path="/mybag" element={<MyBag />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/sellerprofile" element={<SellerProfile />} />

@@ -71,7 +71,6 @@ const FormProfile = ({img}) => {
               id='Male'
               checked="checked"
               name='radio'
-              onChange={handleGender}
             />
             <span className='checkmark'></span>
           </label>
