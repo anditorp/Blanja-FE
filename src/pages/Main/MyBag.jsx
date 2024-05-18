@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Button from '../../components/base/Button'
 import CartCard from '../../components/base/CartCard'
 import api from '../../configs/api'
-import { get } from 'react-hook-form'
 
 
 const MyBag = () => {
     const [order, setOrder] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [newQuantity, setNewQuantity] = useState(0);
 
     const getOrder = () => {
         api.get(`/order/my-order`)
@@ -24,13 +25,25 @@ const MyBag = () => {
             })
     }
 
-    
-
     const navigate = useNavigate()
 
     const handleCheckout = () => {
-        navigate('/checkout')
-    }
+        const updatePromises = order.map((item) => {
+            const { order_id, color, quantity, size } = item;
+            return api.put(`/order/${order_id}`, { color, quantity, size });
+        });
+
+        Promise.all(updatePromises)
+            .then((results) => {
+                console.log(results);
+                alert("Update Orders Successful");
+                navigate('/checkout');
+            })
+            .catch((err) => {
+                console.log(err.response);
+                alert("Update Orders Failed");
+            });
+    };
 
     const handleDelete = (id) => {
         api.delete(`/order/${id}`)
@@ -45,9 +58,66 @@ const MyBag = () => {
             })
     }
 
+    // const handleCheckout = () => {
+    //     handleUpdate = (id, newquantity)
+    //     navigate('/checkout')
+    // }
+
+    // const handleUpdate = (id, quantity, color, size) => {
+    //     api.put(`/order/${id}`, { color, quantity, size })
+    //         .then((res) => {
+    //             console.log(res);
+    //             alert("Update Order Successful");
+    //         })
+    //         .catch((err) => {
+    //             console.log(err.response);
+    //             alert("Update Order Failed");
+    //         });
+    // };
+
+    // const handleIncrement = (id) => {
+    //     const item = order.find((item) => item.order_id === id);
+    //     const newQuantity = item.quantity + 1;
+    //     handleUpdateQuantity(id, newQuantity, item.color, item.size);
+    // };
+
+    // const handleDecrement = (id) => {
+    //     const item = order.find((item) => item.order_id === id);
+    //     if (item.quantity > 1) {
+    //         const newQuantity = item.quantity - 1;
+    //         handleUpdateQuantity(id, newQuantity, item.color, item.size);
+    //     }
+    // };
+
+    const handleIncrement = (id) => {
+        setOrder((prevOrder) =>
+            prevOrder.map((item) =>
+                item.order_id === id ? { ...item, quantity: item.quantity + 1 } : item
+            )
+        );
+    };
+
+    const handleDecrement = (id) => {
+        setOrder((prevOrder) =>
+            prevOrder.map((item) =>
+                item.order_id === id && item.quantity > 1
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            )
+        );
+    };
+
     useEffect(() => {
         getOrder()
     }, [])
+
+    useEffect(() => {
+        const calculateTotalPrice = () => {
+            const total = order.reduce((sum, item) => sum + (item.product_price * item.quantity), 0);
+            setTotalPrice(total);
+        };
+        calculateTotalPrice();
+    }, [order]);
 
     return (
         <div className='p-36 px-36'>
@@ -80,7 +150,9 @@ const MyBag = () => {
                                             size={item.size}
                                             quantity={item.quantity}
                                             price={item.product_price}
-                                            onClick={() => handleDelete(item.order_id)}
+                                            onDelete={() => handleDelete(item.order_id)}
+                                            onIncrement={() => handleIncrement(item.order_id)}
+                                            onDecrement={() => handleDecrement(item.order_id)}
                                         />
                                     ))}
                                 </>
@@ -95,7 +167,7 @@ const MyBag = () => {
                         <p className='font-semibold text-base text-[#222222]'>Shopping summary</p>
                         <div className='flex justify-between items-center'>
                             <p className='font-medium text-base text-[#9b9b9b]'>Total Price</p>
-                            <p className='font-semibold text-lg text-[#222222]'>$ 40.0</p>
+                            <p className='font-semibold text-lg text-[#222222]'>$ {totalPrice.toFixed(2)}</p>
                         </div>
                         <Button onClick={handleCheckout} />
                     </div>
