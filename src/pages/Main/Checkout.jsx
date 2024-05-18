@@ -1,14 +1,47 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import CartCard from '../../components/base/CartCard'
 import Button from '../../components/base/Button'
 import Modal from '../../components/base/Modal'
 import AddAddress from '../../components/module/AddAddress'
 import Payment from '../../components/module/Payment'
+import api from '../../configs/api'
 
 
 const Checkout = () => {
   const [openModal, setOpenModal] = useState(null);
+  const [order, setOrder] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0);
+  const deliveryFee = 5.00;
+
+  const getOrder = () => {
+    api.get(`/order/my-order`)
+      .then((res) => {
+        console.log(res);
+        alert("Get Order Successful")
+        const result = res.data.data
+        setOrder(result)
+
+      })
+      .catch((err) => {
+        console.log(err.response);
+        alert(err.response.data.message);
+      })
+  }
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    getOrder()
+  }, [])
+
+  useEffect(() => {
+    const calculateTotalPrice = () => {
+      const total = order.reduce((sum, item) => sum + (item.product_price * item.quantity), 0);
+      setTotalPrice(total);
+    };
+    calculateTotalPrice();
+  }, [order]);
 
   const handleOpenModal = (modalType) => {
     setOpenModal(modalType);
@@ -19,10 +52,8 @@ const Checkout = () => {
   };
 
   return (
-    <div className='p-20 px-36'>
-      <nav></nav>
-
-      <div className='container mx-auto flex flex-col gap-8'>
+    <div className='p-36 px-36'>
+      <div className=' mx-auto flex flex-col gap-8'>
         <h1 className='font-bold text-4xl text-[#222222]'>My bag</h1>
 
         <div className='flex w-full gap-12'>
@@ -40,8 +71,29 @@ const Checkout = () => {
 
             <div className='flex flex-col gap-3'>
 
-              <CartCard />
-              <CartCard />
+              {order && order.length > 0 ? (
+                <>
+                  {order.map((item) => (
+                    <CartCard
+                      key={item.order_id}
+                      photo={item.product_image}
+                      name={item.product_name}
+                      store="Zalora Cloth"
+                      color={item.color}
+                      size={item.size}
+                      quantity={item.quantity}
+                      price={item.product_price}
+                      onDelete={() => handleDelete(item.order_id)}
+                      onIncrement={() => handleIncrement(item.order_id)}
+                      onDecrement={() => handleDecrement(item.order_id)}
+                      editor={false}
+                    />
+                  ))}
+                </>
+              ) : (
+                <p>Cart is Empty</p>
+              )}
+
 
             </div>
           </div>
@@ -51,19 +103,19 @@ const Checkout = () => {
             <div className='flex flex-col gap-3'>
               <div className='flex justify-between items-center'>
                 <p className='font-medium text-base text-[#9b9b9b]'>Order</p>
-                <p className='font-semibold text-lg text-[#222222]'>$ 40.0</p>
+                <p className='font-semibold text-lg text-[#222222]'>$ {totalPrice.toFixed(2)}</p>
               </div>
               <div className='flex justify-between items-center'>
                 <p className='font-medium text-base text-[#9b9b9b]'>Delivery</p>
-                <p className='font-semibold text-lg text-[#222222]'>$ 5.0</p>
+                <p className='font-semibold text-lg text-[#222222]'>$ {deliveryFee.toFixed(2)}</p>
               </div>
               <div className='bg-[#9b9b9b] h-[1px]'></div>
               <div className='flex justify-between items-center'>
                 <p className='font-medium text-base text-[#9b9b9b]'>Shopping summary</p>
-                <p className='font-semibold text-lg text-[#DB3022]'>$ 45.0</p>
+                <p className='font-semibold text-lg text-[#DB3022]'>$ {(totalPrice + deliveryFee).toFixed(2)}</p>
               </div>
             </div>
-            <Button onClick={() => handleOpenModal('Payment')} />
+            <Button onClick={() => handleOpenModal('Payment')} text='Select Payment' />
           </div>
 
         </div>

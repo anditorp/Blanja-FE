@@ -20,7 +20,7 @@ const MyBag = () => {
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response);
+                alert(err.response.data.message);
             })
     }
 
