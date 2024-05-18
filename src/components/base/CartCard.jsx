@@ -3,9 +3,9 @@ import ProductThumbnail from '../../assets/product-thumbnail.png'
 import Remove from '../../assets/remove.svg'
 import Add from '../../assets/add.svg'
 
-const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "Store", color = "Color", size ="Size", quantity = "1", price = "0.00" }) => {
-    
-    
+const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "Store", color = "Color", size = "Size", quantity = "1", price = "0.00", onClick }) => {
+
+
     return (
         <div className='flex p-6 bg-white rounded-md justify-between items-center drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
 
@@ -17,7 +17,7 @@ const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "St
                     <div className='flex gap-2'>
                         <p className='font-medium text-base'>{name}</p>
                         <p className='font-medium text-base'>-</p>
-                        <p className='font-medium text-base'>({color}/{size})</p>
+                        <p className='font-medium text-base'>( {color} / {size} )</p>
                     </div>
 
                     <p className=' font-normal text-xs text-[#9b9b9b]'>{store}</p>
@@ -32,6 +32,8 @@ const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "St
                 </div>
 
                 <p className='font-semibold text-base text-[#222222]'>$ {price}</p>
+
+                <p onClick={onClick} className='font-medium text-base text-[#DB3022] cursor-pointer'>Delete</p>
             </div>
         </div>
     )

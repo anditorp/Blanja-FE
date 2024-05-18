@@ -3,24 +3,28 @@ import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/base/Button'
 import CartCard from '../../components/base/CartCard'
 import api from '../../configs/api'
+import { get } from 'react-hook-form'
 
 
 const MyBag = () => {
     const [order, setOrder] = useState([])
 
-    useEffect(() => {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZGl0bzFAZ21haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzE2MDA2MzA1LCJleHAiOjE3MTYwMDk5MDUsImlzcyI6IkJsYW5qYSJ9.3cvCKRqk1rw5krUICN3KVk7XiQl8VJsiNBLFfH6HF1M"
-        api.get(`/order/myorder`)
+    const getOrder = () => {
+        api.get(`/order/my-order`)
             .then((res) => {
                 console.log(res);
+                alert("Get Order Successful")
                 const result = res.data.data
                 setOrder(result)
 
             })
             .catch((err) => {
-                alert(err.response.data.message);
+                console.log(err.response);
+                alert(err.response);
             })
-    }, [])
+    }
+
+    
 
     const navigate = useNavigate()
 
@@ -28,12 +32,26 @@ const MyBag = () => {
         navigate('/checkout')
     }
 
+    const handleDelete = (id) => {
+        api.delete(`/order/${id}`)
+            .then((res) => {
+                console.log(res);
+                alert("Delete Order Successful")
+                getOrder()
+            })
+            .catch((err) => {
+                console.log(err.response);
+                alert("Delete Order Failed")
+            })
+    }
+
+    useEffect(() => {
+        getOrder()
+    }, [])
 
     return (
-        <div className='p-20 px-36'>
-            <nav></nav>
-
-            <div className='container mx-auto flex flex-col gap-8'>
+        <div className='p-36 px-36'>
+            <div className=' mx-auto flex flex-col gap-8'>
                 <h1 className='font-bold text-4xl text-[#222222]'>My bag</h1>
 
                 <div className='flex w-full gap-12'>
@@ -54,14 +72,15 @@ const MyBag = () => {
                                 <>
                                     {order.map((item) => (
                                         <CartCard
-                                            // key={item.id} // uncomment if you have a unique id for each item
-                                            // photo={item.photo}
-                                            // name={item.name}
-                                            // store={item.store}
+                                            key={item.order_id}
+                                            photo={item.product_image}
+                                            name={item.product_name}
+                                            store="Zalora Cloth"
                                             color={item.color}
                                             size={item.size}
                                             quantity={item.quantity}
-                                        // price={item.price}
+                                            price={item.product_price}
+                                            onClick={() => handleDelete(item.order_id)}
                                         />
                                     ))}
                                 </>
