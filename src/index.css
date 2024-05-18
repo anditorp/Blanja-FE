@@ -4,13 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.custom-underline {
-  /* @apply text-red-maroon: ; */
-  text-decoration: underline;
-  z-index: 10;
-  text-decoration-thickness: 6px;
-  text-decoration-color: #DB3022;
-  -moz-text-decoration-color: #DB3022;
+  .custom-underline {
+    text-decoration: underline;
+    z-index: 10;
+    text-decoration-thickness: 6px;
+    text-decoration-color: #DB3022;
+    -moz-text-decoration-color: #DB3022;
 }
 
 @layer base {
