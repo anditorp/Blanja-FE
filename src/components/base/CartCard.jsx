@@ -3,7 +3,7 @@ import ProductThumbnail from '../../assets/product-thumbnail.png'
 import Remove from '../../assets/remove.svg'
 import Add from '../../assets/add.svg'
 
-const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "Store", color = "Color", size = "Size", quantity = "1", price = "0.00", onDelete, onIncrement, onDecrement }) => {
+const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "Store", color = "Color", size = "Size", quantity = "1", price = "0.00", onDelete, onIncrement, onDecrement, editor=true }) => {
 
 
     return (
@@ -26,14 +26,14 @@ const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "St
 
             <div className='flex gap-12 items-center'>
                 <div className='flex gap-4 items-center'>
-                    <img className='size-9' src={Remove} onClick={onDecrement}/>
+                    <img className={editor === true ? 'size-9' : "invisible"} src={Remove} onClick={onDecrement}/>
                     <p className='font-medium text-base text-[#222222]'>{quantity}</p>
-                    <img className='size-9' src={Add} onClick={onIncrement} />
+                    <img className={editor === true ? 'size-9' : "invisible"} src={Add} onClick={onIncrement} />
                 </div>
 
                 <p className='font-semibold text-base text-[#222222]'>$ {price}</p>
 
-                <p onClick={onDelete} className='font-medium text-base text-[#DB3022] cursor-pointer'>Delete</p>
+                <p onClick={onDelete} className={editor === true ? 'font-medium text-base text-[#DB3022] cursor-pointer' : 'invisible'}>Delete</p>
             </div>
         </div>
     )
