@@ -70,6 +70,11 @@ const Checkout = () => {
     setOpenModal(null);
   };
 
+  const handleSelectAddress = (selectedAddress) => {
+    setAddress(selectedAddress);
+    handleCloseModal();
+  };
+
   return (
     <div className='p-36 px-36'>
       <div className=' mx-auto flex flex-col gap-8'>
@@ -98,28 +103,28 @@ const Checkout = () => {
 
             {/* <div className='flex flex-col gap-3'> */}
 
-              {order ? (
-                <div className='flex flex-col gap-3'>
-                  {order.map((item) => (
-                    <CartCard
-                      key={item.order_id}
-                      photo={item.product_image}
-                      name={item.product_name}
-                      store="Zalora Cloth"
-                      color={item.color}
-                      size={item.size}
-                      quantity={item.quantity}
-                      price={item.product_price}
-                      onDelete={() => handleDelete(item.order_id)}
-                      onIncrement={() => handleIncrement(item.order_id)}
-                      onDecrement={() => handleDecrement(item.order_id)}
-                      editor={false}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <p>Cart is Empty</p>
-              )}
+            {order ? (
+              <div className='flex flex-col gap-3'>
+                {order.map((item) => (
+                  <CartCard
+                    key={item.order_id}
+                    photo={item.product_image}
+                    name={item.product_name}
+                    store="Zalora Cloth"
+                    color={item.color}
+                    size={item.size}
+                    quantity={item.quantity}
+                    price={item.product_price}
+                    onDelete={() => handleDelete(item.order_id)}
+                    onIncrement={() => handleIncrement(item.order_id)}
+                    onDecrement={() => handleDecrement(item.order_id)}
+                    editor={false}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>Cart is Empty</p>
+            )}
 
 
             {/* </div> */}
@@ -150,7 +155,7 @@ const Checkout = () => {
       </div>
 
       <Modal open={openModal === 'ChooseAddress'} onClose={handleCloseModal}>
-        <ChooseAddress onClick={() => handleOpenModal('AddAddress')} />
+        <ChooseAddress onSelectAddress={handleSelectAddress} onClick={() => handleOpenModal('AddAddress')} />
         {/* <div className='flex flex-col gap-8 items-center'>
 
           <h2 className='font-semibold text-3xl text-[#222222]'>Choose another address</h2>

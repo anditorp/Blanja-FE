@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import api from '../../configs/api'
 
-const ChooseAddress = ({ onClick }) => {
+const ChooseAddress = ({ onClick, onSelectAddress }) => {
     const [address, setAddress] = useState([])
 
     const getAddress = () => {
@@ -23,6 +22,12 @@ const ChooseAddress = ({ onClick }) => {
     useEffect(() => {
         getAddress()
     }, [])
+
+    const handleSelectAddress = (selectedAddress) => {
+        onSelectAddress(selectedAddress);
+    };
+
+
     return (
         <div className='flex flex-col gap-8 items-center'>
 
@@ -38,7 +43,7 @@ const ChooseAddress = ({ onClick }) => {
                         <div key={item.address_id} className='flex flex-col p-6 bg-white rounded-md justify-between gap-3 border border-[#DB3022]'>
                             <p className='font-semibold text-base text-[#222222]'>{item.recipient_name}</p>
                             <p className=' font-normal text-sm text-[#222222]'>{item.recipient_address}</p>
-                            <Link className='font-semibold text-base text-[#DB3022]'>Change address</Link>
+                            <p className='font-semibold text-base text-[#DB3022] cursor-pointer' onClick={() => handleSelectAddress(item)}>Change address</p>
                         </div>
                     ))}
                 </div>
