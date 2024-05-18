@@ -8,7 +8,6 @@ import api from '../../configs/api'
 const MyBag = () => {
     const [order, setOrder] = useState([])
     const [totalPrice, setTotalPrice] = useState(0);
-    const [newQuantity, setNewQuantity] = useState(0);
 
     const getOrder = () => {
         api.get(`/order/my-order`)
@@ -57,37 +56,6 @@ const MyBag = () => {
                 alert("Delete Order Failed")
             })
     }
-
-    // const handleCheckout = () => {
-    //     handleUpdate = (id, newquantity)
-    //     navigate('/checkout')
-    // }
-
-    // const handleUpdate = (id, quantity, color, size) => {
-    //     api.put(`/order/${id}`, { color, quantity, size })
-    //         .then((res) => {
-    //             console.log(res);
-    //             alert("Update Order Successful");
-    //         })
-    //         .catch((err) => {
-    //             console.log(err.response);
-    //             alert("Update Order Failed");
-    //         });
-    // };
-
-    // const handleIncrement = (id) => {
-    //     const item = order.find((item) => item.order_id === id);
-    //     const newQuantity = item.quantity + 1;
-    //     handleUpdateQuantity(id, newQuantity, item.color, item.size);
-    // };
-
-    // const handleDecrement = (id) => {
-    //     const item = order.find((item) => item.order_id === id);
-    //     if (item.quantity > 1) {
-    //         const newQuantity = item.quantity - 1;
-    //         handleUpdateQuantity(id, newQuantity, item.color, item.size);
-    //     }
-    // };
 
     const handleIncrement = (id) => {
         setOrder((prevOrder) =>
