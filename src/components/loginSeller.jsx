@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import Textfield from './base/textfield/textfield';
 import Button from './base/button/button';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginAction } from '@/configs/redux/action/auth.action';
 
 const loginSeller = () => {
+    const dispatch = useDispatch();
+    const Navigate = useNavigate();
     const [form, setForm] = useState({
         email: '',
         password: ''
@@ -17,9 +22,14 @@ const loginSeller = () => {
        console.log({ [id]: value });
     };
 
+    const HandleRegister = () => {
+      Navigate('/register')
+    }
 
     const handleLoginSeller = () => {
-        console.log('Register Seller with', form);
+      dispatch(loginAction(form.email, form.password));
+      Navigate('/home')
+        // console.log('Register Seller with', form);
     }
 
   return (
@@ -60,7 +70,7 @@ const loginSeller = () => {
         </div>
         <div className='flex justify-center'>
         <p>Don&#39;t have a Tokopedia account?{' '} 
-        <span className='text-red-maroon hover:font-semibold hover:text-orange-500 cursor-pointer'>
+        <span onClick={HandleRegister} className='text-red-maroon hover:font-semibold hover:text-orange-500 cursor-pointer'>
             Register
         </span>
         </p>

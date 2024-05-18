@@ -7,6 +7,8 @@ import Notification from '../../components/base/notification/notification';
 import Mail from '../../components/base/mail/mail';
 import Profile from '../../components/base/profile/profile';
 
+import profilepic from '../../assets/profile/profilepic.svg'
+
 const headerPrivate = (props) => {
   return (
     <header className='headerPrivate flex justify-between bg-white shadow-lg py-7 absolute w-full'>
@@ -31,7 +33,9 @@ const headerPrivate = (props) => {
              onclick="/"
              classname="cursor-pointer"
             />
-            <Profile/>
+            <Profile
+            image={profilepic}
+            />
         </div>
     </header>
   )

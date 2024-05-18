@@ -1,10 +1,9 @@
 import React from 'react';
-import Profile from '../../../assets/icon/profile.svg';
 
-const profile = ({onClick, className}) => {
+const profile = ({onClick, className, image}) => {
   return (
     <div className={`${className}`} onClick={onClick}>
-        <img className='rounded-full cursor-pointer' src={Profile} alt="Profileimg" />
+        <img className='w-9 h-9 rounded-full cursor-pointer' src={image} alt="Profileimg" />
     </div>
   )
 }
