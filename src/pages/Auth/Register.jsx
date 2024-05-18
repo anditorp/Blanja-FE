@@ -6,7 +6,6 @@ import RegisterSeller from '../../components/module/RegisterSeller'
 
 const Register = () => {
     
-    
     const [toggle, setToggle] = useState(1)
     const handleToggle = (id) => {
         setToggle(id)
