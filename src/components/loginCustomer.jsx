@@ -24,7 +24,7 @@ const loginCustomer = () => {
     };
 
     const HandleRegister = () => {
-      Navigate('/register')
+      navigate('/auth/register')
     }
 
     const handleLoginCustomer = () => {

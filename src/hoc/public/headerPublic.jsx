@@ -11,11 +11,11 @@ const headerPublic = (props) => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate('/login')
+    navigate('/auth/login')
   }
 
   const handleRegister = () => {
-    navigate('/register')
+    navigate('/auth/register')
   }
 
   return (

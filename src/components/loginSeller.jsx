@@ -7,7 +7,7 @@ import { loginAction } from '@/configs/redux/action/auth.action';
 
 const loginSeller = () => {
     const dispatch = useDispatch();
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         email: '',
         password: ''
@@ -23,12 +23,12 @@ const loginSeller = () => {
     };
 
     const HandleRegister = () => {
-      Navigate('/register')
+      navigate('/auth/register')
     }
 
     const handleLoginSeller = () => {
       dispatch(loginAction(form.email, form.password));
-      Navigate('/home')
+      navigate('/home')
         // console.log('Register Seller with', form);
     }
 
