@@ -5,7 +5,7 @@ import Home from './../../pages/home/home';
 import PageLayout from '../../pages/pageLayout';
 import MainPage from './../../pages/mainPage';
 import Product from '../../pages/product/product';
-import Category from '../../pages/category/category';
+import Tshirt from '../../pages/category/tshirt';
 import MyAccount from '../../pages/customer/myaccount';
 import Register from '../../pages/Auth/Register'
 import MyBag from '../../pages/Main/MyBag'
@@ -15,6 +15,11 @@ import ShippingPage from '@/pages/customer/shipping';
 import MyOrder from '@/pages/customer/myorder';
 
 import PrivateRoute from '@/components/module/privateroute/privateroute';
+import Jacket from '@/pages/category/jacket';
+import Shoes from '@/pages/category/shoes';
+import Pants from '@/pages/category/pants';
+import Shorts from '@/pages/category/shorts';
+import CategoryPage from '@/pages/category/category';
 
 const MainRouter = () => {
     return (
@@ -39,7 +44,32 @@ const MainRouter = () => {
                     } />
                     <Route path="/category" element={
                     <PrivateRoute>
-                    <Category />
+                    <CategoryPage />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/category/tshirt" element={
+                    <PrivateRoute>
+                    <Tshirt />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/category/jacket" element={
+                    <PrivateRoute>
+                    <Jacket />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/category/shoes" element={
+                    <PrivateRoute>
+                    <Shoes />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/category/pants" element={
+                    <PrivateRoute>
+                    <Pants />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/category/shorts" element={
+                    <PrivateRoute>
+                    <Shorts />
                     </PrivateRoute>
                     } />
                     <Route path="/customer-profile" element={
