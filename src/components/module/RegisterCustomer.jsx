@@ -25,7 +25,7 @@ const RegisterCustomer = () => {
       .then((res) => {
         console.log(res.response);
         alert(`Register berhasil dengan email ${form.email} dan password ${form.password}. Silakan Login`)
-        navigate('/login')
+        navigate('/auth/login')
       })
       .catch((err) => {
         console.log(err.response);
