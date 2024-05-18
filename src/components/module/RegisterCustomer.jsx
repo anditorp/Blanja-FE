@@ -44,6 +44,7 @@ const RegisterCustomer = () => {
   return (
     <div className='w-full flex flex-col gap-10'>
       <div className='w-full flex flex-col gap-4'>
+
         <Input
           type='text'
           value={form.name}
