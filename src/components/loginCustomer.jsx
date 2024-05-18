@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import Textfield from '../components/base/textfield/textfield';
 import Button from '../components/base/button/button';
+import { useDispatch } from 'react-redux';
+import { loginAction } from '@/configs/redux/action/auth.action';
+import { useNavigate } from 'react-router-dom';
 
 const loginCustomer = () => {
+    const dispatch = useDispatch();
+    const Navigate = useNavigate();
     const [form, setForm] = useState({
         email: '',
         password: ''
-    })
-
+    });
+    
     const handleChange = (e) => {
        const { id, value } = e.target;
        setForm((prevForm) => ({
@@ -17,11 +22,17 @@ const loginCustomer = () => {
        console.log({ [id]: value });
     };
 
+    const HandleRegister = () => {
+      Navigate('/register')
+    }
+
 
     const handleLoginCustomer = () => {
-        alert('login success!!')
-        console.log('Register customer with', form);
-    }
+      dispatch(loginAction(form.email, form.password));
+      Navigate('/home')
+        // alert('login success!!')
+        // console.log('Register customer with', form);
+    };
 
   return (
     <div>
@@ -61,7 +72,7 @@ const loginCustomer = () => {
         </div>
         <div className='flex justify-center'>
         <p>Don&#39;t have a Tokopedia account?{' '}
-        <span className='text-red-maroon hover:font-semibold hover:text-orange-500 cursor-pointer'>
+        <span onClick={HandleRegister} className='text-red-maroon hover:font-semibold hover:text-orange-500 cursor-pointer'>
             Register
         </span>
         </p>

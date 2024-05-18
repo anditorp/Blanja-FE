@@ -5,8 +5,18 @@ import Category from '../../components/base/sort/sort';
 import Cart from '../../components/base/cart/cart';
 import HeaderButton from '../../components/base/button/headerButton';
 import ButtonWhite from '../../components/base/button/buttonwhite';
+import { useNavigate } from 'react-router-dom';
 
 const headerPublic = (props) => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/login')
+  }
+
+  const handleRegister = () => {
+    navigate('/register')
+  }
 
   return (
     <header className='flex justify-between bg-white shadow-md py-7'>
@@ -26,12 +36,12 @@ const headerPublic = (props) => {
             <HeaderButton
             name="Login"
             className="flex justify-center bg-red-maroon"
-            onClick="/login"
+            onClick={handleLogin}
           />
            <ButtonWhite
             name="Sign up"
             className="flex justify-center bg-white text-black"
-            onClick="/register"
+            onClick={handleRegister}
           />
         </div>
     </header>

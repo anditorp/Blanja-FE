@@ -18,7 +18,7 @@
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: #eee;
+  background-color: #cecece;
   border-radius: 50%;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .container input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #DB3022;
 }
 
 .checkmark:after {
