@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -27,15 +28,18 @@ export const loginAction = (email, password) => {
         password
       });
       if (response.status === 200) {
+        const { token, refreshToken } = response.data.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('refreshToken', refreshToken);
         dispatch(loginSuccess(response.data));
         alert('Login success!');
       } else {
         dispatch(loginFailure('Login failed. Please try again.'));
-        alert('Login failed. Please try again.');
+        alert('Your Email & Password is false. Please try again.');
       }
     } catch (error) {
       dispatch(loginFailure(error.message));
-      alert('Login failed. Please try again.');
+      alert('Your Email & Password is false. Please try again.');
     }
   };
 };

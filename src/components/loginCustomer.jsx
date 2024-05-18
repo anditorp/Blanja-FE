@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Textfield from '../components/base/textfield/textfield';
 import Button from '../components/base/button/button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '@/configs/redux/action/auth.action';
 import { useNavigate } from 'react-router-dom';
 
 const loginCustomer = () => {
     const dispatch = useDispatch();
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth)
     const [form, setForm] = useState({
         email: '',
         password: ''
@@ -26,13 +27,15 @@ const loginCustomer = () => {
       Navigate('/register')
     }
 
-
     const handleLoginCustomer = () => {
-      dispatch(loginAction(form.email, form.password));
-      Navigate('/home')
-        // alert('login success!!')
-        // console.log('Register customer with', form);
+      dispatch(loginAction(form.email, form.password, navigate));
     };
+
+    useEffect(() => {
+      if(user) {
+        navigate('/home')
+      }
+    }, [user, navigate])
 
   return (
     <div>
