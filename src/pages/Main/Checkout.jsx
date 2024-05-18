@@ -11,8 +11,24 @@ import api from '../../configs/api'
 const Checkout = () => {
   const [openModal, setOpenModal] = useState(null);
   const [order, setOrder] = useState([])
+  const [address, setAddress] = useState([])
   const [totalPrice, setTotalPrice] = useState(0);
   const deliveryFee = 5.00;
+
+  const getAddress = () => {
+    api.get(`/address`)
+      .then((res) => {
+        console.log(res);
+        alert("Get Address Successful")
+        const result = res.data.data
+        setAddress(result)
+
+      })
+      .catch((err) => {
+        console.log(err.response);
+        alert(err.response.data.message);
+      })
+  }
 
   const getOrder = () => {
     api.get(`/order/my-order`)
@@ -32,6 +48,7 @@ const Checkout = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    getAddress()
     getOrder()
   }, [])
 
@@ -140,7 +157,7 @@ const Checkout = () => {
       </Modal>
 
       <Modal open={openModal === 'AddAddress'} onClose={handleCloseModal}>
-        <AddAddress />
+        <AddAddress onClose={handleCloseModal} />
       </Modal>
 
       <Modal open={openModal === 'Payment'} onClose={handleCloseModal}>
