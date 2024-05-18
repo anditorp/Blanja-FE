@@ -11,7 +11,7 @@ import api from '../../configs/api'
 const Checkout = () => {
   const [openModal, setOpenModal] = useState(null);
   const [order, setOrder] = useState([])
-  const [address, setAddress] = useState([])
+  const [address, setAddress] = useState(null)
   const [totalPrice, setTotalPrice] = useState(0);
   const deliveryFee = 5.00;
 
@@ -21,7 +21,8 @@ const Checkout = () => {
         console.log(res);
         alert("Get Address Successful")
         const result = res.data.data
-        setAddress(result)
+        // setAddress(result)
+        setAddress(result[0])
 
       })
       .catch((err) => {
@@ -79,9 +80,17 @@ const Checkout = () => {
 
             <div className='flex flex-col gap-4'>
               <p className='font-semibold'>Shipping address</p>
+
+
               <div className='flex flex-col p-6 bg-white rounded-md justify-between gap-5 drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
-                <p className='font-semibold text-base text-[#222222]'>Andreas Jane</p>
-                <p className=' font-normal text-sm text-[#222222]'>Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia Note: blok c 16] Sokaraja, Kab. Banyumas, 53181</p>
+                {address ? (
+                  <div className='flex flex-col gap-5'>
+                    <p className='font-semibold text-base text-[#222222]'>{address.recipient_name}</p>
+                    <p className='font-normal text-sm text-[#222222]'>{address.recipient_address}</p>
+                  </div>
+                ) : (
+                  <p>Address is Empty</p>
+                )}
                 <Button variant='secondary-gray' text='Choose another address' className='w-fit' onClick={() => handleOpenModal('ChooseAddress')} />
               </div>
             </div>

@@ -31,6 +31,8 @@ const AddAddress = ({ onClose }) => {
       .then((res) => {
         console.log(res);
         alert(`Add Address Success`)
+        onClose()
+        resetForm()
       })
       .catch((err) => {
         console.log(err.response);
@@ -44,6 +46,17 @@ const AddAddress = ({ onClose }) => {
       [e.target.name]: e.target.value
     })
   }
+
+  const resetForm = () => {
+    setForm({
+      save_address: "",
+      recipient_name: "",
+      recipient_phone: "",
+      recipient_address: "",
+      postal_code: "",
+      city: ""
+    });
+  };
 
   return (
     <div className='flex flex-col gap-8 items-center'>
