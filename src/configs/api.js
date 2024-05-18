@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+    baseURL: import.meta.env.VITE_URL_BLANJA
 })
 
 api.interceptors.request.use(function (config) {
     // Do something before request is sent
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token')    
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }

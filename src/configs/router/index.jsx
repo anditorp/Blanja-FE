@@ -11,6 +11,11 @@ import Register from '../../pages/Auth/Register'
 import MyBag from '../../pages/Main/MyBag'
 import Checkout from '../../pages/Main/Checkout'
 import SellerProfile from '../../pages/Main/SellerProfile'
+import ShippingPage from '@/pages/customer/shipping';
+import MyOrder from '@/pages/customer/myorder';
+
+import PrivateRoute from '@/components/module/privateroute/privateroute';
+
 
 
 const MainRouter = () => {
@@ -18,20 +23,22 @@ const MainRouter = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route element={<PageLayout/>}>
-                <Route path="/" element={<Home />} />
-                <Route path="/product" element={<Product />} />
-                </Route>
-                <Route element={<MainPage/>}>
-                <Route path="/home" element={<Home />} />
-                <Route path="/product" element={<Product />} />
-                <Route path="/category" element={<Category />} />
-                <Route path="/customer-profile" element={<MyAccount />} />
-                </Route>
                 <Route path="/register" element={<Register />} />
-                <Route path="/mybag" element={<MyBag />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/sellerprofile" element={<SellerProfile />} />
+                <Route element={<PageLayout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/product" element={<Product />} />
+                </Route>
+                <Route element={<MainPage />}>
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/product" element={<Product />} />
+                    <Route path="/category" element={<Category />} />
+                    <Route path="/customer-profile" element={<MyAccount />} />
+                    <Route path="/shipping-address" element={<ShippingPage />} />
+                    <Route path="/myorder" element={<MyOrder />} />
+                    <Route path="/mybag" element={<MyBag />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/sellerprofile" element={<SellerProfile />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
