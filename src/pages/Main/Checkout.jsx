@@ -6,6 +6,8 @@ import Modal from '../../components/base/Modal'
 import AddAddress from '../../components/module/AddAddress'
 import Payment from '../../components/module/Payment'
 import api from '../../configs/api'
+import ChooseAddress from '@/components/module/ChooseAddress'
+
 
 
 const Checkout = () => {
@@ -21,7 +23,6 @@ const Checkout = () => {
         console.log(res);
         alert("Get Address Successful")
         const result = res.data.data
-        // setAddress(result)
         setAddress(result[0])
 
       })
@@ -95,10 +96,10 @@ const Checkout = () => {
               </div>
             </div>
 
-            <div className='flex flex-col gap-3'>
+            {/* <div className='flex flex-col gap-3'> */}
 
-              {order && order.length > 0 ? (
-                <>
+              {order ? (
+                <div className='flex flex-col gap-3'>
                   {order.map((item) => (
                     <CartCard
                       key={item.order_id}
@@ -115,13 +116,13 @@ const Checkout = () => {
                       editor={false}
                     />
                   ))}
-                </>
+                </div>
               ) : (
                 <p>Cart is Empty</p>
               )}
 
 
-            </div>
+            {/* </div> */}
           </div>
 
           <div className='w-1/3 h-fit p-6 bg-white flex flex-col gap-8 rounded-md drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
@@ -149,7 +150,8 @@ const Checkout = () => {
       </div>
 
       <Modal open={openModal === 'ChooseAddress'} onClose={handleCloseModal}>
-        <div className='flex flex-col gap-8 items-center'>
+        <ChooseAddress onClick={() => handleOpenModal('AddAddress')} />
+        {/* <div className='flex flex-col gap-8 items-center'>
 
           <h2 className='font-semibold text-3xl text-[#222222]'>Choose another address</h2>
 
@@ -162,7 +164,7 @@ const Checkout = () => {
             <p className=' font-normal text-sm text-[#222222]'>Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia Note: blok c 16] Sokaraja, Kab. Banyumas, 53181</p>
             <Link className='font-semibold text-base text-[#DB3022]'>Change address</Link>
           </div>
-        </div>
+        </div> */}
       </Modal>
 
       <Modal open={openModal === 'AddAddress'} onClose={handleCloseModal}>
