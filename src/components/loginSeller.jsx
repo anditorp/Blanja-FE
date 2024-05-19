@@ -10,7 +10,8 @@ const loginSeller = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({
         email: '',
-        password: ''
+        password: '',
+        role: ''
     })
 
     const handleChange = (e) => {
@@ -27,7 +28,7 @@ const loginSeller = () => {
     }
 
     const handleLoginSeller = () => {
-      dispatch(loginAction(form.email, form.password));
+      dispatch(loginAction(form.email, form.password, form.role));
       navigate('/home')
         // console.log('Register Seller with', form);
     }

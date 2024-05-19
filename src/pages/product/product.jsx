@@ -19,6 +19,7 @@ const Product = () => {
     const [size, setSize] = useState('0');
     const [quantity, setQuantity] = useState('0');
 
+    console.log(setSelectedColor, "<<<<<<<<<<<<<<<<<<<setSelectedColor")
     const colors = [
         { name: 'Black', value: 'black' },
         { name: 'Red', value: 'red' },
@@ -28,16 +29,18 @@ const Product = () => {
 
     const handleSizeChange = (increment) => {
         setSize(prevSize => Math.max(0, prevSize + increment));
+        console.log(handleSizeChange, '<<<<<handleSizeChange');
     }
 
     const handleQuantityChange = (increment) => {
         setQuantity(prevQuantity => Math.max(0, prevQuantity + increment));
+        console.log(handleQuantityChange, "<<<<<<<<<<<handleQuantityChange")
     }
 
     return (
         <div className='product-container'>
             <nav className='parameter'>
-                <a href="/">Home</a> &gt;
+                <a href="/home">Home</a> &gt;
                 <a href="/category">Category</a> &gt;
                 <span>T-Shirt</span>
             </nav>

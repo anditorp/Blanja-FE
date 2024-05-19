@@ -18,14 +18,16 @@ export const loginFailure = (error) => ({
   payload: error
 });
 
-export const loginAction = (email, password) => {
+export const loginAction = (email, password, role) => {
   return async (dispatch) => {
     dispatch(loginRequest());
     try {
       const response = await axios.post(`${import.meta.env.VITE_URL_BLANJA}/auth/login`, {
         email,
-        password
+        password,
+        role,
       });
+      console.log(response, '<<<<<<<<login');
       if (response.status === 200) {
         const { token, refreshToken } = response.data.data;
         localStorage.setItem('token', token);

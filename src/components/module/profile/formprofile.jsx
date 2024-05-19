@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Textfield from '../../base/textfield/textfield';
 import './formprofile.css';
 import Button from '@/components/base/button/button';
-import ButtonWhite from '@/components/base/button/buttonwhite';
+import UploadImage from '../upload/uploadimage';
+import axios from 'axios';
 
-const FormProfile = ({ img }) => {
+const FormProfile = () => {
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    gender: '',
+    birthDate: '',
+    image: []
+  });
+
   const [form, setForm] = useState({
     name: '',
     email: '',
-    phone: ''
-  })
+    phone: '',
+    image: []
+  });
   const [gender, setGender] = useState('');
   const [day, setDay] = useState('1');
   const [month, setmonth] = useState('January');
@@ -17,22 +28,18 @@ const FormProfile = ({ img }) => {
 
   const handleGender = (e) => {
     setGender(e.target.value);
-    console.log(handleGender, "<<<<<<<<<<<<<<<<<<gender");
   };
 
   const handleDate = (e) => {
     setDay(e.target.value);
-    console.log(handleDate, "<<<<<<<<<<<<<<Date");
   };
 
   const handleMonth = (e) => {
     setmonth(e.target.value);
-    console.log(handleMonth, "<<<<<<<<<<<<<Month");
   };
 
   const handleYear = (e) => {
     setYear(e.target.value);
-    console.log(handleYear, "<<<<<<<<<<<<<Year");
   };
 
   const handleChangeProfile = (e) => {
@@ -44,11 +51,65 @@ const FormProfile = ({ img }) => {
     console.log({ [id]: value });
   };
 
-  const handleSubmitProfile = () => {
-    alert('Submit Success!!')
-    console.log('Submit with', form, gender, day, month, year);
+  const handleSubmitProfile = async () => {
+    try {
+      const data = {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        gender,
+        image: form.image,
+        birthDate: `${year}-${month}-${day}`
+      }
+    
+      const token = localStorage.getItem('token');
+
+      const response = await axios.put(`${import.meta.env.VITE_URL_BLANJA}/customer/profile`, data, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      console.log('Response:', response.data );
+      alert('Submit Success!!')
+      console.log('Submit with', form, gender, day, month, year);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Submit Failed!!')
+    }
   }
 
+  const handleImageChange = (imageUrl) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      image: imageUrl
+    }));
+  };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${import.meta.env.VITE_URL_BLANJA}/customer/profile`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setUserData(response.data);
+
+        setForm({
+          name: userData.name,
+          email: userData.email,
+          phone: userData.phone,
+          image: userData.image || [],
+        }, [userData])
+
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className='flex flex-col bg-white w-208 h-144 relative left-20 top-32 py-5 rounded-md border border-gray-500'>
@@ -87,7 +148,7 @@ const FormProfile = ({ img }) => {
               type="number"
               id="phone"
               spellCheck={false}
-              value={form.name}
+              value={form.phone}
               onChange={handleChangeProfile}
               className="w-96 h-10 relative bottom-2 left-32"
             />
@@ -147,11 +208,8 @@ const FormProfile = ({ img }) => {
         </div>
         <hr />
         <div className='flex flex-col absolute right-20 py-10 gap-5'>
-          <img src={img} alt="img" className='w-28 h-28 rounded-full relative left-2' />
-          <ButtonWhite
-            name="Select Image"
-            className="text-nowrap w-32 text-center"
-            onClick={handleSubmitProfile}
+          <UploadImage
+            onImageChange={handleImageChange}
           />
         </div>
       </div>

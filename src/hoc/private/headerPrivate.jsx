@@ -8,8 +8,15 @@ import Mail from '../../components/base/mail/mail';
 import Profile from '../../components/base/profile/profile';
 
 import profilepic from '../../assets/profile/profilepic.svg'
+import { useNavigate } from 'react-router-dom';
 
 const headerPrivate = (props) => {
+  const navigate = useNavigate();
+
+  const handleCustomerProfile = () => {
+    navigate('/customer-profile')
+  }
+
   return (
     <header className='headerPrivate flex justify-between bg-white shadow-lg py-7 absolute w-full'>
         <div className='flex px-28 gap-10'>
@@ -35,6 +42,7 @@ const headerPrivate = (props) => {
             />
             <Profile
             image={profilepic}
+            onClick={handleCustomerProfile}
             />
         </div>
     </header>

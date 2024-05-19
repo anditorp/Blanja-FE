@@ -23,7 +23,7 @@ const Popular = () => {
                 {popular && popular.map((item) => (
                     <Card
                     key={item.products_id}
-                    image={item.image === "" ? "/src/assets/card/product.svg" : item.image}
+                    image={item.image === "" ? "/src/assets/card/No-image-available.png" : item.image}
                     name={item.name}
                     price={item.price}
                     category={item.category}

@@ -11,7 +11,8 @@ const loginCustomer = () => {
     const { user } = useSelector((state) => state.auth)
     const [form, setForm] = useState({
         email: '',
-        password: ''
+        password: '',
+        role: ''
     });
     
     const handleChange = (e) => {
@@ -28,7 +29,7 @@ const loginCustomer = () => {
     }
 
     const handleLoginCustomer = () => {
-      dispatch(loginAction(form.email, form.password, navigate));
+      dispatch(loginAction(form.email, form.password, form.role, navigate));
     };
 
     useEffect(() => {
