@@ -192,16 +192,16 @@ export function MyOrderTable() {
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const [products, setProducts] = React.useState([])
+  const [orders, setOrders] = React.useState([])
   // const id = ""
 
-  const getProduct = () => {
+  const getOrder = () => {
     api.get(`/store/products`)
       .then((res) => {
         console.log(res);
-        alert("Get Products Successful")
+        alert("Get Orders Successful")
         const result = res.data.data
-        setProducts(result)
+        setOrders(result)
 
       })
       .catch((err) => {
@@ -211,13 +211,13 @@ export function MyOrderTable() {
   }
 
   React.useEffect(() => {
-    getProduct()
+    getOrder()
   }, [])
 
-  console.log(products);
+  console.log(orders);
 
   const table = useReactTable({
-    data: products,
+    data: orders,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

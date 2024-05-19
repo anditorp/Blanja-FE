@@ -27,11 +27,23 @@ const SellingProduct = () => {
         })
     }
 
+    const resetForm = () => {
+        setForm({
+            name: "",
+            category: "",
+            price: "",
+            stock: "",
+            condition: "",
+            description: "",
+        });
+    };
+
     const handleSell = (e) => {
         e.preventDefault()
         // console.log(form);
         api.post('/products', {
             name: form.name,
+            category: form.category,
             price: form.price,
             stock: form.stock,
             condition: form.condition,
@@ -40,6 +52,7 @@ const SellingProduct = () => {
             .then((res) => {
                 console.log(res);
                 alert(`Create Product Success`)
+                resetForm()
 
             })
             .catch((err) => {
@@ -47,6 +60,8 @@ const SellingProduct = () => {
                 alert(err.response.data.message)
             })
     }
+
+
 
     return (
         <div className='flex flex-col gap-8'>
