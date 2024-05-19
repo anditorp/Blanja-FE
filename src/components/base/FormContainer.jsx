@@ -1,8 +1,8 @@
 import React from 'react'
 
-const FormContainer = ({children}) => {
+const FormContainer = ({ children }) => {
     return (
-        <div className='bg-white p-8 flex flex-col gap-6 rounded-md container'>
+        <div className='bg-white p-8 flex flex-col gap-6 rounded-md'>
 
             <div className='flex flex-col gap-2'>
                 <h1 className='font-semibold text-xl text-[#222222]'>My profile store</h1>
