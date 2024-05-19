@@ -66,66 +66,72 @@ const StoreProfile = () => {
     }, [])
 
     return (
-        <div className='w-full flex gap-6'>
-            <div className='w-full flex flex-col gap-6'>
-                <div className='flex gap-10 items-center'>
-                    <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Store name</p>
-                    <Input
-                        type='text'
-                        value={form.store_name}
-                        onChange={handleChange}
-                        name="store_name"
-                        label=""
-                        placeholder="Store name"
-                    />
+        <div className='flex flex-col gap-6'>
+            <div className='bg-[#d4d4d4] h-[1px] w-full'></div>
+
+            <div className='w-full flex gap-6'>
+
+                <div className='w-full flex flex-col gap-6'>
+                    <div className='flex gap-10 items-center'>
+                        <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Store name</p>
+                        <Input
+                            type='text'
+                            value={form.store_name}
+                            onChange={handleChange}
+                            name="store_name"
+                            label=""
+                            placeholder="Store name"
+                        />
+                    </div>
+
+                    <div className='flex gap-10 items-center'>
+                        <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Email</p>
+                        <Input
+                            type='text'
+                            value={form.email}
+                            onChange={handleChange}
+                            name="email"
+                            label=""
+                            placeholder="Email"
+                            disabled
+                        />
+                    </div>
+
+                    <div className='flex gap-10 items-center'>
+                        <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Phone Number</p>
+                        <Input
+                            type='text'
+                            value={form.phone}
+                            onChange={handleChange}
+                            name="phone"
+                            label=""
+                            placeholder="Phone Number"
+                        />
+                    </div>
+
+                    <div className='flex gap-10 items-center'>
+                        <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Store Description</p>
+                        <Input
+                            type='text'
+                            value={form.store_description}
+                            onChange={handleChange}
+                            name="store_description"
+                            label=""
+                            placeholder="Store Description"
+                        />
+                    </div>
+
+                    <Button className={"w-32"} text='Save' onClick={handleSave} />
                 </div>
 
-                <div className='flex gap-10 items-center'>
-                    <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Email</p>
-                    <Input
-                        type='text'
-                        value={form.email}
-                        onChange={handleChange}
-                        name="email"
-                        label=""
-                        placeholder="Email"
-                        disabled
-                    />
-                </div>
+                <div className='bg-[#d4d4d4] h-[200px] w-[1px]'></div>
 
-                <div className='flex gap-10 items-center'>
-                    <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Phone Number</p>
-                    <Input
-                        type='text'
-                        value={form.phone}
-                        onChange={handleChange}
-                        name="phone"
-                        label=""
-                        placeholder="Phone Number"
-                    />
+                <div className='flex flex-col items-center gap-5'>
+                    <img className='size-28 rounded-full object-cover' src={UserThumbnail} alt="" />
+                    <Button variant='secondary-gray' text='Select Image' />
                 </div>
-
-                <div className='flex gap-10 items-center'>
-                    <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Store Description</p>
-                    <Input
-                        type='text'
-                        value={form.store_description}
-                        onChange={handleChange}
-                        name="store_description"
-                        label=""
-                        placeholder="Store Description"
-                    />
-                </div>
-
-                <Button className={"w-32"} text='Save' onClick={handleSave} />
             </div>
 
-            <div className='bg-[#d4d4d4] h-[200px] w-[1px]'></div>
-
-            <div className='flex flex-col items-center gap-5'>
-                <img className='size-28 rounded-full object-cover' src={UserThumbnail} alt="" />
-                <Button variant='secondary-gray' text='Select Image' />
-            </div>
         </div>
     )
 }

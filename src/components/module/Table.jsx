@@ -196,7 +196,7 @@ export function MyProductTable() {
   // const id = ""
 
   const getProduct = () => {
-    api.get(`/products`)
+    api.get(`/store/products`)
       .then((res) => {
         console.log(res);
         alert("Get Products Successful")

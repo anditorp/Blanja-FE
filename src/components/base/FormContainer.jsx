@@ -9,7 +9,7 @@ const FormContainer = ({ children, title='Title', subtitle='Subtitle'}) => {
                 <p className='font-medium text-sm text-[#9b9b9b]'>{subtitle}</p>
             </div>
 
-            <div className='flex gap-20'>
+            <div className='flex flex-col gap-6'>
 
                 {children}
 
