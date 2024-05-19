@@ -3,6 +3,7 @@ import SellerSidebar from '../../components/module/SellerSidebar'
 import FormContainer from '../../components/base/FormContainer'
 import StoreProfile from '../../components/module/StoreProfile'
 import MyProduct from '../../components/module/MyProduct'
+import MyOrder from '@/components/module/MyOrder'
 import SellingProduct from '../../components/module/SellingProduct'
 
 
@@ -30,6 +31,10 @@ const SellerProfile = () => {
                     </FormContainer>
 
                     <SellingProduct />
+
+                    <FormContainer title='My order' subtitle=''>
+                        <MyOrder />
+                    </FormContainer>
 
                 </div>
 

@@ -187,7 +187,7 @@ const columns = [
   // },
 ]
 
-export function MyProductTable() {
+export function MyOrderTable() {
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
@@ -239,7 +239,7 @@ export function MyProductTable() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
+          placeholder="Search"
           value={(table.getColumn("name")?.getFilterValue() ?? "")}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)

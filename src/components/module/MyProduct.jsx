@@ -1,5 +1,5 @@
 import React from 'react'
-import { MyProductTable } from '@/components/module/Table'
+import { MyProductTable } from '@/components/module/TableProduct'
 
 
 const MyProduct = () => {

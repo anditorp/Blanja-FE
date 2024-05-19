@@ -71,7 +71,7 @@ const StoreProfile = () => {
 
             <div className='w-full flex gap-6'>
 
-                <div className='w-full flex flex-col gap-6'>
+                <div className='flex flex-col gap-6 w-4/5'>
                     <div className='flex gap-10 items-center'>
                         <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Store name</p>
                         <Input
@@ -126,7 +126,7 @@ const StoreProfile = () => {
 
                 <div className='bg-[#d4d4d4] h-[200px] w-[1px]'></div>
 
-                <div className='flex flex-col items-center gap-5'>
+                <div className='flex flex-col items-center gap-5 w-1/5'>
                     <img className='size-28 rounded-full object-cover' src={UserThumbnail} alt="" />
                     <Button variant='secondary-gray' text='Select Image' />
                 </div>

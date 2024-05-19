@@ -13,6 +13,7 @@ import api from '../../configs/api'
 const SellingProduct = () => {
     const [form, setForm] = useState({
         name: "",
+        category: "",
         price: "",
         stock: "",
         condition: "",
@@ -58,6 +59,14 @@ const SellingProduct = () => {
                         onChange={handleChange}
                         name="name"
                         label="Name of goods"
+                        placeholder=""
+                    />
+                    <Input
+                        type='text'
+                        value={form.category}
+                        onChange={handleChange}
+                        name="category"
+                        label="Category"
                         placeholder=""
                     />
                 </div>
