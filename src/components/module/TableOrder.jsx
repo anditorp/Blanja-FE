@@ -1,4 +1,7 @@
 import * as React from "react"
+import api from '../../configs/api'
+
+
 import {
   flexRender,
   getCoreRowModel,
@@ -64,104 +67,157 @@ const data = [
 ]
 
 const columns = [
+  // {
+  //   id: "select",
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && "indeterminate")
+  //       }
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Product Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-
-      return <div className="text-right font-medium">{formatted}</div>
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original
-
+    accessorKey: "price",
+    header: ({ column }) => {
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Price
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
       )
     },
+    cell: ({ row }) => <div className="lowercase">{row.getValue("price")}</div>,
   },
+  {
+    accessorKey: "stock",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Stock
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => <div className="lowercase">{row.getValue("stock")}</div>,
+  },
+  // {
+  //   accessorKey: "price",
+  //   header: "Price",
+  //   cell: ({ row }) => (
+  //     <div className="capitalize">{row.getValue("price")}</div>
+  //   ),
+  // },
+  // {
+  //   accessorKey: "stock",
+  //   header: () => <div className="text-right">Stock</div>,
+  //   cell: ({ row }) => {
+  //     const amount = parseFloat(row.getValue("stock"))
+
+  //     // Format the amount as a dollar amount
+  //     const formatted = new Intl.NumberFormat("en-US", {
+  //       style: "currency",
+  //       currency: "USD",
+  //     }).format(amount)
+
+  //     return <div className="text-right font-medium">{formatted}</div>
+  //   },
+  // },
+  // {
+  //   id: "actions",
+  //   enableHiding: false,
+  //   cell: ({ row }) => {
+  //     const payment = row.original
+
+  //     return (
+  //       <DropdownMenu>
+  //         <DropdownMenuTrigger asChild>
+  //           <Button variant="ghost" className="h-8 w-8 p-0">
+  //             <span className="sr-only">Open menu</span>
+  //             <MoreHorizontal className="h-4 w-4" />
+  //           </Button>
+  //         </DropdownMenuTrigger>
+  //         <DropdownMenuContent align="end">
+  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+  //           <DropdownMenuItem
+  //             onClick={() => navigator.clipboard.writeText(payment.id)}
+  //           >
+  //             Copy payment ID
+  //           </DropdownMenuItem>
+  //           <DropdownMenuSeparator />
+  //           <DropdownMenuItem>View customer</DropdownMenuItem>
+  //           <DropdownMenuItem>View payment details</DropdownMenuItem>
+  //         </DropdownMenuContent>
+  //       </DropdownMenu>
+  //     )
+  //   },
+  // },
 ]
 
-export function DataTableDemo() {
+export function MyOrderTable() {
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const [orders, setOrders] = React.useState([])
+  // const id = ""
+
+  const getOrder = () => {
+    api.get(`/store/products`)
+      .then((res) => {
+        console.log(res);
+        alert("Get Orders Successful")
+        const result = res.data.data
+        setOrders(result)
+
+      })
+      .catch((err) => {
+        console.log(err.response);
+        alert(err.response.data.message);
+      })
+  }
+
+  React.useEffect(() => {
+    getOrder()
+  }, [])
+
+  console.log(orders);
 
   const table = useReactTable({
-    data,
+    data: orders,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -183,14 +239,14 @@ export function DataTableDemo() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() ?? "")}
+          placeholder="Search"
+          value={(table.getColumn("name")?.getFilterValue() ?? "")}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
@@ -215,7 +271,7 @@ export function DataTableDemo() {
                 )
               })}
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
       <div className="rounded-md border">
         <Table>
@@ -228,9 +284,9 @@ export function DataTableDemo() {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   )
                 })}

@@ -18,6 +18,11 @@ const Checkout = () => {
     setOpenModal(null);
   };
 
+  const handleSelectAddress = (selectedAddress) => {
+    setAddress(selectedAddress);
+    handleCloseModal();
+  };
+
   return (
     <div className='p-20 px-36'>
       <nav></nav>
@@ -40,8 +45,33 @@ const Checkout = () => {
 
             <div className='flex flex-col gap-3'>
 
+<<<<<<< HEAD
               <CartCard />
               <CartCard />
+=======
+            {order ? (
+              <div className='flex flex-col gap-3'>
+                {order.map((item) => (
+                  <CartCard
+                    key={item.order_id}
+                    photo={item.product_image}
+                    name={item.product_name}
+                    store="Zalora Cloth"
+                    color={item.color}
+                    size={item.size}
+                    quantity={item.quantity}
+                    price={item.product_price}
+                    onDelete={() => handleDelete(item.order_id)}
+                    onIncrement={() => handleIncrement(item.order_id)}
+                    onDecrement={() => handleDecrement(item.order_id)}
+                    editor={false}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>Cart is Empty</p>
+            )}
+>>>>>>> adaaae17b7b5331a06f421dd1669cd9da57f20f6
 
             </div>
           </div>
@@ -71,7 +101,12 @@ const Checkout = () => {
       </div>
 
       <Modal open={openModal === 'ChooseAddress'} onClose={handleCloseModal}>
+<<<<<<< HEAD
         <div className='flex flex-col gap-8 items-center'>
+=======
+        <ChooseAddress onSelectAddress={handleSelectAddress} onClick={() => handleOpenModal('AddAddress')} />
+        {/* <div className='flex flex-col gap-8 items-center'>
+>>>>>>> adaaae17b7b5331a06f421dd1669cd9da57f20f6
 
           <h2 className='font-semibold text-3xl text-[#222222]'>Choose another address</h2>
 

@@ -3,6 +3,7 @@ import SellerSidebar from '../../components/module/SellerSidebar'
 import FormContainer from '../../components/base/FormContainer'
 import StoreProfile from '../../components/module/StoreProfile'
 import MyProduct from '../../components/module/MyProduct'
+import MyOrder from '@/components/module/MyOrder'
 import SellingProduct from '../../components/module/SellingProduct'
 
 
@@ -13,23 +14,27 @@ const SellerProfile = () => {
 
             <div className='flex '>
 
-                <div className='bg-white p-12 pl-40 w-1/4'>
+                <div className='p-36 bg-white w-1/4'>
 
                     <SellerSidebar />
 
                 </div>
 
-                <div className='p-12 pr-40 w-3/4 flex flex-col gap-8'>
+                <div className='p-36 w-3/4 flex flex-col gap-8'>
 
-                    <FormContainer>
+                    <FormContainer title='My profile store' subtitle='Manage your profile information'>
                         <StoreProfile />
                     </FormContainer>
 
-                    <FormContainer>
+                    <FormContainer title='My product' subtitle=''>
                         <MyProduct />
                     </FormContainer>
 
                     <SellingProduct />
+
+                    <FormContainer title='My order' subtitle=''>
+                        <MyOrder />
+                    </FormContainer>
 
                 </div>
 
