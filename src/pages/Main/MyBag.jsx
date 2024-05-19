@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Button from '../../components/base/Button'
 import CartCard from '../../components/base/CartCard'
 import api from '../../configs/api'
@@ -7,33 +7,89 @@ import api from '../../configs/api'
 
 const MyBag = () => {
     const [order, setOrder] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0);
 
-    useEffect(() => {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZGl0bzFAZ21haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzE2MDA2MzA1LCJleHAiOjE3MTYwMDk5MDUsImlzcyI6IkJsYW5qYSJ9.3cvCKRqk1rw5krUICN3KVk7XiQl8VJsiNBLFfH6HF1M"
-        api.get(`/order/myorder`)
+    const getOrder = () => {
+        api.get(`/order/my-order`)
             .then((res) => {
                 console.log(res);
+                alert("Get Order Successful")
                 const result = res.data.data
                 setOrder(result)
 
             })
             .catch((err) => {
+                console.log(err.response);
                 alert(err.response.data.message);
             })
-    }, [])
+    }
 
     const navigate = useNavigate()
 
     const handleCheckout = () => {
-        navigate('/checkout')
+        const updatePromises = order.map((item) => {
+            const { order_id, color, quantity, size } = item;
+            return api.put(`/order/${order_id}`, { color, quantity, size });
+        });
+
+        Promise.all(updatePromises)
+            .then((results) => {
+                console.log(results);
+                alert("Update Orders Successful");
+                navigate('/checkout');
+            })
+            .catch((err) => {
+                console.log(err.response);
+                alert("Update Orders Failed");
+            });
+    };
+
+    const handleDelete = (id) => {
+        api.delete(`/order/${id}`)
+            .then((res) => {
+                console.log(res);
+                alert("Delete Order Successful")
+                getOrder()
+            })
+            .catch((err) => {
+                console.log(err.response);
+                alert("Delete Order Failed")
+            })
     }
 
+    const handleIncrement = (id) => {
+        setOrder((prevOrder) =>
+            prevOrder.map((item) =>
+                item.order_id === id ? { ...item, quantity: item.quantity + 1 } : item
+            )
+        );
+    };
+
+    const handleDecrement = (id) => {
+        setOrder((prevOrder) =>
+            prevOrder.map((item) =>
+                item.order_id === id && item.quantity > 1
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            )
+        );
+    };
+
+    useEffect(() => {
+        getOrder()
+    }, [])
+
+    useEffect(() => {
+        const calculateTotalPrice = () => {
+            const total = order.reduce((sum, item) => sum + (item.product_price * item.quantity), 0);
+            setTotalPrice(total);
+        };
+        calculateTotalPrice();
+    }, [order]);
 
     return (
-        <div className='p-20 px-36'>
-            <nav></nav>
-
-            <div className='container mx-auto flex flex-col gap-8'>
+        <div className='p-36 px-36'>
+            <div className=' mx-auto flex flex-col gap-8'>
                 <h1 className='font-bold text-4xl text-[#222222]'>My bag</h1>
 
                 <div className='flex w-full gap-12'>
@@ -54,14 +110,17 @@ const MyBag = () => {
                                 <>
                                     {order.map((item) => (
                                         <CartCard
-                                            // key={item.id} // uncomment if you have a unique id for each item
-                                            // photo={item.photo}
-                                            // name={item.name}
-                                            // store={item.store}
+                                            key={item.order_id}
+                                            photo={item.product_image}
+                                            name={item.product_name}
+                                            store="Zalora Cloth"
                                             color={item.color}
                                             size={item.size}
                                             quantity={item.quantity}
-                                        // price={item.price}
+                                            price={item.product_price}
+                                            onDelete={() => handleDelete(item.order_id)}
+                                            onIncrement={() => handleIncrement(item.order_id)}
+                                            onDecrement={() => handleDecrement(item.order_id)}
                                         />
                                     ))}
                                 </>
@@ -76,7 +135,7 @@ const MyBag = () => {
                         <p className='font-semibold text-base text-[#222222]'>Shopping summary</p>
                         <div className='flex justify-between items-center'>
                             <p className='font-medium text-base text-[#9b9b9b]'>Total Price</p>
-                            <p className='font-semibold text-lg text-[#222222]'>$ 40.0</p>
+                            <p className='font-semibold text-lg text-[#222222]'>$ {totalPrice.toFixed(2)}</p>
                         </div>
                         <Button onClick={handleCheckout} />
                     </div>

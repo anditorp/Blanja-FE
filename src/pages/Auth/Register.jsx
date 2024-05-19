@@ -6,7 +6,6 @@ import RegisterSeller from '../../components/module/RegisterSeller'
 
 const Register = () => {
     
-    
     const [toggle, setToggle] = useState(1)
     const handleToggle = (id) => {
         setToggle(id)
@@ -14,8 +13,8 @@ const Register = () => {
 
     return (
         <div>
-            <div className='container mx-auto my-20 flex items-center justify-center'>
-                <div className='container w-1/3 flex flex-col gap-10 items-center'>
+            <div className='mx-auto my-20 flex items-center justify-center'>
+                <div className='w-1/3 flex flex-col gap-10 items-center'>
 
                     <Link to='/'><img className="h-[50px] w-fit" src={Logo} alt="" /></Link>
 

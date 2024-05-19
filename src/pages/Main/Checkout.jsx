@@ -7,16 +7,16 @@ import AddAddress from '../../components/module/AddAddress'
 import Payment from '../../components/module/Payment'
 import api from '../../configs/api'
 import ChooseAddress from '@/components/module/ChooseAddress'
- 
- 
- 
+
+
+
 const Checkout = () => {
   const [openModal, setOpenModal] = useState(null);
   const [order, setOrder] = useState([])
   const [address, setAddress] = useState(null)
   const [totalPrice, setTotalPrice] = useState(0);
   const deliveryFee = 5.00;
- 
+
   const getAddress = () => {
     api.get(`/address`)
       .then((res) => {
@@ -24,14 +24,14 @@ const Checkout = () => {
         alert("Get Address Successful")
         const result = res.data.data
         setAddress(result[0])
- 
+
       })
       .catch((err) => {
         console.log(err.response);
         alert(err.response.data.message);
       })
   }
- 
+
   const getOrder = () => {
     api.get(`/order/my-order`)
       .then((res) => {
@@ -39,21 +39,21 @@ const Checkout = () => {
         alert("Get Order Successful")
         const result = res.data.data
         setOrder(result)
- 
+
       })
       .catch((err) => {
         console.log(err.response);
         alert(err.response.data.message);
       })
   }
- 
+
   const navigate = useNavigate()
- 
+
   useEffect(() => {
     getAddress()
     getOrder()
   }, [])
- 
+
   useEffect(() => {
     const calculateTotalPrice = () => {
       const total = order.reduce((sum, item) => sum + (item.product_price * item.quantity), 0);
@@ -61,33 +61,33 @@ const Checkout = () => {
     };
     calculateTotalPrice();
   }, [order]);
- 
+
   const handleOpenModal = (modalType) => {
     setOpenModal(modalType);
   };
- 
+
   const handleCloseModal = () => {
     setOpenModal(null);
   };
- 
+
   const handleSelectAddress = (selectedAddress) => {
     setAddress(selectedAddress);
     handleCloseModal();
   };
- 
+
   return (
     <div className='p-36 px-36'>
       <div className=' mx-auto flex flex-col gap-8'>
         <h1 className='font-bold text-4xl text-[#222222]'>My bag</h1>
- 
+
         <div className='flex w-full gap-12'>
- 
+
           <div className='w-2/3 flex flex-col gap-5'>
- 
+
             <div className='flex flex-col gap-4'>
               <p className='font-semibold'>Shipping address</p>
- 
- 
+
+
               <div className='flex flex-col p-6 bg-white rounded-md justify-between gap-5 drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
                 {address ? (
                   <div className='flex flex-col gap-5'>
@@ -100,9 +100,9 @@ const Checkout = () => {
                 <Button variant='secondary-gray' text='Choose another address' className='w-fit' onClick={() => handleOpenModal('ChooseAddress')} />
               </div>
             </div>
- 
+
             {/* <div className='flex flex-col gap-3'> */}
- 
+
             {order ? (
               <div className='flex flex-col gap-3'>
                 {order.map((item) => (
@@ -125,11 +125,11 @@ const Checkout = () => {
             ) : (
               <p>Cart is Empty</p>
             )}
- 
- 
+
+
             {/* </div> */}
           </div>
- 
+
           <div className='w-1/3 h-fit p-6 bg-white flex flex-col gap-8 rounded-md drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
             <p className='font-semibold text-base text-[#222222]'>Shopping summary</p>
             <div className='flex flex-col gap-3'>
@@ -149,21 +149,21 @@ const Checkout = () => {
             </div>
             <Button onClick={() => handleOpenModal('Payment')} text='Select Payment' />
           </div>
- 
+
         </div>
- 
+
       </div>
- 
+
       <Modal open={openModal === 'ChooseAddress'} onClose={handleCloseModal}>
         <ChooseAddress onSelectAddress={handleSelectAddress} onClick={() => handleOpenModal('AddAddress')} />
         {/* <div className='flex flex-col gap-8 items-center'>
- 
+
           <h2 className='font-semibold text-3xl text-[#222222]'>Choose another address</h2>
- 
+
           <div className='w-full flex flex-col p-8 bg-white rounded-md justify-between gap-5 border border-dashed border-[#9b9b9b]' onClick={() => handleOpenModal('AddAddress')}>
             <p className='font-semibold text-center text-lg text-[#9b9b9b]'>Add new address</p>
           </div>
- 
+
           <div className='flex flex-col p-6 bg-white rounded-md justify-between gap-3 border border-[#DB3022]'>
             <p className='font-semibold text-base text-[#222222]'>Andreas Jane</p>
             <p className=' font-normal text-sm text-[#222222]'>Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia Note: blok c 16] Sokaraja, Kab. Banyumas, 53181</p>
@@ -171,17 +171,17 @@ const Checkout = () => {
           </div>
         </div> */}
       </Modal>
- 
+
       <Modal open={openModal === 'AddAddress'} onClose={handleCloseModal}>
         <AddAddress onClose={handleCloseModal} />
       </Modal>
- 
+
       <Modal open={openModal === 'Payment'} onClose={handleCloseModal}>
         <Payment />
       </Modal>
- 
+
     </div>
   )
 }
- 
+
 export default Checkout
