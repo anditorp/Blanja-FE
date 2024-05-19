@@ -21,11 +21,11 @@ const SellerProfile = () => {
 
                 <div className='p-36 w-3/4 flex flex-col gap-8'>
 
-                    <FormContainer>
+                    <FormContainer title='My profile store' subtitle='Manage your profile information'>
                         <StoreProfile />
                     </FormContainer>
 
-                    <FormContainer>
+                    <FormContainer title='My product' subtitle=''>
                         <MyProduct />
                     </FormContainer>
 

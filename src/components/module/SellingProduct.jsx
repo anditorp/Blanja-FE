@@ -11,13 +11,13 @@ import 'react-quill/dist/quill.snow.css';
 const SellingProduct = () => {
     return (
         <div className='flex flex-col gap-8'>
-            <FormContainer>
+            <FormContainer title='Inventory' subtitle=''>
                 <div className='flex flex-col gap-4 w-full'>
                     <Input />
                 </div>
             </FormContainer>
 
-            <FormContainer>
+            <FormContainer title='Item details' subtitle=''>
                 <div className='flex flex-col gap-4 w-full'>
                     <Input />
                     <Input />
@@ -32,7 +32,7 @@ const SellingProduct = () => {
                 </div>
             </FormContainer>
 
-            <FormContainer>
+            <FormContainer title='Photo of goods' subtitle=''>
                 <div className='p-10 border border-dashed border-[#d4d4d4] flex flex-col gap-5 w-full'>
 
                     <div className='flex gap-4 items-center w-full'>
@@ -53,10 +53,10 @@ const SellingProduct = () => {
                 </div>
             </FormContainer>
 
-            <FormContainer>
-                <div className='w-full h-fit'>
-                    <ReactQuill
-                        style={{ height: "316px" }} />
+            <FormContainer title='Description' subtitle=''>
+                <div className='w-full'>
+                    <ReactQuill />
+                    {/* <ReactQuill style={{ height: "316px" }} /> */}
                 </div>
             </FormContainer>
             

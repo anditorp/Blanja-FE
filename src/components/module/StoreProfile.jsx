@@ -69,7 +69,7 @@ const StoreProfile = () => {
         <div className='w-full flex gap-6'>
             <div className='w-full flex flex-col gap-6'>
                 <div className='flex gap-10 items-center'>
-                    {/* <p className='font-medium text-sm text-[#9b9b9b]'>Store name</p> */}
+                    <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Store name</p>
                     <Input
                         type='text'
                         value={form.store_name}
@@ -81,7 +81,7 @@ const StoreProfile = () => {
                 </div>
 
                 <div className='flex gap-10 items-center'>
-                    {/* <p className='font-medium text-sm text-[#9b9b9b]'>Email</p> */}
+                    <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Email</p>
                     <Input
                         type='text'
                         value={form.email}
@@ -94,7 +94,7 @@ const StoreProfile = () => {
                 </div>
 
                 <div className='flex gap-10 items-center'>
-                    {/* <p className='font-medium text-sm text-[#9b9b9b]'>Phone Number</p> */}
+                    <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Phone Number</p>
                     <Input
                         type='text'
                         value={form.phone}
@@ -106,7 +106,7 @@ const StoreProfile = () => {
                 </div>
 
                 <div className='flex gap-10 items-center'>
-                    {/* <p className='font-medium text-sm text-[#9b9b9b]'>Store Description</p> */}
+                    <p className='font-medium text-sm text-[#9b9b9b] w-1/4 text-right'>Store Description</p>
                     <Input
                         type='text'
                         value={form.store_description}
