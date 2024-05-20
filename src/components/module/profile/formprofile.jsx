@@ -1,114 +1,150 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import Textfield from '../../base/textfield/textfield';
 import './formprofile.css';
 import Button from '@/components/base/button/button';
 import UploadImage from '../upload/uploadimage';
 import axios from 'axios';
+import API from '@/configs/api';
 
 const FormProfile = () => {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    gender: '',
-    birthDate: '',
-    image: []
-  });
+  const [name, setName] = useState('');
+  // const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [gender, setGender] = useState('Male');
+  const [day, setDay] = useState('1');
+  const [month, setMonth] = useState('January');
+  const [year, setYear] = useState('1990');
 
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
+    gender: '',
+    date_of_birth: '',
     image: []
   });
-  const [gender, setGender] = useState('');
-  const [day, setDay] = useState('1');
-  const [month, setmonth] = useState('January');
-  const [year, setYear] = useState('1990');
+
+  const getProfile = () => {
+    API.get(`/customer/profile`)
+      .then((res) => {
+        console.log(res, "<<<<<<<<<<<<<res");
+        if(res && res.status !== 200){
+          console.log('error')
+        }
+        const result = res.data.data;
+        // console.log(result,"<<<<<<<<<<<<<result");
+        setForm({
+          name: result.name || '',
+          // email: result.email || '',
+          phone: result.phone || '',
+          gender: result.gender || '',
+          date_of_birth: result.date_of_birth || '',
+          image: result.image || ''
+        });
+        setGender(result.gender || 'Male');
+        const [year, month, day] = result.date_of_birth ? result.date_of_birth.split('-') : ['1990', 'January', '1'];
+        setDay(day);
+        setMonth(month);
+        setYear(year);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
+  const handleName = (e) => {
+    setName(e.target.value);
+    setForm((prevForm) => ({
+      ...prevForm,
+      name: e.target.value
+    }))
+  }
+
+  // const handleEmail = (e) => {
+  //   setEmail(e.target.value);
+  //   setForm((prevForm) => ({
+  //     ...prevForm,
+  //     email: e.target.value
+  //   }))
+  // }
+
+  const handlePhone = (e) => {
+    setPhone(e.target.value);
+    setForm((prevForm) => ({
+      ...prevForm,
+      phone: e.target.value
+    }))
+  }
 
   const handleGender = (e) => {
     setGender(e.target.value);
+    setForm((prevForm) => ({
+      ...prevForm,
+      gender: e.target.value,
+    }));
   };
 
-  const handleDate = (e) => {
+  const handleDay = (e) => {
     setDay(e.target.value);
+    setForm((prevForm) => ({
+      ...prevForm,
+      date_of_birth: `${year}-${month}-${e.target.value}`,
+    }));
   };
 
   const handleMonth = (e) => {
-    setmonth(e.target.value);
+    setMonth(e.target.value);
+    setForm((prevForm) => ({
+      ...prevForm,
+      date_of_birth: `${year}-${e.target.value}-${day}`,
+    }));
   };
 
   const handleYear = (e) => {
     setYear(e.target.value);
-  };
-
-  const handleChangeProfile = (e) => {
-    const { id, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
-      [id]: value
+      date_of_birth: `${e.target.value}-${month}-${day}`,
     }));
-    console.log({ [id]: value });
   };
 
-  const handleSubmitProfile = async () => {
-    try {
-      const data = {
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        gender,
-        image: form.image,
-        birthDate: `${year}-${month}-${day}`
-      }
-    
-      const token = localStorage.getItem('token');
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
 
-      const response = await axios.put(`${import.meta.env.VITE_URL_BLANJA}/customer/profile`, data, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
-        }
+  const handleSave = (e) => {
+    e.preventDefault();
+    API.put('/customer/profile', {
+      name: form.name,
+      // email: form.email,
+      phone: form.phone,
+      gender,
+      date_of_birth: form.date_of_birth,
+      image: form.image,
+    })
+      .then((res) => {
+        console.log(res);
+        alert("Update Profile Success!!!");
       })
-      console.log('Response:', response.data );
-      alert('Submit Success!!')
-      console.log('Submit with', form, gender, day, month, year);
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Submit Failed!!')
-    }
-  }
+      .catch((err) => {
+        console.log(err.response);
+        alert(err.response.data.message);
+      });
+  };
 
-  const handleImageChange = (imageUrl) => {
+  const handleImageUpload = (imageUrl) => {
     setForm((prevForm) => ({
       ...prevForm,
       image: imageUrl
     }));
   };
-  
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${import.meta.env.VITE_URL_BLANJA}/customer/profile`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        setUserData(response.data);
-
-        setForm({
-          name: userData.name,
-          email: userData.email,
-          phone: userData.phone,
-          image: userData.image || [],
-        }, [userData])
-
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-    fetchData();
+    getProfile();
   }, []);
 
   return (
@@ -123,11 +159,12 @@ const FormProfile = () => {
           <div>
             <label className='relative top-14 text-gray-400'>Name</label>
             <Textfield
-              type="name"
-              id="name"
+              type="text"
+              name="name"
+              label=""
               spellCheck={false}
               value={form.name}
-              onChange={handleChangeProfile}
+              onChange={handleName}
               className="w-96 h-10 relative bottom-2 left-32"
             />
           </div>
@@ -135,10 +172,11 @@ const FormProfile = () => {
             <label className='relative top-14 text-gray-400'>Email</label>
             <Textfield
               type="email"
-              id="email"
+              name="email"
+              label=""
               spellCheck={false}
               value={form.email}
-              onChange={handleChangeProfile}
+              // onChange={handleEmail}
               className="w-96 h-10 relative bottom-2 left-32"
             />
           </div>
@@ -146,14 +184,15 @@ const FormProfile = () => {
             <label className='relative top-14 text-gray-400'>Phone Number</label>
             <Textfield
               type="number"
-              id="phone"
+              name="phone"
+              label=""
               spellCheck={false}
               value={form.phone}
-              onChange={handleChangeProfile}
+              onChange={handlePhone}
               className="w-96 h-10 relative bottom-2 left-32"
             />
           </div>
-          <form className='relative bottom-14'>
+          <form onSubmit={handleChange} className='relative bottom-14'>
             <label className='relative top-2 text-gray-400'>Gender</label>
             <div className='flex relative bottom-3 pr-110 pl-36 gap-5'>
               <label className='container'><p className='relative bottom-5 left-5'>Male</p>
@@ -162,7 +201,7 @@ const FormProfile = () => {
                   id='Male'
                   checked={gender === 'Male'}
                   onChange={handleGender}
-                  name='radio'
+                  name='gender'
                   value="Male"
                 />
                 <span className='checkmark'></span>
@@ -173,26 +212,26 @@ const FormProfile = () => {
                   id='Female'
                   checked={gender === 'Female'}
                   onChange={handleGender}
-                  name='radio'
+                  name='gender'
                   value="Female"
                 />
                 <span className='checkmark'></span>
               </label>
             </div>
-            <div className="flex items-center relative bottom-10 right-28 pr-28">
+            <div onSubmit={handleSave} className="flex items-center relative bottom-10 right-28 pr-28">
               <label className="mr-4 text-gray-400 z-0">Date of birth</label>
-              <select value={day} onChange={handleDate} className="relative right-28 mr-2 border border-gray-300 z-10">
+              <select value={day} onChange={handleDay} className="relative right-28 mr-2 border border-gray-300 z-10">
                 {[...Array(31).keys()].map(i => (
                   <option key={i + 1} value={i + 1}>{i + 1}</option>
                 ))}
               </select>
               <select value={month} onChange={handleMonth} className="relative right-28 mr-2 border border-gray-300 z-20">
-                {['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'].map((month, index) => (
+                {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((month, index) => (
                   <option key={index} value={month}>{month}</option>
                 ))}
               </select>
               <select value={year} onChange={handleYear} className='relative right-28 border border-gray-300'>
-                {Array.from({ length: 100 }, (v, k) => k + 1920).map(year => (
+                {Array.from({ length: 105 }, (v, k) => k + 1920).map(year => (
                   <option key={year} value={year}>{year}</option>
                 ))}
               </select>
@@ -201,7 +240,8 @@ const FormProfile = () => {
               <Button
                 name="Save"
                 className='text-center w-28'
-                onClick={handleSubmitProfile}
+                type="submit"
+                onClick={handleSave}
               />
             </div>
           </form>
@@ -209,12 +249,12 @@ const FormProfile = () => {
         <hr />
         <div className='flex flex-col absolute right-20 py-10 gap-5'>
           <UploadImage
-            onImageChange={handleImageChange}
+            onImageChange={handleImageUpload}
           />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FormProfile
+export default FormProfile;
