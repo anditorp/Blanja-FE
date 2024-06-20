@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../base/card/card';
 import axios from 'axios';
+import imageDefault from '../../../assets/card/No-image-available.png';
 
 const New = () => {
   const [products, setProducts] = useState([]);
@@ -44,7 +45,7 @@ const New = () => {
         {products && products.map((item) => (
           <div className='grid-item' key={item.products_id}>
             <Card
-              image={item.image === "" ? "/src/assets/card/No-image-available.png" : item.image}
+              image={item.image === "" ? imageDefault : item.image}
               name={item.name}
               price={item.price}
               category={item.category}

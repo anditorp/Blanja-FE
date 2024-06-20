@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Card from '../../components/base/card/card';
 import axios from 'axios';
 import './search.css';
-import SortButton from '@/components/base/sort/sort';
+// import SortButton from '@/components/base/sort/sort';
+import imageDefault from '../../assets/card/No-image-available.png';
 
 const SearchQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -89,7 +90,7 @@ const SearchPage = () => {
           products.map((item) => (
             <div className='grid-item' key={item.products_id}>
               <Card
-                image={item.image === "" ? "/src/assets/card/No-image-available.png" : item.image}
+                image={item.image === "" ? imageDefault : item.image}
                 name={item.name}
                 price={item.price}
                 category={item.category}
