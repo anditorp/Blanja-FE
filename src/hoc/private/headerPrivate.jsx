@@ -23,7 +23,7 @@ const HeaderPrivate = () => {
     if (role === 'customer') {
       navigate('/customer-profile');
     } else if (role === 'store') {
-      navigate('/sellerprofile');
+      navigate('/seller-profile');
     }
   };
 
