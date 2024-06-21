@@ -191,7 +191,7 @@ const FormProfile = () => {
                 <span className='checkmark'></span>
               </label>
             </div>
-            <div className="flex items-center relative bottom-10 right-28 pr-28">
+            <div className="flex items-center relative bottom-10 right-28 pr-28 z-10">
               <label className="mr-4 text-gray-400 z-0">Date of birth</label>
               <select value={day} onChange={handleDate} className="relative right-28 mr-2 border border-gray-300 z-10">
                 <option value="">Day</option>
