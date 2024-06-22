@@ -75,7 +75,6 @@ const FormProfile = () => {
       console.log('Response:', response);
       if (response.status === 200) {
         alert('Submit Success!!');
-        // Update the UI to show the updated information
         const updatedUserData = response.data.data;
         setUserData(updatedUserData);
       }

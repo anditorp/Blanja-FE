@@ -67,9 +67,9 @@ const headerPrivate = () => {
         </div>
       </div>
       <div className='flex items-center pr-20 gap-8 py-2 z-30'>
-        <HomeIcon 
-        classname="cursor-pointer"
-        onClick={handleHome}
+        <HomeIcon
+          classname="cursor-pointer"
+          onClick={handleHome}
         />
         <Cart
           classname="cursor-pointer"

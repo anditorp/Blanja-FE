@@ -1,6 +1,6 @@
 import React from 'react'
 
-const textfield = ({ label, type, id, placeholder, spellCheck, className, props, onChange}) => {
+const textfield = ({ label, type, id, placeholder, spellCheck, className, props, value, onChange, name}) => {
   return (
     <form>
     <div className="form-group grid items-center space-x-4">
@@ -14,6 +14,8 @@ const textfield = ({ label, type, id, placeholder, spellCheck, className, props,
         className={`p-5 border border-gray-300 rounded focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-300 ${className}`}
         {...props}
         onChange={onChange}
+        value={value}
+        name={name}
       />
     </div>
   </form>

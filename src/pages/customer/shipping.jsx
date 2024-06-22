@@ -34,14 +34,12 @@ const ShippingPage = () => {
   const profileImage = profile.image ? profile.image : defaultimage;
 
   return (
-    <div className='flex flex-row bg-gray-200 h-208'>
+    <div className='flex flex-row bg-gray-200 h-auto'>
       <Profilebar
       name={profile.name}
       image={profileImage}
       />
       <FormShipping
-      name="Andreas Jane"
-      address="Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia Note: blok c 16] Sokaraja, Kab. Banyumas, 53181"
       onChange={handleAddress}
       />
     </div>
