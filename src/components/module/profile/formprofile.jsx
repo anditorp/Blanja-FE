@@ -96,7 +96,6 @@ const FormProfile = () => {
         const result = response.data.data;
         console.log(result, "<<<<<<<<<<<<<<<<<<<result");
         setUserData(result);
-
         setForm({
           name: result.name,
           email: result.email,
@@ -191,11 +190,7 @@ const FormProfile = () => {
                 <span className='checkmark'></span>
               </label>
             </div>
-<<<<<<< HEAD
             <div className="flex items-center relative bottom-10 right-20 pr-28 z-10">
-=======
-            <div className="flex items-center relative bottom-10 right-28 pr-28 z-10">
->>>>>>> 5d4e996 (integration in profile customer, home, product detail)
               <label className="mr-4 text-gray-400 z-0">Date of birth</label>
               <select value={day} onChange={handleDate} className="relative mr-2 border border-gray-300 z-10">
                 <option value="">Day</option>
