@@ -3,10 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../base/card/card';
 import axios from 'axios';
-import imageDefault from '../../../assets/card/No-image-available.png';
 
 const New = () => {
-  const [products, setProducts] = useState({});
+  const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({
     limit: 5,
     page: 1,
@@ -37,6 +36,8 @@ const New = () => {
   useEffect(() => {
     fetchData(1);
   }, []);
+
+  const imageDefault = '../../../assets/card/No-image-available.png';
 
   return (
     <div>

@@ -73,6 +73,8 @@ const SearchPage = () => {
     setSortBy('desc');
   }
 
+  const imageDefault = '../../assets/card/No-image-available.png';
+
   return (
     <div>
       <h1 className='text-4xl font-semibold'>Find Product</h1>
