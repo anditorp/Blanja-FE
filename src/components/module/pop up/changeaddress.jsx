@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Textfield from '@/components/base/textfield/textfield';
 import ButtonWhite from '@/components/base/button/buttonwhite';
 import axios from 'axios';
 
-const AddNewAddress = () => {
-    const [add, setAdd] = useState({
+const ChangeAddress = ({address}) => {
+    const [form, setForm] = useState({
         save_address: '',
         recipient_name: '',
         recipient_phone: '',
@@ -16,37 +16,32 @@ const AddNewAddress = () => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setAdd(prevState => ({
-            ...prevState,
+        setForm((prevForm) => ({
+            ...prevForm,
             [name]: type === 'checkbox' ? checked : value
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem('token');
-        axios({
-            method: "POST",
-            url: `${import.meta.env.VITE_URL_BLANJA}/address`,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            data: add
-        })
-        .then((res) => {
-            console.log(res.data, 'Add Address Successfully!!');
-            alert('Add Address Successfully!!');
-        })
-        .catch((err) => {
-            console.log(err);
-            alert('Add Address Failed!!');
-        });
+        try {
+            const token = localStorage.getItem('token');
+            await axios.put(`${import.meta.env.VITE_URL_BLANJA}/address/${address}`, form, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log("Update data success!!");
+            alert("Update Address Successfully!!")
+        } catch (error) {
+            console.log('Error updating address:', error);
+        }
     };
 
     return (
         <div className='h-128'>
             <div className='text-center'>
-                <h1 className='font-semibold text-2xl'>Add New Address</h1>
+                <h1 className='font-semibold text-2xl'>Edit Address</h1>
             </div>
             <div>
                 <div className='text-nowrap text-gray-400'>
@@ -55,8 +50,8 @@ const AddNewAddress = () => {
                         className="h-10"
                         label="Save address as (ex : home address, office address)"
                         placeholder="Home"
-                        value={add.save_address}
                         name="save_address"
+                        value={form.save_address}
                         onChange={handleChange}
                     />
                 </div>
@@ -67,7 +62,7 @@ const AddNewAddress = () => {
                             className="h-10 w-64"
                             label="Recipient’s name"
                             name="recipient_name"
-                            value={add.recipient_name}
+                            value={form.recipient_name}
                             onChange={handleChange}
                         />
                     </div>
@@ -77,7 +72,7 @@ const AddNewAddress = () => {
                             className="h-10 w-72"
                             label="Recipient's telephone number"
                             name="recipient_phone"
-                            value={add.recipient_phone}
+                            value={form.recipient_phone}
                             onChange={handleChange}
                         />
                     </div>
@@ -89,7 +84,7 @@ const AddNewAddress = () => {
                             className="h-10 w-64"
                             label="Address"
                             name="recipient_address"
-                            value={add.recipient_address}
+                            value={form.recipient_address}
                             onChange={handleChange}
                         />
                     </div>
@@ -99,7 +94,7 @@ const AddNewAddress = () => {
                             className="h-10 w-72"
                             label="Postal code"
                             name="postal_code"
-                            value={add.postal_code}
+                            value={form.postal_code}
                             onChange={handleChange}
                         />
                     </div>
@@ -110,7 +105,7 @@ const AddNewAddress = () => {
                         className="h-10 w-64"
                         label="City or Subdistrict"
                         name="city"
-                        value={add.city}
+                        value={form.city}
                         onChange={handleChange}
                     />
                 </div>
@@ -120,8 +115,9 @@ const AddNewAddress = () => {
                             type="checkbox"
                             className="form-checkbox"
                             name='primary'
-                            checked={add.primary}
-                            onChange={handleChange} />
+                            checked={form.primary}
+                            onChange={handleChange}
+                        />
                         <span className="ml-2">Make it the primary address</span>
                     </label>
                 </div>
@@ -129,21 +125,11 @@ const AddNewAddress = () => {
                     <ButtonWhite
                         className="w-28"
                         name="Cancel"
-                        onClick={() => setAdd({
-                            save_address: '',
-                            recipient_name: '',
-                            recipient_phone: '',
-                            recipient_address: '',
-                            postal_code: '',
-                            city: '',
-                            primary: false,
-                        })}
                     />
                     <ButtonWhite
                         className="bg-red-maroon w-28 text-white"
                         name="Save"
-                        type="submit"
-                        onClick={handleSubmit}
+                        onClick={handleUpdate}
                     />
                 </div>
             </div>
@@ -151,4 +137,4 @@ const AddNewAddress = () => {
     );
 };
 
-export default AddNewAddress;
+export default ChangeAddress;

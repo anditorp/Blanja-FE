@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from '../../pages/login/login';
@@ -20,6 +21,7 @@ import Shoes from '@/pages/category/shoes';
 import Pants from '@/pages/category/pants';
 import Shorts from '@/pages/category/shorts';
 import CategoryPage from '@/pages/category/category';
+import SearchPage from '@/pages/search/search';
 
 const MainRouter = () => {
     return (
@@ -29,7 +31,7 @@ const MainRouter = () => {
                 <Route path="/auth/register" element={<Register />} />
                 <Route element={<PageLayout />}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/product" element={<Product />} />
+                    <Route path="/product/:id" element={<Product />} />
                 </Route>
                 <Route element={<MainPage />}>
                     <Route path="/home" element={
@@ -37,7 +39,7 @@ const MainRouter = () => {
                     <Home />
                     </PrivateRoute>
                     } />
-                    <Route path="/products" element={
+                    <Route path="/products/:id" element={
                     <PrivateRoute>
                     <Product />
                     </PrivateRoute>
@@ -85,6 +87,11 @@ const MainRouter = () => {
                     <Route path="/myorder" element={
                     <PrivateRoute>
                     <MyOrder />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/search" element={
+                    <PrivateRoute>
+                    <SearchPage />
                     </PrivateRoute>
                     } />
                     <Route path="/mybag" element={

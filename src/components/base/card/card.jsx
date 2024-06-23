@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const Card = ({ image, name, price, category, rating, classname }) => {
+const Card = ({ image, name, price, category, rating, classname, onClick }) => {
     const renderRatingStars = () => {
         const maxRating = 5;
         const filledStars = Math.round(rating);
@@ -30,7 +30,7 @@ const Card = ({ image, name, price, category, rating, classname }) => {
     }, [])
 
     return (
-        <div className={`bg-white w-56 h-72 shadow-md ${classname}`}>
+        <div onClick={onClick} className={`bg-white w-56 h-72 shadow-md cursor-pointer ${classname}`}>
             <img className="relative bottom-14 px-10" ref={imageRef} src={image} alt="image" />
             <div className='flex flex-col relative bottom-14'>
             <h2 className="text-md font-semibold relative bottom-14 pl-6 pr-3">{name}</h2>
