@@ -104,7 +104,7 @@ const MainRouter = () => {
                     <Checkout />
                     </PrivateRoute>
                     } />
-                    <Route path="/sellerprofile" element={
+                    <Route path="/seller-profile" element={
                     <PrivateRoute>
                     <SellerProfile />
                     </PrivateRoute>
