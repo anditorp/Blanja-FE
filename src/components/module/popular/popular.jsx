@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../../base/card/card';
 import axios from 'axios';
-import noImage from '../../../assets/card/No-image-available.png'
-
 
 const Popular = () => {
     const [ popular, setpopular ] = useState([]);
@@ -25,7 +23,7 @@ const Popular = () => {
                 {popular && popular.map((item) => (
                     <Card
                     key={item.products_id}
-                    image={item.image === "" ? noImage : item.image}
+                    image={item.image === "" ? "/src/assets/card/No-image-available.png" : item.image}
                     name={item.name}
                     price={item.price}
                     category={item.category}

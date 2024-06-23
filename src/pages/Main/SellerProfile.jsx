@@ -5,7 +5,6 @@ import StoreProfile from '../../components/module/StoreProfile'
 import MyProduct from '../../components/module/MyProduct'
 import MyOrder from '@/components/module/MyOrder'
 import SellingProduct from '../../components/module/SellingProduct'
-import { Outlet } from 'react-router-dom'
 
 
 const SellerProfile = () => {
@@ -15,7 +14,7 @@ const SellerProfile = () => {
 
             <div className='flex '>
 
-                <div className='py-36 pl-24 pr-8 bg-white'>
+                <div className='p-36 bg-white w-1/4'>
 
                     <SellerSidebar />
 
@@ -23,21 +22,19 @@ const SellerProfile = () => {
 
                 <div className='p-36 w-3/4 flex flex-col gap-8'>
 
-                    <Outlet />
-
-                    {/* <FormContainer title='My profile store' subtitle='Manage your profile information'>
+                    <FormContainer title='My profile store' subtitle='Manage your profile information'>
                         <StoreProfile />
-                    </FormContainer> */}
+                    </FormContainer>
 
-                    {/* <FormContainer title='My product' subtitle=''>
+                    <FormContainer title='My product' subtitle=''>
                         <MyProduct />
-                    </FormContainer> */}
+                    </FormContainer>
 
-                    {/* <SellingProduct /> */}
+                    <SellingProduct />
 
-                    {/* <FormContainer title='My order' subtitle=''>
+                    <FormContainer title='My order' subtitle=''>
                         <MyOrder />
-                    </FormContainer> */}
+                    </FormContainer>
 
                 </div>
 

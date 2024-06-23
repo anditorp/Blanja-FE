@@ -9,6 +9,7 @@ import api from '../../configs/api'
 import ChooseAddress from '@/components/module/ChooseAddress'
 
 
+
 const Checkout = () => {
   const [openModal, setOpenModal] = useState(null);
   const [order, setOrder] = useState([])
@@ -32,10 +33,11 @@ const Checkout = () => {
   }
 
   const getOrder = () => {
-    api.get(`/order/checkout`)
+    api.get(`/order/my-order`)
       .then((res) => {
+        console.log(res);
         alert("Get Order Successful")
-        const result = res.data.data.products
+        const result = res.data.data
         setOrder(result)
 
       })

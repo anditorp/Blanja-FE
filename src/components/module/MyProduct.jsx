@@ -1,41 +1,39 @@
 import React from 'react'
 import { MyProductTable } from '@/components/module/TableProduct'
-import FormContainer from '../base/FormContainer'
 
 
 const MyProduct = () => {
     return (
-        <FormContainer title='My product' subtitle=''>
-            <div className='flex flex-col w-full'>
-                {/* <div>
+        <div className='flex flex-col w-full'>
+            {/* <div>
                 <img src="" alt="" />
                 <p>Search</p>
             </div> */}
 
-                <div>
-                    <div className='flex gap-10'>
-                        <div className='flex flex-col gap-2'>
-                            <p className='font-medium text-base text-[#DB3022]'>All items</p>
-                            <div className='h-[4px] w-full bg-[#DB3022]'></div>
-                        </div>
-
-                        <div className='flex flex-col gap-2'>
-                            <p className='font-medium text-base text-[#9b9b9b]'>Sold Out</p>
-                            <div className='h-[4px] w-full bg-[#9b9b9b] invisible'></div>
-                        </div>
-
-                        <div className='flex flex-col gap-2'>
-                            <p className='font-medium text-base text-[#9b9b9b]'>Archived</p>
-                            <div className='h-[4px] w-full bg-[#9b9b9b] invisible'></div>
-                        </div>
+            <div>
+                <div className='flex gap-10'>
+                    <div className='flex flex-col gap-2'>
+                        <p className='font-medium text-base text-[#DB3022]'>All items</p>
+                        <div className='h-[4px] w-full bg-[#DB3022]'></div>
                     </div>
 
-                    <div className='bg-[#d4d4d4] h-[1px] w-full'></div>
+                    <div className='flex flex-col gap-2'>
+                        <p className='font-medium text-base text-[#9b9b9b]'>Sold Out</p>
+                        <div className='h-[4px] w-full bg-[#9b9b9b] invisible'></div>
+                    </div>
+
+                    <div className='flex flex-col gap-2'>
+                        <p className='font-medium text-base text-[#9b9b9b]'>Archived</p>
+                        <div className='h-[4px] w-full bg-[#9b9b9b] invisible'></div>
+                    </div>
                 </div>
 
-                <MyProductTable />
+                <div className='bg-[#d4d4d4] h-[1px] w-full'></div>
+            </div>
 
-                {/* <table class="table-auto border border-black">
+            <MyProductTable />
+
+            {/* <table class="table-auto border border-black">
                 <thead className='bg-[#f6f6f6] p-4 px-8'>
                     <tr>
                         <th>Song</th>
@@ -61,8 +59,7 @@ const MyProduct = () => {
                     </tr>
                 </tbody>
             </table> */}
-            </div>
-        </FormContainer>
+        </div>
     )
 }
 

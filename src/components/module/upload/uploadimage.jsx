@@ -38,7 +38,7 @@ const UploadImage = ({onImageChange}) => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      // console.log(response.data, "<<<<<<<<<<<<<response");
+      console.log(response.data, "<<<<<<<<<<<<<response");
       
       if (response.status === 200) {
         const data = response.data;
