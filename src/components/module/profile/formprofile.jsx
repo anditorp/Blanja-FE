@@ -96,7 +96,6 @@ const FormProfile = () => {
         const result = response.data.data;
         console.log(result, "<<<<<<<<<<<<<<<<<<<result");
         setUserData(result);
-
         setForm({
           name: result.name,
           email: result.email,

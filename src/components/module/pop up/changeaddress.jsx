@@ -32,7 +32,10 @@ const ChangeAddress = ({address}) => {
                 }
             });
             console.log("Update data success!!");
+<<<<<<< HEAD
             alert("Update Address Successfully!!")
+=======
+>>>>>>> 7db5db3 (create integration in profile customer, product detail)
         } catch (error) {
             console.log('Error updating address:', error);
         }
