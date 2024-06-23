@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
-import UserThumbnail from '../../assets/user-thumbnail.png'
-import Edit from '../../assets/edit.svg'
-import StoreIcon from '../../assets/store.svg'
-import ChevronUp from '../../assets/chevron-up-active.svg'
-import ChevronDown from '../../assets/chevron-down-inactive.svg'
+import React, { useEffect, useState } from 'react';
+import UserThumbnail from '../../assets/user-thumbnail.png';
+import Edit from '../../assets/edit.svg';
+import StoreIcon from '../../assets/store.svg';
+import ProductIcon from '../../assets/product.svg';
+import OrderIcon from '../../assets/order.svg';
+import ChevronUp from '../../assets/chevron-up-active.svg';
+import ChevronDown from '../../assets/chevron-down-inactive.svg';
+import api from '../../configs/api'
+import { NavLink, useNavigate } from 'react-router-dom';
+
 
 const SellerSidebar = () => {
   const [submenus, setSubmenus] = useState({});
@@ -13,157 +18,97 @@ const SellerSidebar = () => {
       [key]: !prevState[key],
     }));
   };
-  
-  // const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
-  // const toggleSubmenu = () => {
-  //   setIsSubmenuOpen(!isSubmenuOpen);
-  // };
+
+  const [profile, setProfile] = useState({})
+
+  const getProfile = () => {
+    api.get(`/store/profile`)
+      .then((res) => {
+        console.log(res);
+        alert("Get Profile Successful")
+        const result = res.data.data
+
+        setProfile(result)
+
+      })
+      .catch((err) => {
+        console.log(err.response);
+        alert(err.response.data.message);
+      })
+  }
+
+  useEffect(() => {
+    getProfile()
+  }, [])
+
   return (
     <div className='container flex flex-col gap-20'>
 
       <div className='flex gap-4 items-center'>
-        <img className='size-16 rounded-full object-cover' src={UserThumbnail} alt="" />
+        <img className='w-16 h-16 rounded-full object-cover' src={profile.image || UserThumbnail} alt="User" />
         <div className='flex flex-col gap-1'>
-          <p className='font-semibold text-base text-[#222222]'>Johanes Mikael</p>
-          <div className='flex gap-2'>
-            <img src={Edit} alt="" />
-            <p className='font-medium text-sm text-[#9b9b9b]'>Ubah profile</p>
+          <p className='font-semibold text-base text-[#222222]'>{profile.store_name || 'Johanes Mikael'}</p>
+          <div className='flex gap-2 items-center'>
+            <img src={Edit} alt="Edit" />
+            <p className='font-medium text-sm text-[#9b9b9b] cursor-pointer'>Ubah profile</p>
           </div>
         </div>
       </div>
 
       <nav className='flex flex-col gap-5'>
 
-        {['Store1', 'Store2', 'Store3'].map((key, index) => (
-          <div className='flex flex-col gap-2' key={index}>
-            <div className='flex gap-4 items-center' onClick={() => toggleSubmenu(key)}>
-              <img className='size-8' src={StoreIcon} alt="" />
-              <p className='font-medium text-sm text-[#222222] w-full'>{key}</p>
-              <img className='size-5' src={submenus[key] ? ChevronUp : ChevronDown} alt="" />
-            </div>
-            {submenus[key] && (
-              <div className={'flex flex-col gap-2'}>
-                <div className='flex gap-4 items-center'>
-                  <img className='size-8 invisible' src={StoreIcon} alt="" />
-                  <p className='font-normal text-sm text-[#222222] w-full'>My Profile</p>
-                  <img className='size-5 invisible' src={ChevronUp} alt="" />
-                </div>
-                <div className='flex gap-4 items-center'>
-                  <img className='size-8 invisible' src={StoreIcon} alt="" />
-                  <p className='font-normal text-sm text-[#222222] w-full'>His Profile</p>
-                  <img className='size-5 invisible' src={ChevronUp} alt="" />
-                </div>
-              </div>
-            )}
+        <div className='flex flex-col gap-2'>
+          <div className='flex gap-4 items-center cursor-pointer' onClick={() => toggleSubmenu('Store')}>
+            <img className='size-8' src={StoreIcon} alt="Store" />
+            <p className='font-medium text-sm text-[#222222] w-full'>Store</p>
+            <img className='w-5 h-5' src={submenus['Store'] ? ChevronUp : ChevronDown} alt="Chevron" />
           </div>
-        ))}
+          {submenus['Store'] && (
+            <div className='flex flex-col gap-2 ml-12'>
+              <NavLink to="/seller-profile/store-profile" className={({ isActive }) => isActive ? 'font-normal text-sm text-[#222222] w-full active' : 'font-normal text-sm text-[#222222] w-full'}>
+                Store profile
+              </NavLink>
+            </div>
+          )}
+        </div>
+
+        <div className='flex flex-col gap-2'>
+          <div className='flex gap-4 items-center cursor-pointer' onClick={() => toggleSubmenu('Product')}>
+            <img className='size-8' src={ProductIcon} alt="Product" />
+            <p className='font-medium text-sm text-[#222222] w-full'>Product</p>
+            <img className='w-5 h-5' src={submenus['Product'] ? ChevronUp : ChevronDown} alt="Chevron" />
+          </div>
+          {submenus['Product'] && (
+            <div className='flex flex-col gap-2 ml-12'>
+              <NavLink to="/seller-profile/my-products" className={({ isActive }) => isActive ? 'font-normal text-sm text-[#222222] w-full active' : 'font-normal text-sm text-[#222222] w-full'}>
+                My products
+              </NavLink>
+              <NavLink to="/seller-profile/selling-products" className={({ isActive }) => isActive ? 'font-normal text-sm text-[#222222] w-full active' : 'font-normal text-sm text-[#222222] w-full'}>
+                Selling products
+              </NavLink>
+            </div>
+          )}
+        </div>
+
+        <div className='flex flex-col gap-2'>
+          <div className='flex gap-4 items-center cursor-pointer' onClick={() => toggleSubmenu('Order')}>
+            <img className='size-8' src={OrderIcon} alt="Order" />
+            <p className='font-medium text-sm text-[#222222] w-full'>Order</p>
+            <img className='w-5 h-5' src={submenus['Order'] ? ChevronUp : ChevronDown} alt="Chevron" />
+          </div>
+          {submenus['Order'] && (
+            <div className='flex flex-col gap-2 ml-12'>
+              <NavLink to="/seller-profile/my-order" className={({ isActive }) => isActive ? 'font-normal text-sm text-[#222222] w-full active' : 'font-normal text-sm text-[#222222] w-full'}>
+                My order
+              </NavLink>
+            </div>
+          )}
+        </div>
 
       </nav>
 
     </div>
-    // <div className='container flex flex-col gap-20'>
+  );
+};
 
-    //   <div className='flex gap-4 items-center'>
-    //     <img className='size-16 rounded-full object-cover' src={UserThumbnail} alt="" />
-    //     <div className='flex flex-col gap-1'>
-    //       <p className='font-semibold text-base text-[#222222]'>Johanes Mikael</p>
-    //       <div className='flex gap-2'>
-    //         <img src={Edit} alt="" />
-    //         <p className='font-medium text-sm text-[#9b9b9b]'>Ubah profile</p>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <nav className='flex flex-col gap-5'>
-        
-    //     <div className='flex flex-col gap-2'>
-
-    //       <div className='flex gap-4 items-center' onClick={toggleSubmenu}>
-    //         <img className='size-8' src={StoreIcon} alt="" />
-    //         <p className='font-medium text-sm text-[#222222] w-full'>Store</p>
-    //         <img className='size-5' src={isSubmenuOpen ? ChevronUp : ChevronDown} alt="" />
-    //       </div>
-    //       {isSubmenuOpen && (
-    //         <div className={'flex flex-col gap-2'}>
-
-    //           <div className='flex gap-4 items-center'>
-    //             <img className='size-8 invisible' src={StoreIcon} alt="" />
-    //             <p className='font-normal text-sm text-[#222222] w-full'>My Profile</p>
-    //             <img className='size-5 invisible' src={ChevronUp} alt="" />
-    //           </div>
-
-    //           <div className='flex gap-4 items-center'>
-    //             <img className='size-8 invisible' src={StoreIcon} alt="" />
-    //             <p className='font-normal text-sm text-[#222222] w-full'>His Profile</p>
-    //             <img className='size-5 invisible' src={ChevronUp} alt="" />
-    //           </div>
-
-    //         </div>
-    //       )}
-
-
-    //     </div>
-
-    //     <div className='flex flex-col gap-2'>
-
-    //       <div className='flex gap-4 items-center' onClick={toggleSubmenu}>
-    //         <img className='size-8' src={StoreIcon} alt="" />
-    //         <p className='font-medium text-sm text-[#222222] w-full'>Store</p>
-    //         <img className='size-5' src={isSubmenuOpen ? ChevronUp : ChevronDown} alt="" />
-    //       </div>
-    //       {isSubmenuOpen && (
-    //         <div className={'flex flex-col gap-2'}>
-
-    //           <div className='flex gap-4 items-center'>
-    //             <img className='size-8 invisible' src={StoreIcon} alt="" />
-    //             <p className='font-normal text-sm text-[#222222] w-full'>My Profile</p>
-    //             <img className='size-5 invisible' src={ChevronUp} alt="" />
-    //           </div>
-
-    //           <div className='flex gap-4 items-center'>
-    //             <img className='size-8 invisible' src={StoreIcon} alt="" />
-    //             <p className='font-normal text-sm text-[#222222] w-full'>His Profile</p>
-    //             <img className='size-5 invisible' src={ChevronUp} alt="" />
-    //           </div>
-
-    //         </div>
-    //       )}
-
-
-    //     </div>
-
-    //     <div className='flex flex-col gap-2'>
-
-    //       <div className='flex gap-4 items-center' onClick={toggleSubmenu}>
-    //         <img className='size-8' src={StoreIcon} alt="" />
-    //         <p className='font-medium text-sm text-[#222222] w-full'>Store</p>
-    //         <img className='size-5' src={isSubmenuOpen ? ChevronUp : ChevronDown} alt="" />
-    //       </div>
-    //       {isSubmenuOpen && (
-    //         <div className={'flex flex-col gap-2'}>
-
-    //           <div className='flex gap-4 items-center'>
-    //             <img className='size-8 invisible' src={StoreIcon} alt="" />
-    //             <p className='font-normal text-sm text-[#222222] w-full'>My Profile</p>
-    //             <img className='size-5 invisible' src={ChevronUp} alt="" />
-    //           </div>
-
-    //           <div className='flex gap-4 items-center'>
-    //             <img className='size-8 invisible' src={StoreIcon} alt="" />
-    //             <p className='font-normal text-sm text-[#222222] w-full'>His Profile</p>
-    //             <img className='size-5 invisible' src={ChevronUp} alt="" />
-    //           </div>
-
-    //         </div>
-    //       )}
-
-
-    //     </div>
-
-    //   </nav>
-
-    // </div>
-  )
-}
-
-export default SellerSidebar
+export default SellerSidebar;
