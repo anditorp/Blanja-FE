@@ -22,6 +22,11 @@ import Pants from '@/pages/category/pants';
 import Shorts from '@/pages/category/shorts';
 import CategoryPage from '@/pages/category/category';
 import SearchPage from '@/pages/search/search';
+import StoreProfile from '@/components/module/StoreProfile';
+import MyProduct from '@/components/module/MyProduct';
+import SellingProduct from '@/components/module/SellingProduct';
+import MyOrderSeller from '@/components/module/MyOrder';
+
 
 const MainRouter = () => {
     return (
@@ -108,7 +113,13 @@ const MainRouter = () => {
                         <PrivateRoute>
                             <SellerProfile />
                         </PrivateRoute>
-                    } />
+                    }>
+                        <Route index element={<StoreProfile />} />
+                        <Route path="store-profile" element={<StoreProfile />} />
+                        <Route path="my-products" element={<MyProduct />} />
+                        <Route path="selling-products" element={<SellingProduct />} />
+                        <Route path="my-order" element={<MyOrderSeller />} />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>
