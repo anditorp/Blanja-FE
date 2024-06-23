@@ -90,13 +90,8 @@ const HeaderPrivate = () => {
         </div>
       </div>
       <div className='flex items-center pr-20 gap-8 py-2 z-30'>
-<<<<<<< HEAD
         <HomeIcon 
           className="cursor-pointer"
-=======
-        <HomeIcon
-          classname="cursor-pointer"
->>>>>>> 7db5db3 (create integration in profile customer, product detail)
           onClick={handleHome}
         />
         <Cart
