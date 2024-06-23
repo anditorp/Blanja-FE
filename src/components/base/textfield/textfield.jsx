@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-const textfield = ({ label, type, id, placeholder, spellCheck, className, props, onChange}) => {
+const Textfield = ({ label, type, id, placeholder, spellCheck, className, disabled, value, onChange, name }) => {
   return (
-    <form>
-    <div className="form-group grid items-center space-x-4">
+    <div className="form-group flex flex-col space-y-2">
       <label htmlFor={id} className="w-1/4">{label}</label>
       <input
         type={type} 
@@ -12,12 +11,13 @@ const textfield = ({ label, type, id, placeholder, spellCheck, className, props,
         required 
         placeholder={placeholder}
         className={`p-5 border border-gray-300 rounded focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-300 ${className}`}
-        {...props}
+        disabled={disabled}
+        value={value}
         onChange={onChange}
+        name={name}
       />
     </div>
-  </form>
-  )
-}
+  );
+};
 
-export default textfield
+export default Textfield;

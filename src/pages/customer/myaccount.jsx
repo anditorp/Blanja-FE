@@ -1,21 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Profilebar from '../../components/module/profile/profilebar';
-import profileimg from '../../../src/assets/profile/image profile.svg';
 import FormProfile from '../../components/module/profile/formprofile';
-import ProfilePic from '../../assets/profile/profilepic.svg';
+import axios from 'axios';
+import defaultimage from '../../assets/profile/default.jpg';
 
 const MyAccount = () => {
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios({
+      method: "GET",
+      url: `${import.meta.env.VITE_URL_BLANJA}/customer/profile`,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then((res) => {
+      const result = res.data.data;
+      setProfile(result);
+      console.log(result, '<<<<<<<<<<<<<<<<<<result');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
+  const profileImage = profile.image ? profile.image : defaultimage;
+
   return (
     <div className='flex flex-row bg-gray-200 h-208'>
       <Profilebar
-      name="Johanes Mikael"
-      image={profileimg}
+        name={profile.name}
+        image={profileImage}
       />
       <FormProfile
-      img={ProfilePic}
+        img={profileImage}
       />
     </div>
-  )
-}
+  );
+};
 
-export default MyAccount
+export default MyAccount;

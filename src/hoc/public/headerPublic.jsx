@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import LogoBlanja from '../../assets/logo/Group 1158.png'
 import SearchBar from '../../components/base/search/search';
@@ -7,7 +9,7 @@ import HeaderButton from '../../components/base/button/headerButton';
 import ButtonWhite from '../../components/base/button/buttonwhite';
 import { useNavigate } from 'react-router-dom';
 
-const headerPublic = (props) => {
+const headerPublic = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -18,18 +20,24 @@ const headerPublic = (props) => {
     navigate('/auth/register')
   }
 
+  const handleCart = () => {
+    alert('Please Login First!!')
+    navigate('/auth/login')
+  }
+
   return (
-    <header className='flex justify-between bg-white shadow-md py-7'>
+    <header className='flex justify-between bg-white shadow-md py-7 w-full z-50'>
         <div className='flex px-28 gap-10'>
             <img className='absolute top-4' src={LogoBlanja} alt="logoblanja" />
             <div className='flex absolute py-0 px-48 gap-5'>
             <SearchBar/>
-            <Category className=""/>
+            <Category/>
             </div>
         </div>
         <div>
         <Cart
             classname="relative cursor-pointer left-96 py-2"
+            onClick={handleCart}
         />
         </div>
         <div className='flex pr-24 gap-5'>
