@@ -5,6 +5,7 @@ import myaccount from '../../../assets/profile/My Account.svg';
 import shipping from '../../../assets/profile/shipping.svg';
 import myorder from '../../../assets/profile/My order.svg';
 import { useNavigate } from 'react-router-dom';
+import UploadImage from '../upload/uploadimage';
 
 const Profilebar = ({ name, image }) => {
     const navigate = useNavigate();
@@ -21,12 +22,16 @@ const Profilebar = ({ name, image }) => {
         navigate('/myorder');
     }
 
+    const handleUpload = () => {
+        navigate('/customer-profile');
+    }
+
     return (
-        <div className='flex flex-row bg-white shadow-md w-96 h-208 py-36 px-28 gap-5'>
-            <img src={image} alt={`${name}'s profile`} className='w-14 h-14 rounded-full' /> 
-            <div className='flex flex-col'>
+        <div className='flex flex-row bg-white shadow-md w-96 h-208 py-36 px-28 gap-5 z-0'>
+            <img src={image} alt={`${name}'s profile`} className='w-20 h-20 rounded-full object-cover' /> 
+            <div className='flex flex-col py-3'>
             <h1 className='text-lg font-semibold text-nowrap'>{name}</h1>
-            <img className='cursor-pointer z-10' src={pencil} alt="pencil" />
+            <img className='cursor-pointer absolute z-10 py-8' src={pencil} onClick={handleUpload} alt="pencil" />
             <div className='flex flex-col absolute py-20 px-3'>
                 <div className='flex flex-row py-5 relative right-20 top-5'>
                     <img className='w-10 h-10 relative top-2' src={myaccount} alt="myaccount" />

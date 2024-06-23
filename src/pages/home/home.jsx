@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import Carousel from '../../components/module/slider/carousel';
 import Category from '../../components/module/category/category';

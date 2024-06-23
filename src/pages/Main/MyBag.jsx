@@ -137,7 +137,7 @@ const MyBag = () => {
                             <p className='font-medium text-base text-[#9b9b9b]'>Total Price</p>
                             <p className='font-semibold text-lg text-[#222222]'>$ {totalPrice.toFixed(2)}</p>
                         </div>
-                        <Button text="Buy" onClick={handleCheckout} />
+                        <Button onClick={handleCheckout} />
                     </div>
 
                 </div>

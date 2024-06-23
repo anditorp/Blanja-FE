@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
 import Textfield from './base/textfield/textfield';
 import Button from './base/button/button';
@@ -11,7 +13,7 @@ const loginSeller = () => {
     const [form, setForm] = useState({
         email: '',
         password: '',
-        role: ''
+        role: 'store'
     })
 
     const handleChange = (e) => {
@@ -30,12 +32,11 @@ const loginSeller = () => {
     const handleLoginSeller = () => {
       dispatch(loginAction(form.email, form.password, form.role));
       navigate('/home')
-        // console.log('Register Seller with', form);
     }
 
   return (
     <div>
-        <div className='flex justify-center'>
+        <div className='flex justify-center px-105'>
           <Textfield 
               type="email"
               id="email"
@@ -47,7 +48,7 @@ const loginSeller = () => {
               onChange={handleChange}
           />
         </div>
-        <div className='flex justify-center pb-5'>
+        <div className='flex justify-center py-5 px-105'>
           <Textfield 
               type="password"
               id="password"
@@ -64,7 +65,7 @@ const loginSeller = () => {
         </div>
         <div className='flex justify-center py-5'>
           <Button
-            name="Primary"
+            name="Login"
             onClick={handleLoginSeller}
             className="flex justify-center"
           />

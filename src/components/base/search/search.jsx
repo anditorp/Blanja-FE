@@ -1,22 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './search.css';
-import Search from '../../../assets/icon/Search.png';
+import SearchIcon from '../../../assets/icon/Search.png';
 
-const SearchBar = ({ value, onChange, className, ...props }) => {
+const SearchBar = ({ className, ...props }) => {
+    const [query, setQuery] = useState('');
+    const navigate = useNavigate();
+
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        setQuery(value);
+
+        if (value.trim() === '') {
+            navigate('/search');
+        }
+    };
+
+    const handleSearch = () => {
+        if (query.trim() !== '') {
+            navigate(`/search?query=${query}`);
+        } else {
+            navigate('/search');
+        }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
     return (
         <div id='searchcontainer' className={`searchwrapper flex ${className}`}>
             <div className='searchinput'>
                 <input
                     type="search"
                     placeholder='Search...'
-                    value={value}
-                    onChange={onChange}
+                    value={query}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                     {...props}
                 />
             </div>
-            <div className='searchright'>
+            <div className='searchright' onClick={handleSearch}>
                 <div className='searchicon'>
-                    <img src={Search} alt="Search icon" />
+                    <img src={SearchIcon} alt="Search icon" />
                 </div>
             </div>
         </div>

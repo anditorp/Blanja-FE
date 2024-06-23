@@ -117,7 +117,7 @@ const columns = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">$ {row.getValue("price")}</div>,
+    cell: ({ row }) => <div className="lowercase">{row.getValue("price")}</div>,
   },
   {
     accessorKey: "stock",
@@ -193,21 +193,15 @@ export function MyProductTable() {
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
   const [products, setProducts] = React.useState([])
-  const [currentPage, setCurrentPage] = React.useState(1)
-  const [totalPages, setTotalPages] = React.useState(1)
+  // const id = ""
 
-
-  const getProduct = (page = 1, limit = 5) => {
-    api.get(`/products`, { params: { page, limit } })
+  const getProduct = () => {
+    api.get(`/products?limit=10`)
       .then((res) => {
         console.log(res);
         alert("Get Products Successful")
-        const result = res.data
-        console.log(result.data);
-        console.log(result.pagination.totalPage)
-        setProducts(result.data)
-        setTotalPages(result.pagination.totalPage)
-
+        const result = res.data.data
+        setProducts(result)
 
       })
       .catch((err) => {
@@ -217,8 +211,10 @@ export function MyProductTable() {
   }
 
   React.useEffect(() => {
-    getProduct(currentPage)
-  }, [currentPage])
+    getProduct()
+  }, [])
+
+  console.log(products);
 
   const table = useReactTable({
     data: products,
@@ -336,16 +332,16 @@ export function MyProductTable() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
           >
             Previous
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
           >
             Next
           </Button>
