@@ -50,7 +50,7 @@ const Popular = () => {
                 {products && products.map((item) => (
                     <div className='grid-item' key={item.products_id}>
                         <Card
-                            image={item.image === "" ? imageDefault : item.image}
+                            image={item.image || imageDefault}
                             name={item.name}
                             price={item.price}
                             category={item.category}
