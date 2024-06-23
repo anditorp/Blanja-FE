@@ -18,6 +18,7 @@ const SellingProduct = () => {
         stock: "",
         condition: "",
         description: "",
+        image: ""
     })
 
     const handleChange = (e) => {
@@ -35,6 +36,7 @@ const SellingProduct = () => {
             stock: "",
             condition: "",
             description: "",
+            image:""
         });
     };
 
@@ -48,6 +50,7 @@ const SellingProduct = () => {
             stock: form.stock,
             condition: form.condition,
             description: form.description,
+            image: form.image
         })
             .then((res) => {
                 console.log(res);
@@ -61,6 +64,19 @@ const SellingProduct = () => {
             })
     }
 
+    const handleUpload = (e) => {
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('file', file)
+        api.post(`/upload`, formData)
+            .then((res) => {
+                const { file_url } = res.data.data
+                setForm({ ...form, image: file_url })
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+    }
 
 
     return (
@@ -74,16 +90,25 @@ const SellingProduct = () => {
                         onChange={handleChange}
                         name="name"
                         label="Name of goods"
-                        placeholder=""
+                        placeholder="Name of goods"
                     />
-                    <Input
-                        type='text'
-                        value={form.category}
-                        onChange={handleChange}
-                        name="category"
-                        label="Category"
-                        placeholder=""
-                    />
+                    <div className='flex flex-col gap-2'>
+                        <label htmlFor="category" className="font-normal text-xs text-[#9EA0A5] text-left w-full">Category</label>
+                        <select
+                            value={form.category}
+                            onChange={handleChange}
+                            name="category"
+                            id="category"
+                            className='p-[15px] rounded-[4px] font-normal text-sm text-[#1F2A36] placeholder:text-[#858D96] outline-none border border-[#E2E5ED]'
+                        >
+                            <option value="">Select a category</option>
+                            <option value="t-shirt">T-shirt</option>
+                            <option value="shorts">Shorts</option>
+                            <option value="jacket">Jacket</option>
+                            <option value="pants">Pants</option>
+                            <option value="shoes">Shoes</option>
+                        </select>
+                    </div>
                 </div>
             </FormContainer>
 
@@ -96,7 +121,7 @@ const SellingProduct = () => {
                         onChange={handleChange}
                         name="price"
                         label="Unit price"
-                        placeholder=""
+                        placeholder="Unit price"
                     />
                     <Input
                         type='text'
@@ -104,19 +129,60 @@ const SellingProduct = () => {
                         onChange={handleChange}
                         name="stock"
                         label="Stock"
-                        placeholder=""
+                        placeholder="Stock"
                     />
 
-                    <div>
+                    <div >
                         {/* <Input /> */}
-                        <Input
+                        {/* <Input
                             type='text'
                             value={form.condition}
                             onChange={handleChange}
                             name="condition"
                             label="Condition"
-                            placeholder=""
-                        />
+                            placeholder="Condition"
+                        /> */}
+                        <div className='flex flex-col gap-2'>
+                            <label className="font-normal text-xs text-[#9EA0A5] text-left w-full">Condition</label>
+                            <div className='flex'>
+                                <label className="flex items-center cursor-pointer gap-2">
+                                    <input
+                                        type="radio"
+                                        value="new"
+                                        name="condition"
+                                        checked={form.condition === "new"}
+                                        onChange={handleChange}
+                                        className="hidden"
+                                    />
+                                    <div className={`w-4 h-4 border border-gray-300 rounded-full flex items-center justify-center
+            ${form.condition === 'new' ? 'bg-red-500 border-red-500' : 'bg-white'}
+        `}>
+                                        {form.condition === 'new' && (
+                                            <div className="w-2 h-2 rounded-full bg-white"></div>
+                                        )}
+                                    </div>
+                                    <span className="text-gray-900">New</span>
+                                </label>
+
+                                <label className="flex items-center cursor-pointer gap-2">
+                                    <input
+                                        type="radio"
+                                        value="second"
+                                        name="condition"
+                                        checked={form.condition === "second"}
+                                        onChange={handleChange}
+                                        className="hidden"
+                                    />
+                                    <div className={`w-4 h-4 border border-gray-300 rounded-full flex items-center justify-center ${form.condition === 'second' ? 'bg-red-500 border-red-500' : 'bg-white'}`}>
+                                        {form.condition === 'second' && (
+                                            <div className="w-2 h-2 rounded-full bg-white"></div>
+                                        )}
+                                    </div>
+                                    <span className="text-gray-900">Second</span>
+                                </label>
+
+                            </div>
+                        </div>
 
                         {/* <div className='flex'>
                             <input type="radio" name="" id="" /> <label>Baru</label>
@@ -132,18 +198,21 @@ const SellingProduct = () => {
 
                     <div className='flex gap-4 items-center w-full'>
                         <div className='flex flex-col gap-2 items-center'>
-                            <img className=' size-48 object-cover ' src={BigProductThumbnail} alt="" />
+                            <img className=' size-48 object-cover rounded-lg' src={form.image || BigProductThumbnail} alt="" />
                             <p className='font-medium text-sm text-[#9b9b9b]'>Foto utama</p>
                         </div>
+                        {/* <img className=' size-32 object-cover ' src={SmallProductThumbnail} alt="" />
                         <img className=' size-32 object-cover ' src={SmallProductThumbnail} alt="" />
                         <img className=' size-32 object-cover ' src={SmallProductThumbnail} alt="" />
-                        <img className=' size-32 object-cover ' src={SmallProductThumbnail} alt="" />
-                        <img className=' size-32 object-cover ' src={SmallProductThumbnail} alt="" />
+                        <img className=' size-32 object-cover ' src={SmallProductThumbnail} alt="" /> */}
                     </div>
 
                     <div className='bg-[#d4d4d4] h-[1px] w-full'></div>
-
-                    <Button variant='secondary-gray' className={"w-56"} text="Upload photo" />
+                    <label htmlFor='fileInput' className='w-56 p-[15px] bg-white border border-[#9b9b9b] rounded-full font-bold text-base leading-5 text-[#9b9b9b]'>
+                        Upload photo
+                    </label>
+                    <input type="file" className='hidden' id='fileInput' onClick={handleUpload} />
+                    {/* <Button variant='secondary-gray' className={"w-56"} text="Upload photo" onClick={handleUpload} /> */}
 
                 </div>
             </FormContainer>
@@ -156,8 +225,8 @@ const SellingProduct = () => {
                         value={form.description}
                         onChange={handleChange}
                         name="description"
-                        label=""
-                        placeholder=""
+                        label="Description"
+                        placeholder="Description"
                     />
                     {/* <ReactQuill /> */}
                     {/* <ReactQuill style={{ height: "316px" }} /> */}

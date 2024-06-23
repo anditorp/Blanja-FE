@@ -20,6 +20,10 @@ import Shoes from '@/pages/category/shoes';
 import Pants from '@/pages/category/pants';
 import Shorts from '@/pages/category/shorts';
 import CategoryPage from '@/pages/category/category';
+import StoreProfile from '@/components/module/StoreProfile';
+import MyProduct from '@/components/module/MyProduct';
+import SellingProduct from '@/components/module/SellingProduct';
+import MyOrderSeller from '@/components/module/MyOrder';
 
 const MainRouter = () => {
     return (
@@ -33,75 +37,81 @@ const MainRouter = () => {
                 </Route>
                 <Route element={<MainPage />}>
                     <Route path="/home" element={
-                    <PrivateRoute>
-                    <Home />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <Home />
+                        </PrivateRoute>
                     } />
                     <Route path="/products" element={
-                    <PrivateRoute>
-                    <Product />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <Product />
+                        </PrivateRoute>
                     } />
                     <Route path="/category" element={
-                    <PrivateRoute>
-                    <CategoryPage />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <CategoryPage />
+                        </PrivateRoute>
                     } />
                     <Route path="/category/tshirt" element={
-                    <PrivateRoute>
-                    <Tshirt />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <Tshirt />
+                        </PrivateRoute>
                     } />
                     <Route path="/category/jacket" element={
-                    <PrivateRoute>
-                    <Jacket />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <Jacket />
+                        </PrivateRoute>
                     } />
                     <Route path="/category/shoes" element={
-                    <PrivateRoute>
-                    <Shoes />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <Shoes />
+                        </PrivateRoute>
                     } />
                     <Route path="/category/pants" element={
-                    <PrivateRoute>
-                    <Pants />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <Pants />
+                        </PrivateRoute>
                     } />
                     <Route path="/category/shorts" element={
-                    <PrivateRoute>
-                    <Shorts />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <Shorts />
+                        </PrivateRoute>
                     } />
                     <Route path="/customer-profile" element={
-                    <PrivateRoute>
-                    <MyAccount />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <MyAccount />
+                        </PrivateRoute>
                     } />
                     <Route path="/shipping-address" element={
-                    <PrivateRoute>
-                    <ShippingPage />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <ShippingPage />
+                        </PrivateRoute>
                     } />
                     <Route path="/myorder" element={
-                    <PrivateRoute>
-                    <MyOrder />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <MyOrder />
+                        </PrivateRoute>
                     } />
                     <Route path="/mybag" element={
-                    <PrivateRoute>
-                    <MyBag />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <MyBag />
+                        </PrivateRoute>
                     } />
                     <Route path="/checkout" element={
-                    <PrivateRoute>
-                    <Checkout />
-                    </PrivateRoute>
+                        <PrivateRoute>
+                            <Checkout />
+                        </PrivateRoute>
                     } />
-                    <Route path="/sellerprofile" element={
-                    <PrivateRoute>
-                    <SellerProfile />
-                    </PrivateRoute>
-                    } />
+                    <Route path="/seller-profile" element={
+                        <PrivateRoute>
+                            <SellerProfile />
+                        </PrivateRoute>
+                    }>
+                        <Route index element={<StoreProfile />} />
+                        <Route path="store-profile" element={<StoreProfile />} />
+                        <Route path="my-products" element={<MyProduct />} />
+                        <Route path="selling-products" element={<SellingProduct />} />
+                        <Route path="my-order" element={<MyOrderSeller />} />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -33,38 +33,38 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-const data = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
-  },
-]
+// const data = [
+//   {
+//     id: "m5gr84i9",
+//     amount: 316,
+//     status: "success",
+//     email: "ken99@yahoo.com",
+//   },
+//   {
+//     id: "3u1reuv4",
+//     amount: 242,
+//     status: "success",
+//     email: "Abe45@gmail.com",
+//   },
+//   {
+//     id: "derv1ws0",
+//     amount: 837,
+//     status: "processing",
+//     email: "Monserrat44@gmail.com",
+//   },
+//   {
+//     id: "5kma53ae",
+//     amount: 874,
+//     status: "success",
+//     email: "Silas22@gmail.com",
+//   },
+//   {
+//     id: "bhqecj4p",
+//     amount: 721,
+//     status: "failed",
+//     email: "carmella@hotmail.com",
+//   },
+// ]
 
 const columns = [
   // {
@@ -90,7 +90,45 @@ const columns = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: "name",
+    accessorKey: "history_id",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          History ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const historyId = row.getValue("history_id");
+      const shortenedHistoryId = `${historyId.slice(0, 3)}*****${historyId.slice(-3)}`;
+      return <div className="lowercase">{shortenedHistoryId}</div>;
+    },
+  },
+  {
+    accessorKey: "order_date",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Order Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const orderDate = new Date(row.getValue("order_date"));
+      const formattedDate = orderDate.toLocaleDateString();
+      return <div>{formattedDate}</div>;
+    },
+  },
+  {
+    accessorKey: "product_name",
     header: ({ column }) => {
       return (
         <Button
@@ -102,37 +140,42 @@ const columns = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div className="lowercase">{row.getValue("product_name")}</div>,
   },
   {
-    accessorKey: "price",
+    accessorKey: "product_price",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Price
+          Total Price
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("price")}</div>,
+    cell: ({ row }) => {
+      const productPrice = row.getValue("product_price");
+      const quantity = row.getValue("quantity");
+      const totalPrice = productPrice * quantity;
+      return <div className="lowercase">$ {totalPrice}</div>;
+    },
   },
   {
-    accessorKey: "stock",
+    accessorKey: "quantity",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Stock
+          Quantity
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("stock")}</div>,
+    cell: ({ row }) => <div className="lowercase">{row.getValue("quantity")}</div>,
   },
   // {
   //   accessorKey: "price",
@@ -193,15 +236,21 @@ export function MyOrderTable() {
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
   const [orders, setOrders] = React.useState([])
-  // const id = ""
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const [totalPages, setTotalPages] = React.useState(1)
+
 
   const getOrder = () => {
-    api.get(`/store/products`)
+    api.get(`/order/store-order-history`)
       .then((res) => {
         console.log(res);
         alert("Get Orders Successful")
-        const result = res.data.data
-        setOrders(result)
+        const result = res.data
+        // console.log(result.data);
+        // console.log(result.pagination.totalPage)
+        setOrders(result.data)
+        // setTotalPages(result.pagination.totalPage)
+
 
       })
       .catch((err) => {
@@ -211,8 +260,8 @@ export function MyOrderTable() {
   }
 
   React.useEffect(() => {
-    getOrder()
-  }, [])
+    getOrder(currentPage)
+  }, [currentPage])
 
   console.log(orders);
 
@@ -240,9 +289,9 @@ export function MyOrderTable() {
       <div className="flex items-center py-4">
         <Input
           placeholder="Search"
-          value={(table.getColumn("name")?.getFilterValue() ?? "")}
+          value={(table.getColumn("product_name")?.getFilterValue() ?? "")}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("product_name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -324,28 +373,28 @@ export function MyOrderTable() {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+        {/* <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="space-x-2">
+        </div> */}
+        {/* <div className="space-x-2">
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
           >
             Previous
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
           >
             Next
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   )
