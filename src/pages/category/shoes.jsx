@@ -3,6 +3,8 @@ import './category.css';
 import Card from '../../components/base/card/card';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import imageDefault from '../../assets/card/No-image-available.png';
+
 
 const Shoes = () => {
     const navigate = useNavigate();
@@ -39,7 +41,7 @@ const Shoes = () => {
                         {shoes && shoes.map((item) => (
                             <Card
                                 key={item.products_id}
-                                image={item.image === "" ? "/src/assets/card/No-image-available.png" : item.image}
+                                image={item.image || imageDefault}
                                 name={item.name}
                                 price={item.price}
                                 category={item.category}
