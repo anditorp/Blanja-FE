@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import Profilebar from '../../components/module/profile/profilebar';
-import profileimg from '../../../src/assets/profile/image profile.svg';
 import FormMyOrder from '@/components/module/profile/formmyorder';
 import axios from 'axios';
 import defaultimage from '../../assets/profile/default.jpg';
