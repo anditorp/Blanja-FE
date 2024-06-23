@@ -3,7 +3,6 @@ import Card from '../../base/card/card';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './popular.css';
-import imageDefault from '../../../assets/card/No-image-available.png';
 
 const Popular = () => {
     const [products, setProducts] = useState([]);
@@ -41,6 +40,8 @@ const Popular = () => {
     const seeMore = () => {
         navigate('/search');
     }
+
+    const imageDefault = '../../../assets/card/No-image-available.png';
 
     return (
         <div>

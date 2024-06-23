@@ -3,8 +3,6 @@ import './category.css';
 import Card from '../../components/base/card/card';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import imageDefault from '../../assets/card/No-image-available.png';
-
 
 const Pants = () => {
     const navigate = useNavigate();
@@ -23,6 +21,8 @@ const Pants = () => {
                 setLoading(false);
             })
     })
+
+    const imageDefault = '../../assets/card/No-image-available.png';
 
     return (
         <div className='category-container'>
