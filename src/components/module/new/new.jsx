@@ -6,7 +6,7 @@ import axios from 'axios';
 import imageDefault from '../../../assets/card/No-image-available.png';
 
 const New = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({});
   const [pagination, setPagination] = useState({
     limit: 5,
     page: 1,
@@ -46,7 +46,7 @@ const New = () => {
         {products && products.map((item) => (
           <div className='grid-item' key={item.products_id}>
             <Card
-              image={item.image === "" ? imageDefault : item.image}
+              image={item.image || imageDefault }
               name={item.name}
               price={item.price}
               category={item.category}
