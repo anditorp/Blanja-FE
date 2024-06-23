@@ -9,22 +9,21 @@ import Recommend from '../../components/module/recommend/recommend';
 import Button from '../../components/base/button/button';
 import ButtonWhite from '../../components/base/button/buttonwhite';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import defaultimage from '../../assets/card/No-image-available.png'
+import { useNavigate, useParams } from 'react-router-dom';
+import defaultimage from '../../assets/card/No-image-available.png';
 
 const Product = () => {
-    const {id} = useParams();
+    const { id } = useParams();
+    const navigate = useNavigate();
     const images = [
         tshirt1
     ];
-    // const totalStars = 5;
     const [mainImage, setMainImage] = useState(images[0]);
-    const [selectedColor, setSelectedColor] = useState('black');
-    const [size, setSize] = useState('0');
-    const [quantity, setQuantity] = useState('0');
+    const [selectedColor, setSelectedColor] = useState('');
+    const [size, setSize] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [products, setProducts] = useState({});
 
-    // console.log(setSelectedColor, "<<<<<<<<<<<<<<<<<<<setSelectedColor")
     const colors = [
         { name: 'Black', value: 'black' },
         { name: 'Red', value: 'red' },
@@ -43,19 +42,74 @@ const Product = () => {
     }
 
     useEffect(() => {
-       axios({
-        method: "GET",
-        url: `${import.meta.env.VITE_URL_BLANJA}/products/${id}`,
-      })
-      .then((res) => {
-        const result = res.data.data;
-        setProducts(result);
-        console.log(result, '<<<<<<<<<<<<<<<<<<result');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        axios({
+            method: "GET",
+            url: `${import.meta.env.VITE_URL_BLANJA}/products/${id}`,
+        })
+        .then((res) => {
+            const result = res.data.data;
+            setProducts(result);
+            setSize(result.size || 0);
+            setQuantity(result.stock || 0);
+            console.log(result, '<<<<<<<<<<<<<<<<<<result');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }, [id])
+
+    const handleAddBag = () => {
+        const token = localStorage.getItem('token');
+        const orderDetails = {
+            products_id: products.products_id,
+            color: selectedColor,
+            quantity: quantity.toString(),
+            size: size.toString(),
+        };
+
+        console.log('Order Details:', orderDetails);
+
+        axios.post(`${import.meta.env.VITE_URL_BLANJA}/order/${id}`, orderDetails, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((response) => {
+            console.log(response.data);
+            alert('Add Bag Success!!');
+        })
+        .catch((error) => {
+            console.error('Failed to add to bag:', error.response ? error.response.data : error.message);
+            alert(`Failed to add to bag: ${error.response ? error.response.data.message : error.message}`);
+        });
+    };
+
+    const handleBuyNow = () => {
+        const token = localStorage.getItem('token');
+        const orderDetails = {
+            products_id: products.products_id,
+            color: selectedColor,
+            quantity: quantity.toString(),
+            size: size.toString(),
+        };
+
+        console.log('Order Details:', orderDetails);
+
+        axios.post(`${import.meta.env.VITE_URL_BLANJA}/order/${id}`, orderDetails, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((response) => {
+            navigate('/mybag')
+            console.log(response.data);
+            alert('Buying Success!!');
+        })
+        .catch((error) => {
+            console.error('Failed to add to bag:', error.response ? error.response.data : error.message);
+            alert(`Failed to add to bag: ${error.response ? error.response.data.message : error.message}`);
+        });
+    };
 
     return (
         <div className='product-container'>
@@ -109,7 +163,7 @@ const Product = () => {
                                     <label className='right-4 z-0'>Size</label>
                                     <div className='control py-3'>
                                         <button onClick={() => handleSizeChange(-1)}>-</button>
-                                        <span>{products.size}</span>
+                                        <span>{size}</span>
                                         <button onClick={() => handleSizeChange(+1)}>+</button>
                                     </div>
                                 </div>
@@ -117,7 +171,7 @@ const Product = () => {
                                     <label className='right-4 z-0'>Quantity</label>
                                     <div className='control py-3'>
                                         <button onClick={() => handleQuantityChange(-1)}>-</button>
-                                        <span>{products.stock}</span>
+                                        <span>{quantity}</span>
                                         <button onClick={() => handleQuantityChange(+1)}>+</button>
                                     </div>
                                 </div>
@@ -130,9 +184,11 @@ const Product = () => {
                                 <ButtonWhite 
                                     className="bg-white w-36 text-gray-700 hover:text-white"
                                     name="Add bag"
+                                    onClick={handleAddBag}
                                 />
                                 <Button 
                                     name="Buy Now" 
+                                    onClick={handleBuyNow}
                                 />
                             </div>
                         </div>

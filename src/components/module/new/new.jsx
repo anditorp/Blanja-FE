@@ -5,37 +5,53 @@ import axios from 'axios';
 
 const New = () => {
   const [products, setProducts] = useState([]);
+  const [pagination, setPagination] = useState({
+    limit: 5,
+    page: 1,
+    totalData: 0,
+  });
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchData = (page) => {
     axios({
       method: "GET",
-      url: (`${import.meta.env.VITE_URL_BLANJA}/products/`)
+      url: `${import.meta.env.VITE_URL_BLANJA}/products`,
+      params: {
+        page: page,
+        limit: pagination.limit,
+      },
     })
       .then((res) => {
         const result = res.data.data;
+        const { limit, page, totalData } = res.data.pagination;
         setProducts(result);
+        setPagination({ limit, page, totalData });
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  useEffect(() => {
+    fetchData(1);
   }, []);
 
   return (
     <div>
       <h1 className='text-4xl font-semibold'>New</h1>
       <p className='text-md text-gray-400 py-2'>You’ve never seen it before!</p>
-      <div className='flex flex-row justify-center gap-6 py-5'>
+      <div className='grid-container'>
         {products && products.map((item) => (
-          <Card
-            key={item.products_id}
-            image={item.image === "" ? "/src/assets/card/No-image-available.png" : item.image}
-            name={item.name}
-            price={item.price}
-            category={item.category}
-            rating={4.5}
-            onClick={() => navigate(`/products/${item.products_id}`)}
-          />
+          <div className='grid-item' key={item.products_id}>
+            <Card
+              image={item.image === "" ? "/src/assets/card/No-image-available.png" : item.image}
+              name={item.name}
+              price={item.price}
+              category={item.category}
+              rating={4.5}
+              onClick={() => navigate(`/products/${item.products_id}`)}
+            />
+          </div>
         ))}
       </div>
     </div>

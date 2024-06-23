@@ -7,25 +7,25 @@ import LoginSeller from '../../components/loginSeller';
 const Login = () => {
     const [toggle, setToggle] = useState(1);
     const handleToggle = (id) => {
-        setToggle(id)
+        setToggle(id);
     }
     
-  return (
-    <div>
-        <div className='flex justify-center py-10'>
-            <img src={logoBlanja} alt="logoblanja" />
+    return (
+        <div className='flex flex-col items-center w-full'>
+            <div className='py-10'>
+                <img src={logoBlanja} alt="logoblanja" />
+            </div>
+            <div className='font-metropolis font-semibold text-lg text-center'>
+                <p>Please login with your account</p>
+            </div>
+            <div className='my-4'>
+                <RadioRole handleToggle={handleToggle} />
+            </div>
+            <div className='w-full flex justify-center'>
+                {toggle === 1 ? <LoginCustomer /> : <LoginSeller />}
+            </div>
         </div>
-        <div className='flex justify-center font-metropolis font-semibold text-lg'>
-            <p>Please login with your account</p>
-        </div>
-        <div className='flex justify-center'>
-          <RadioRole handleToggle={handleToggle}/>
-        </div>
-        {toggle === 1 ? <LoginCustomer/> : <LoginSeller/>}
-        <div>
-        </div>
-    </div>
-  )
+    );
 }
 
-export default Login
+export default Login;

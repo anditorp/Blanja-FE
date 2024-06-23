@@ -21,6 +21,7 @@ import Shoes from '@/pages/category/shoes';
 import Pants from '@/pages/category/pants';
 import Shorts from '@/pages/category/shorts';
 import CategoryPage from '@/pages/category/category';
+import SearchPage from '@/pages/search/search';
 
 const MainRouter = () => {
     return (
@@ -86,6 +87,11 @@ const MainRouter = () => {
                     <Route path="/myorder" element={
                     <PrivateRoute>
                     <MyOrder />
+                    </PrivateRoute>
+                    } />
+                    <Route path="/search" element={
+                    <PrivateRoute>
+                    <SearchPage />
                     </PrivateRoute>
                     } />
                     <Route path="/mybag" element={

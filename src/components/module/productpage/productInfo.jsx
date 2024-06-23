@@ -7,7 +7,7 @@ const ProductInfo = ({products}) => {
          <h1 className='text-2xl font-semibold'>Informasi Produk</h1>
          <div className='py-10'>
             <p className='text-xl font-semibold'>Condition</p>
-            <p className='text-xl font-semibold text-red-maroon'>{products.condition || 'New'}</p>
+            <p className='text-xl font-semibold text-red-maroon'>{products.condition}</p>
          </div>
          <div>
          <h1 className='text-2xl font-semibold'>Description</h1>

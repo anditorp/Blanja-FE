@@ -14,21 +14,26 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import HomeIcon from '@/components/base/home/home';
 
-const headerPrivate = () => {
+const HeaderPrivate = () => {
   const [profile, setProfile] = useState({});
+  const [role, setRole] = useState(null);
   const navigate = useNavigate();
 
-  const handleCustomerProfile = () => {
-    navigate('/customer-profile')
-  }
+  const handleCheckRole = () => {
+    if (role === 'customer') {
+      navigate('/customer-profile');
+    } else if (role === 'store') {
+      navigate('/sellerprofile');
+    }
+  };
 
   const handleCart = () => {
     navigate('/mybag');
-  }
+  };
 
   const handleHome = () => {
     navigate('/home');
-  }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -38,21 +43,39 @@ const headerPrivate = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios({
-      method: "GET",
-      url: `${import.meta.env.VITE_URL_BLANJA}/customer/profile`,
+    if (!token) return;
+
+    axios.get(`${import.meta.env.VITE_URL_BLANJA}/auth/check-roles`, {
       headers: {
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      const userRole = res.data.data.role;
+      setRole(userRole);
+
+      if (userRole === 'customer') {
+        return axios.get(`${import.meta.env.VITE_URL_BLANJA}/customer/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } else if (userRole === 'store') {
+        return axios.get(`${import.meta.env.VITE_URL_BLANJA}/store/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       }
     })
-      .then((res) => {
-        const result = res.data.data;
-        setProfile(result);
-        console.log(result, '<<<<<<<<<<<<<<<<<<result');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((res) => {
+      if (res) {
+        setProfile(res.data.data);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }, []);
 
   const profileImage = profile.image ? profile.image : defaultpic;
@@ -67,32 +90,32 @@ const headerPrivate = () => {
         </div>
       </div>
       <div className='flex items-center pr-20 gap-8 py-2 z-30'>
-        <HomeIcon
-          classname="cursor-pointer"
+        <HomeIcon 
+          className="cursor-pointer"
           onClick={handleHome}
         />
         <Cart
-          classname="cursor-pointer"
+          className="cursor-pointer"
           onClick={handleCart}
         />
         <Notification
           onclick="/"
-          classname="cursor-pointer"
+          className="cursor-pointer"
         />
         <Mail
           onclick="/"
-          classname="cursor-pointer"
+          className="cursor-pointer"
         />
         <Profile
           image={profileImage}
-          onClick={handleCustomerProfile}
+          onClick={handleCheckRole}
         />
         <div className='bg-orange-600 px-3 py-1 rounded-lg text-white font-semibold hover:bg-orange-500 cursor-pointer' onClick={handleLogout}>
           <p>Log out</p>
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default headerPrivate
+export default HeaderPrivate;

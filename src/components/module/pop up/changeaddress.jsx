@@ -32,6 +32,7 @@ const ChangeAddress = ({address}) => {
                 }
             });
             console.log("Update data success!!");
+            alert("Update Address Successfully!!")
         } catch (error) {
             console.log('Error updating address:', error);
         }

@@ -11,7 +11,8 @@ const LoginCustomer = () => {
     const { user } = useSelector((state) => state.auth);
     const [form, setForm] = useState({
         email: '',
-        password: ''
+        password: '',
+        role: 'customer'
     });
     const [error, setError] = useState('');
 
@@ -45,7 +46,7 @@ const LoginCustomer = () => {
 
   return (
     <div>
-        <div className='flex justify-center'>
+        <div className='flex justify-center px-105'>
           <Textfield 
               type="email"
               id="email"
@@ -57,7 +58,7 @@ const LoginCustomer = () => {
               onChange={handleChange}
           />
         </div>
-        <div className='flex justify-center pb-5'>
+        <div className='flex justify-center py-5 px-105'>
           <Textfield 
               type="password"
               id="password"
@@ -79,7 +80,7 @@ const LoginCustomer = () => {
         </div>
         <div className='flex justify-center py-5'>
           <Button
-            name="Primary"
+            name="Login"
             onClick={handleLoginCustomer}
             className="flex justify-center"
           />

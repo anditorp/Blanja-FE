@@ -123,14 +123,14 @@ const FormProfile = () => {
   }, []);
 
   return (
-    <div className='flex flex-col bg-white w-208 h-144 relative left-20 top-32 py-5 rounded-md border border-gray-500 z-0'>
+    <div className='flex flex-col bg-white w-208 h-160 relative left-20 top-32 py-5 rounded-md border border-gray-500 z-0'>
       <div className='px-5'>
         <h1 className='font-semibold text-2xl'>My Profile</h1>
         <p className='py-3 text-gray-400'>Manage your profile information</p>
       </div>
       <hr className='w-192 relative left-5 border border-t-1 border-gray-300' />
       <div className='flex justify-between'>
-        <div className='relative bottom-5 px-5'>
+        <div className='relative bottom-10'>
           <div>
             <label className='relative top-14 text-gray-400'>Name</label>
             <Textfield
@@ -139,10 +139,10 @@ const FormProfile = () => {
               spellCheck={false}
               value={form.name}
               onChange={handleChangeProfile}
-              className="w-96 h-10 relative bottom-2 left-32"
+              className="w-96 h-10 relative top-5 left-20"
             />
           </div>
-          <div className='relative bottom-7'>
+          <div>
             <label className='relative top-14 text-gray-400'>Email</label>
             <Textfield
               type="email"
@@ -150,10 +150,11 @@ const FormProfile = () => {
               spellCheck={false}
               value={form.email}
               onChange={handleChangeProfile}
-              className="w-96 h-10 relative bottom-2 left-32"
+              className="w-96 h-10 relative top-5 left-20"
+              disabled
             />
           </div>
-          <div className='relative bottom-14'>
+          <div>
             <label className='relative top-14 text-gray-400'>Phone Number</label>
             <Textfield
               type="number"
@@ -161,12 +162,12 @@ const FormProfile = () => {
               spellCheck={false}
               value={form.phone}
               onChange={handleChangeProfile}
-              className="w-96 h-10 relative bottom-2 left-32"
+              className="w-96 h-10 relative top-5 left-20"
             />
           </div>
-          <form className='relative bottom-14'>
+          <form className='relative top-10'>
             <label className='relative top-2 text-gray-400'>Gender</label>
-            <div className='flex relative bottom-3 pr-110 pl-36 gap-5'>
+            <div className='flex relative bottom-3 px-56 gap-5'>
               <label className='container'><p className='relative bottom-5 left-5'>Male</p>
                 <input
                   type="radio"
@@ -190,21 +191,21 @@ const FormProfile = () => {
                 <span className='checkmark'></span>
               </label>
             </div>
-            <div className="flex items-center relative bottom-10 right-28 pr-28 z-10">
+            <div className="flex items-center relative bottom-10 right-20 pr-28 z-10">
               <label className="mr-4 text-gray-400 z-0">Date of birth</label>
-              <select value={day} onChange={handleDate} className="relative right-28 mr-2 border border-gray-300 z-10">
+              <select value={day} onChange={handleDate} className="relative mr-2 border border-gray-300 z-10">
                 <option value="">Day</option>
                 {[...Array(31).keys()].map(i => (
                   <option key={i + 1} value={i + 1}>{i + 1}</option>
                 ))}
               </select>
-              <select value={month} onChange={handleMonth} className="relative right-28 mr-2 border border-gray-300 z-20">
+              <select value={month} onChange={handleMonth} className="relative mr-2 border border-gray-300 z-20">
                 <option value="">Month</option>
                 {[...Array(12).keys()].map(i => (
                   <option key={i + 1} value={i + 1}>{i + 1}</option>
                 ))}
               </select>
-              <select value={year} onChange={handleYear} className='relative right-28 border border-gray-300'>
+              <select value={year} onChange={handleYear} className='relative border border-gray-300'>
                 <option value="">Year</option>
                 {Array.from({ length: 100 }, (v, k) => k + 1950).map(year => (
                   <option key={year} value={year}>{year}</option>
