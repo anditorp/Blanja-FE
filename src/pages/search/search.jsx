@@ -1,10 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Card from '../../components/base/card/card';
 import axios from 'axios';
 import './search.css';
-// import SortButton from '@/components/base/sort/sort';
-// import imageDefault from '../../../public/No-image-available.png';
 
 const SearchQuery = () => {
   return new URLSearchParams(useLocation().search);
