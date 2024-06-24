@@ -4,7 +4,7 @@ import Card from '../../components/base/card/card';
 import axios from 'axios';
 import './search.css';
 // import SortButton from '@/components/base/sort/sort';
-import imageDefault from '../../assets/card/No-image-available.png';
+// import imageDefault from '../../../public/No-image-available.png';
 
 const SearchQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -73,7 +73,7 @@ const SearchPage = () => {
     setSortBy('desc');
   }
 
-  const imageDefault = '../../../public/No-image-available.png';
+  const imageDefault = '/notfound.png';
 
   return (
     <div>

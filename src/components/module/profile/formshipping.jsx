@@ -5,11 +5,7 @@ import AddNewAddress from '../pop up/addnewaddress';
 import axios from 'axios';
 import ChangeAddress from '../pop up/changeaddress';
 
-<<<<<<< HEAD
 const FormShipping = () => {
-=======
-const FormShipping = ({ name, address, onChange, className, ...props }) => {
->>>>>>> 7db5db3 (create integration in profile customer, product detail)
   const [openModal, setOpenModal] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [idAddress, setIdAddress] = useState(null);
@@ -99,13 +95,9 @@ const FormShipping = ({ name, address, onChange, className, ...props }) => {
           </div>
         ))
       ) : (
-<<<<<<< HEAD
         <div className='text-center py-5 text-2xl'>
           <p>No Address Available</p>
         </div>
-=======
-        <p>No Address Available</p>
->>>>>>> 7db5db3 (create integration in profile customer, product detail)
       )}
 
       <Modal open={openModal === 'AddNewAddress'} onClose={handleCloseModal}>
