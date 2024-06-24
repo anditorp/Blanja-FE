@@ -22,7 +22,7 @@ const Shorts = () => {
             })
     })
 
-    const imageDefault = '../../assets/card/No-image-available.png';
+    const imageDefault = '../../../public/No-image-available.png';
 
     return (
         <div className='category-container'>
