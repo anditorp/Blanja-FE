@@ -73,7 +73,7 @@ const SearchPage = () => {
     setSortBy('desc');
   }
 
-  const imageDefault = '../../assets/card/No-image-available.png';
+  const imageDefault = '../../../public/No-image-available.png';
 
   return (
     <div>
