@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
 import React from 'react';
 
-const Textfield = ({ label, type, id, placeholder, spellCheck, className, props, value, onChange, name}) => {
+const Textfield = ({ label, type, id, placeholder, spellCheck, className, disabled, value, onChange, name }) => {
   return (
     <div className="form-group flex flex-col space-y-2">
       <label htmlFor={id} className="w-1/4">{label}</label>
