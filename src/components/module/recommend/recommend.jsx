@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../../base/card/card';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import defaultImage from '../../../assets/card/No-image-available.png';
+// import defaultImage from '../../../../public/No-image-available.png';
 
 const Recommend = () => {
     const navigate = useNavigate();
@@ -22,6 +22,8 @@ const Recommend = () => {
       });
   }, []);
 
+  const imageDefault = '/notfound.png';
+
     return (
         <div>
             <h1 className='text-4xl font-semibold'>You can also like this</h1>
@@ -30,7 +32,7 @@ const Recommend = () => {
                 {products && products.map((item) => (
                     <Card
                         key={item.products_id}
-                        image={item.image === "" ? defaultImage : item.image}
+                        image={item.image === "" ? imageDefault : item.image}
                         name={item.name}
                         price={item.price}
                         category={item.category}

@@ -10,7 +10,7 @@ import Button from '../../components/base/button/button';
 import ButtonWhite from '../../components/base/button/buttonwhite';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import defaultimage from '../../assets/card/No-image-available.png';
+// import defaultimage from '../../../public/No-image-available.png';
 
 const Product = () => {
     const { id } = useParams();
@@ -111,6 +111,8 @@ const Product = () => {
         });
     };
 
+    const imageDefault = '/notfound.png';
+
     return (
         <div className='product-container'>
             <nav className='parameter'>
@@ -123,7 +125,7 @@ const Product = () => {
                     {images.map((image, index) => (
                         <img
                             key={index}
-                            src={products.image || defaultimage }
+                            src={products.image || imageDefault }
                             alt={`thumbnail ${index + 1}`}
                             className='thumbnail'
                             onClick={() => setMainImage(image)}

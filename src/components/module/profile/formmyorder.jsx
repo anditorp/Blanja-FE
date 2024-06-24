@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import defaultimage from '../../../assets/card/No-image-available.png';
+// import defaultimage from '../../../../public/No-image-available.png';
 
 const FormMyOrder = () => {
   const [active, setActive] = useState('All items');
@@ -38,6 +38,8 @@ const FormMyOrder = () => {
     return text.slice(0, maxLength) + '...';
   };
 
+  const imageDefault = '/notfound.png';
+
   const contentItem = {
     'All items': (
       <div>
@@ -54,7 +56,7 @@ const FormMyOrder = () => {
                 <p>Condition: {item.product_condition || 'new'}</p>
               </div>
               <div>
-                <img src={item.product_image || defaultimage} alt={item.product_name} className="w-28 h-28 object-cover" />
+                <img src={item.product_image || imageDefault} alt={item.product_name} className="w-28 h-28 object-cover" />
               </div>
             </div>
           ))

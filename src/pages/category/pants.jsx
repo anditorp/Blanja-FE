@@ -22,7 +22,7 @@ const Pants = () => {
             })
     })
 
-    const imageDefault = '../../../public/No-image-available.png';
+    const imageDefault = '/notfound.png';
 
     return (
         <div className='category-container'>

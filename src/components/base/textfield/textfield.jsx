@@ -1,10 +1,7 @@
+/* eslint-disable no-undef */
 import React from 'react';
 
-<<<<<<< HEAD
-const Textfield = ({ label, type, id, placeholder, spellCheck, className, disabled, value, onChange, name }) => {
-=======
-const textfield = ({ label, type, id, placeholder, spellCheck, className, props, value, onChange, name}) => {
->>>>>>> 7db5db3 (create integration in profile customer, product detail)
+const Textfield = ({ label, type, id, placeholder, spellCheck, className, props, value, onChange, name}) => {
   return (
     <div className="form-group flex flex-col space-y-2">
       <label htmlFor={id} className="w-1/4">{label}</label>
@@ -18,10 +15,6 @@ const textfield = ({ label, type, id, placeholder, spellCheck, className, props,
         disabled={disabled}
         value={value}
         onChange={onChange}
-<<<<<<< HEAD
-=======
-        value={value}
->>>>>>> 7db5db3 (create integration in profile customer, product detail)
         name={name}
       />
     </div>
