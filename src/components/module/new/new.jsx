@@ -37,7 +37,7 @@ const New = () => {
     fetchData(1);
   }, []);
 
-  const imageDefault = '../../../assets/card/No-image-available.png';
+  const imageDefault = '../../../../public/No-image-available.png';
 
   return (
     <div>
