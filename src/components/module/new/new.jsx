@@ -37,7 +37,7 @@ const New = () => {
     fetchData(1);
   }, []);
 
-  const imageDefault = '../../../../public/No-image-available.png';
+  const imageDefault = '/notfound.png';
 
   return (
     <div>
