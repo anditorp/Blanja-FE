@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from 'react';
 
 const Textfield = ({ label, type, id, placeholder, spellCheck, className, disabled, value, onChange, name }) => {
