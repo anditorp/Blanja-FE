@@ -15,6 +15,7 @@
 - [Instalation](#instalation)
 - [Create Environment Variable](#create-environment-variable)
 - [Screenshots](#screenshots)
+- [Release Demo](#demo)
 - [Related Project](#related-project-backend)
 - [Developed](#Developed-by-the-FWM19-Team)
 
@@ -107,6 +108,10 @@ setup server:
 <div align="center">
     <img width="250" src="./public/screenshots/Cart.png">   
 </div>
+
+
+## Release Demo
+- [`Demo`](https://blanja-fe-xi.vercel.app/)
 
 
 ## Related Project (Backend)
