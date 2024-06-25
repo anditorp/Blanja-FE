@@ -6,6 +6,7 @@ import './formprofile.css';
 import Button from '@/components/base/button/button';
 import UploadImage from '../upload/uploadimage';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 const FormProfile = () => {
   const [userData, setUserData] = useState({
@@ -74,13 +75,13 @@ const FormProfile = () => {
       });
       console.log('Response:', response);
       if (response.status === 200) {
-        alert('Submit Success!!');
+        toast.success('Update Success!!');
         const updatedUserData = response.data.data;
         setUserData(updatedUserData);
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Submit Failed!!');
+      toast.error('Submit Failed!!');
     }
   };
 
@@ -219,7 +220,8 @@ const FormProfile = () => {
               />
             </div>
           </form>
-        </div>
+          <ToastContainer position='bottom-right' />
+          </div>
         <hr />
         <div className='flex flex-col absolute right-20 py-10 gap-5'>
           <UploadImage />

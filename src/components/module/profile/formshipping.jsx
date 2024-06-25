@@ -1,22 +1,26 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import Modal from '@/components/base/Modal';
 import AddNewAddress from '../pop up/addnewaddress';
 import axios from 'axios';
 import ChangeAddress from '../pop up/changeaddress';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormShipping = () => {
   const [openModal, setOpenModal] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [idAddress, setIdAddress] = useState(null);
 
+
   const handleOpenModal = (modalType, idAddress) => {
     setOpenModal(modalType);
-    setIdAddress(idAddress)
+    setIdAddress(idAddress);
   }
 
   const handleCloseModal = () => {
-    setOpenModal(null)
+    setOpenModal(null);
   }
 
   const handleDeleteAddress = (id) => {
@@ -28,14 +32,14 @@ const FormShipping = () => {
         'Authorization': `Bearer ${token}`
       }
     })
-    .then(() => {
-      setAddresses((prevAddresses) => prevAddresses.filter(address => address.address_id !== id));
-      alert('Delete Address Successful!');
-    })
-    .catch((err) => {
-      console.log(err);
-      alert('Failed to delete address.');
-    });
+      .then(() => {
+        setAddresses((prevAddresses) => prevAddresses.filter(address => address.address_id !== id));
+        toast.success('Delete Address Successful!');
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error('Failed to delete address');
+      });
   }
 
   useEffect(() => {
@@ -47,14 +51,14 @@ const FormShipping = () => {
         'Authorization': `Bearer ${token}`
       }
     })
-    .then((res) => {
-      const result = res.data.data;
-      setAddresses(result);
-      console.log(result, '<<<<<<<<<<<<<<<<<<result');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        const result = res.data.data;
+        setAddresses(result);
+        console.log(result, '<<<<<<<<<<<<<<<<<<result');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -81,7 +85,7 @@ const FormShipping = () => {
             <div className='flex gap-5'>
               <button
                 className='text-red-maroon font-semibold text-lg'
-                onClick={() => handleOpenModal('ChangeAddress',address.address_id)}
+                onClick={() => handleOpenModal('ChangeAddress', address.address_id)}
               >
                 Change address
               </button>
@@ -99,7 +103,6 @@ const FormShipping = () => {
           <p>No Address Available</p>
         </div>
       )}
-
       <Modal open={openModal === 'AddNewAddress'} onClose={handleCloseModal}>
         <AddNewAddress />
       </Modal>
@@ -107,6 +110,7 @@ const FormShipping = () => {
       <Modal open={openModal === 'ChangeAddress'} onClose={handleCloseModal}>
         <ChangeAddress address={idAddress} />
       </Modal>
+      <ToastContainer position='bottom-right' />
     </div>
   )
 }

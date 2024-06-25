@@ -5,7 +5,6 @@ import myaccount from '../../../assets/profile/My Account.svg';
 import shipping from '../../../assets/profile/shipping.svg';
 import myorder from '../../../assets/profile/My order.svg';
 import { useNavigate } from 'react-router-dom';
-import UploadImage from '../upload/uploadimage';
 
 const Profilebar = ({ name, image }) => {
     const navigate = useNavigate();
