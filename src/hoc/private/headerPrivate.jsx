@@ -13,6 +13,7 @@ import defaultpic from '../../assets/profile/default.jpg'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import HomeIcon from '@/components/base/home/home';
+import { ToastContainer, toast } from 'react-toastify';
 
 const HeaderPrivate = () => {
   const [profile, setProfile] = useState({});
@@ -38,6 +39,7 @@ const HeaderPrivate = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
+    toast.success('Good Bye!!')
     navigate('/');
   };
 
@@ -50,32 +52,32 @@ const HeaderPrivate = () => {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((res) => {
-      const userRole = res.data.data.role;
-      setRole(userRole);
+      .then((res) => {
+        const userRole = res.data.data.role;
+        setRole(userRole);
 
-      if (userRole === 'customer') {
-        return axios.get(`${import.meta.env.VITE_URL_BLANJA}/customer/profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-      } else if (userRole === 'store') {
-        return axios.get(`${import.meta.env.VITE_URL_BLANJA}/store/profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-      }
-    })
-    .then((res) => {
-      if (res) {
-        setProfile(res.data.data);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+        if (userRole === 'customer') {
+          return axios.get(`${import.meta.env.VITE_URL_BLANJA}/customer/profile`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        } else if (userRole === 'store') {
+          return axios.get(`${import.meta.env.VITE_URL_BLANJA}/store/profile`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        }
+      })
+      .then((res) => {
+        if (res) {
+          setProfile(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   const profileImage = profile.image ? profile.image : defaultpic;
@@ -90,7 +92,7 @@ const HeaderPrivate = () => {
         </div>
       </div>
       <div className='flex items-center pr-20 gap-8 py-2 z-30'>
-        <HomeIcon 
+        <HomeIcon
           className="cursor-pointer"
           onClick={handleHome}
         />
@@ -113,6 +115,7 @@ const HeaderPrivate = () => {
         <div className='bg-orange-600 px-3 py-1 rounded-lg text-white font-semibold hover:bg-orange-500 cursor-pointer' onClick={handleLogout}>
           <p>Log out</p>
         </div>
+        <ToastContainer position='bottom-right' />
       </div>
     </header>
   );

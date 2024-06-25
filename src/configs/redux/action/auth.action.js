@@ -1,21 +1,23 @@
 import axios from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export const loginRequest = () => ({
-  type: LOGIN_REQUEST
+  type: LOGIN_REQUEST,
 });
 
 export const loginSuccess = (user) => ({
   type: LOGIN_SUCCESS,
-  payload: user
+  payload: user,
 });
 
 export const loginFailure = (error) => ({
   type: LOGIN_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const loginAction = (email, password, role) => {
@@ -33,14 +35,14 @@ export const loginAction = (email, password, role) => {
         localStorage.setItem('token', token);
         localStorage.setItem('refreshToken', refreshToken);
         dispatch(loginSuccess(response.data));
-        alert('Login success!');
+        // alert('Welcome!!')
       } else {
         dispatch(loginFailure('Login failed. Please try again.'));
-        alert('Your Email & Password is false. Please try again.');
+        toast.error('Your Email & Password is incorrect. Please try again.');
       }
     } catch (error) {
       dispatch(loginFailure(error.message));
-      alert('Your Email & Password is false. Please try again.');
+      toast.error('Your Email & Password is incorrect. Please try again.');
     }
   };
 };

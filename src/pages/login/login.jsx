@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import logoBlanja from '../../assets/logo/Group 1158.png';
 import RadioRole from '../../components/base/radio/radioRole';
