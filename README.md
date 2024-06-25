@@ -16,7 +16,7 @@
 - [Create Environment Variable](#create-environment-variable)
 - [Screenshots](#screenshots)
 - [Related Project](#related-project-backend)
-- [Contributors](#contributors)
+- [Developed](#Developed-by-the-FWM19-Team)
 
 
 
@@ -58,7 +58,6 @@ Welcome to Blanja, your premier destination for all things e-commerce. Blanja of
 
 
 
-
 ## Instalation
 
 #### Clone this repository
@@ -89,6 +88,25 @@ setup server:
 
 `VITE_URL_BLANJA`
 
+
+## Screenshots
+
+<div align="center">
+    <img width="250" src="./public/screenshots/Login.png">   
+    <img width="250" src="./public/screenshots/Homepage.png">   
+</div>
+<div align="center">
+    <img width="250" src="./public/screenshots/CustomerProfile.png">   
+    <img width="250" src="./public/screenshots/ShippingAddress.png">   
+</div>
+<div align="center">
+    <img width="250" src="./public/screenshots/CustomerOrder.png">    
+    <img width="250" src="./public/screenshots/Transaction.png">    
+    <img width="250" src="./public/screenshots/Cart.png">   
+</div>
+<div align="center">
+    <img width="250" src="./public/screenshots/Cart.png">   
+</div>
 
 
 ## Related Project (Backend)
