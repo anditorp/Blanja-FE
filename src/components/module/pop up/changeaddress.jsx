@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Textfield from '@/components/base/textfield/textfield';
 import ButtonWhite from '@/components/base/button/buttonwhite';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ChangeAddress = ({address}) => {
     const [form, setForm] = useState({
@@ -32,8 +34,9 @@ const ChangeAddress = ({address}) => {
                 }
             });
             console.log("Update data success!!");
-            alert("Update Address Successfully!!")
+            toast.success("Update Address Successfully!!")
         } catch (error) {
+            toast.error('Update Address Failed!!')
             console.log('Error updating address:', error);
         }
     };
@@ -121,7 +124,7 @@ const ChangeAddress = ({address}) => {
                         <span className="ml-2">Make it the primary address</span>
                     </label>
                 </div>
-                <div className='flex flex-row gap-10 text-center justify-end relative bottom-5'>
+                <div className='flex flex-row gap-10 text-center justify-end relative bottom-14'>
                     <ButtonWhite
                         className="w-28"
                         name="Cancel"
@@ -132,7 +135,8 @@ const ChangeAddress = ({address}) => {
                         onClick={handleUpdate}
                     />
                 </div>
-            </div>
+                <ToastContainer position='bottom-right' />
+                </div>
         </div>
     );
 };

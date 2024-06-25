@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import DefaultImage from '../../../assets/profile/default.jpg';
 import ButtonWhite from '@/components/base/button/buttonwhite';
+import { toast } from 'react-toastify';
 
 const UploadImage = ({ onImageChange }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -29,9 +30,11 @@ const UploadImage = ({ onImageChange }) => {
         }
       );
       if (onImageChange) onImageChange(response.data.filePath);
-      alert('Update Profile Picture Success!!')
+      toast.success('Update Profile Picture Success!!')
+      // alert('Update Profile Picture Success!!')
     } catch (error) {
-      console.error('Error uploading image:', error);
+      toast.error('Error uploading image!!')
+      // console.error('Error uploading image:', error);
     }
   };
 

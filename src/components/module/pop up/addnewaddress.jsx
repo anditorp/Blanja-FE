@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Textfield from '@/components/base/textfield/textfield';
 import ButtonWhite from '@/components/base/button/buttonwhite';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const AddNewAddress = () => {
     const [add, setAdd] = useState({
@@ -34,12 +36,14 @@ const AddNewAddress = () => {
             data: add
         })
         .then((res) => {
-            console.log(res.data, 'Add Address Successfully!!');
-            alert('Add Address Successfully!!');
+            // console.log(res.data, 'Add Address Successfully!!');
+            toast.success('Add Address Successfully!!')
+            // alert('Add Address Successfully!!');
         })
         .catch((err) => {
-            console.log(err);
-            alert('Add Address Failed!!');
+            // console.log(err);
+            toast.error('Add Address Failed!!')
+            // alert('Add Address Failed!!');
         });
     };
 
@@ -125,7 +129,7 @@ const AddNewAddress = () => {
                         <span className="ml-2">Make it the primary address</span>
                     </label>
                 </div>
-                <div className='flex flex-row gap-10 text-center justify-end relative bottom-5'>
+                <div className='flex flex-row gap-10 text-center justify-end relative bottom-14'>
                     <ButtonWhite
                         className="w-28"
                         name="Cancel"
