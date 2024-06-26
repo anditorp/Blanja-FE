@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../../components/base/Button'
 import CartCard from '../../components/base/CartCard'
 import api from '../../configs/api'
+import { toast } from 'react-toastify';
+
 
 
 const MyBag = () => {
@@ -13,14 +15,16 @@ const MyBag = () => {
         api.get(`/order/my-order`)
             .then((res) => {
                 console.log(res);
-                alert("Get Order Successful")
+                // alert("Get Order Successful")
+                toast.success("Get Order Successful")
                 const result = res.data.data
                 setOrder(result)
 
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response.data.message);
+                toast.error(err.response.data.message)
+                // alert(err.response.data.message);
             })
     }
 
@@ -35,12 +39,14 @@ const MyBag = () => {
         Promise.all(updatePromises)
             .then((results) => {
                 console.log(results);
-                alert("Update Orders Successful");
+                toast.success("Update Orders Successful")
+                // alert("Update Orders Successful");
                 navigate('/checkout');
             })
             .catch((err) => {
                 console.log(err.response);
-                alert("Update Orders Failed");
+                toast.error("Update Orders Failed")
+                // alert("Update Orders Failed");
             });
     };
 
@@ -48,12 +54,14 @@ const MyBag = () => {
         api.delete(`/order/${id}`)
             .then((res) => {
                 console.log(res);
-                alert("Delete Order Successful")
+                toast.success("Delete Order Successful")
+                // alert("Delete Order Successful")
                 getOrder()
             })
             .catch((err) => {
                 console.log(err.response);
-                alert("Delete Order Failed")
+                toast.error("Delete Order Failed")
+                // alert("Delete Order Failed")
             })
     }
 

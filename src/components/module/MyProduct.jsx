@@ -12,7 +12,7 @@ const MyProduct = () => {
                 <p>Search</p>
             </div> */}
 
-                <div>
+                {/* <div>
                     <div className='flex gap-10'>
                         <div className='flex flex-col gap-2'>
                             <p className='font-medium text-base text-[#DB3022]'>All items</p>
@@ -31,7 +31,7 @@ const MyProduct = () => {
                     </div>
 
                     <div className='bg-[#d4d4d4] h-[1px] w-full'></div>
-                </div>
+                </div> */}
 
                 <MyProductTable />
 

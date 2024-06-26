@@ -4,6 +4,8 @@ import Button from '../../components/base/Button'
 import UserThumbnail from '../../assets/user-thumbnail.png'
 import api from '../../configs/api'
 import FormContainer from '../base/FormContainer'
+import { toast } from 'react-toastify';
+
 
 
 const StoreProfile = () => {
@@ -20,7 +22,8 @@ const StoreProfile = () => {
         api.get(`/store/profile`)
             .then((res) => {
                 console.log(res);
-                alert("Get Profile Successful")
+                toast.success("Get Profile Successful")
+                // alert("Get Profile Successful")
                 const result = res.data.data
 
                 setForm({
@@ -35,7 +38,8 @@ const StoreProfile = () => {
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response.data.message);
+                toast.error(err.response.data.message)
+                // alert(err.response.data.message);
             })
     }
 
@@ -57,12 +61,14 @@ const StoreProfile = () => {
         })
             .then((res) => {
                 console.log(res);
-                alert(`Update Profile Success`)
+                toast.success(`Update Profile Success`)
+                // alert(`Update Profile Success`)
 
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response.data.message)
+                toast.error(err.response.data.message)
+                // alert(err.response.data.message)
             })
     }
 

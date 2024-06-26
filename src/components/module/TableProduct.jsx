@@ -1,5 +1,7 @@
 import * as React from "react"
 import api from '../../configs/api'
+import { toast } from 'react-toastify';
+
 
 
 import {
@@ -201,10 +203,11 @@ export function MyProductTable() {
     api.get(`/products`, { params: { page, limit } })
       .then((res) => {
         console.log(res);
-        alert("Get Products Successful")
+        toast.success("Get Products Successful")
+        // alert("Get Products Successful")
         const result = res.data
-        console.log(result.data);
-        console.log(result.pagination.totalPage)
+        // console.log(result.data);
+        // console.log(result.pagination.totalPage)
         setProducts(result.data)
         setTotalPages(result.pagination.totalPage)
 
@@ -212,7 +215,8 @@ export function MyProductTable() {
       })
       .catch((err) => {
         console.log(err.response);
-        alert(err.response.data.message);
+        toast.error(err.response.data.message)
+        // alert(err.response.data.message);
       })
   }
 

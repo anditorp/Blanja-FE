@@ -115,7 +115,7 @@ const HeaderPrivate = () => {
         <div className='bg-orange-600 px-3 py-1 rounded-lg text-white font-semibold hover:bg-orange-500 cursor-pointer' onClick={handleLogout}>
           <p>Log out</p>
         </div>
-        <ToastContainer position='bottom-right' />
+        {/* <ToastContainer position='bottom-right' /> */}
       </div>
     </header>
   );

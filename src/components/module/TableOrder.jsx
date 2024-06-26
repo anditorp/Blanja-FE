@@ -1,5 +1,7 @@
 import * as React from "react"
 import api from '../../configs/api'
+import { toast } from 'react-toastify';
+
 
 
 import {
@@ -244,18 +246,25 @@ export function MyOrderTable() {
     api.get(`/order/store-order-history`)
       .then((res) => {
         console.log(res);
-        alert("Get Orders Successful")
+      
+        // alert("Get Orders Successful")
+        toast.success("Get Orders Successful")
         const result = res.data
         // console.log(result.data);
         // console.log(result.pagination.totalPage)
-        setOrders(result.data)
+
+        const sortedOrders = result.data.sort((a, b) => new Date(b.order_date) - new Date(a.order_date));
+        setOrders(sortedOrders);
+
+        // setOrders(result.data)
         // setTotalPages(result.pagination.totalPage)
 
 
       })
       .catch((err) => {
         console.log(err.response);
-        alert(err.response.data.message);
+        toast.error(err.response.data.message)
+        // alert(err.response.data.message);
       })
   }
 
