@@ -42,10 +42,15 @@ Welcome to Blanja, your premier destination for all things e-commerce. Blanja of
 ## Features
 
 ✨ Users/Customers must log in if want to view & search the product
+
 ✨ Seller can add their products to sell to customers
+
 ✨ Users/Customers can add the products to their cart for later transaction
+
 ✨ Users/Customers can update their profile picture & profile bio
+
 ✨ Users/Customers can create their address, update address & delete address
+
 ✨ And etc
 
 
@@ -93,19 +98,25 @@ setup server:
 ## Screenshots
 
 <div align="center">
+    <p>Login Page</p>   
     <img width="250" src="./public/screenshots/Login.png">   
+    <p>Home Page</p>   
     <img width="250" src="./public/screenshots/Homepage.png">   
 </div>
 <div align="center">
-    <img width="250" src="./public/screenshots/CustomerProfile.png">   
+    <p>Customer Profile</p>   
+    <img width="250" src="./public/screenshots/CustomerProfile.png">
+    <p>Shipping Address</p>   
     <img width="250" src="./public/screenshots/ShippingAddress.png">   
 </div>
 <div align="center">
-    <img width="250" src="./public/screenshots/CustomerOrder.png">    
-    <img width="250" src="./public/screenshots/Transaction.png">    
-    <img width="250" src="./public/screenshots/Cart.png">   
+    <p>Customer Order</p>   
+    <img width="250" src="./public/screenshots/CustomerOrder.png">
+    <p>Transaction</p>    
+    <img width="250" src="./public/screenshots/Transaction.png">   
 </div>
 <div align="center">
+    <p>Cart</p>    
     <img width="250" src="./public/screenshots/Cart.png">   
 </div>
 
