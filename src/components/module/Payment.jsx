@@ -6,6 +6,7 @@ import Mastercard from '../../assets/mastercard.svg'
 import Gopay from '../../assets/gopay.svg'
 import POSIndonesia from '../../assets/pos.svg'
 import api from '../../configs/api'
+import { toast } from 'react-toastify';
 
 
 const Payment = () => {
@@ -13,14 +14,18 @@ const Payment = () => {
   const [order, setOrder] = useState([])
   const [totalPrice, setTotalPrice] = useState(0);
   const [shoppingSummary, setShoppingSummary] = useState(0);
-  const [selectedPayment, setSelectedPayment] = useState("");
+  // const [selectedPayment, setSelectedPayment] = useState("");
+  const [form, setForm] = useState({
+    selectedPayment: "Gopay"
+  });
   const [paymentMethods, setPaymentMethods] = useState([]);
   const deliveryFee = 5.00;
 
   const getOrder = () => {
     api.get(`/order/checkout`)
       .then((res) => {
-        alert("Get Order Successful")
+        // alert("Get Order Successful")
+        toast.success("Get Order Successful")
         const result = res.data.data.products
         setOrder(result)
         setTotalPrice(res.data.data.total_price)
@@ -28,27 +33,32 @@ const Payment = () => {
       })
       .catch((err) => {
         console.log(err.response);
-        alert(err.response.data.message);
+        // alert(err.response.data.message);
+        toast.error(err.response.data.message)
       })
   }
 
   const handlePayment = (e) => {
     e.preventDefault()
     // console.log(form);
-    api.post('/order/move-orders-to-history')
+    api.post('/order/move-orders-to-history', form)
       .then((res) => {
         console.log(res);
-        alert(`Checkout Success`)
+        // alert(`Checkout Success`)
+        toast.success(`Checkout Success`)
         navigate('/myorder');
       })
       .catch((err) => {
         console.log(err.response);
-        alert(err.response.data.message)
+        // alert(err.response.data.message)
+        toast.error(err.response.data.message)
       })
   }
 
   const handlePaymentMethodChange = (e) => {
-    setSelectedPayment(e.target.value);
+    // setSelectedPayment(e.target.value);
+    setForm({ ...form, selectedPayment: e.target.value });
+    console.log(form);
   };
 
   const getPaymentMethods = () => {
@@ -57,12 +67,14 @@ const Payment = () => {
         if (res.data.success) {
           setPaymentMethods(res.data.data);
         } else {
-          alert("Failed to fetch payment methods");
+          toast.error("Failed to fetch payment methods")
+          // alert("Failed to fetch payment methods");
         }
       })
       .catch((err) => {
         console.log(err.response);
-        alert("Error fetching payment methods");
+        toast.error("Error fetching payment methods")
+        // alert("Error fetching payment methods");
       });
   };
 
@@ -70,6 +82,13 @@ const Payment = () => {
     getOrder()
     getPaymentMethods();
   }, [])
+
+  const paymentImages = {
+    gopay: Gopay,
+    posindonesia: POSIndonesia,
+    creditcard: Mastercard,
+    // Add other payment methods and their images here
+  };
 
   useEffect(() => {
     const calculateTotalPrice = () => {
@@ -90,91 +109,29 @@ const Payment = () => {
 
         <div className='flex flex-col gap-8'>
 
-          <div className='flex justify-between'>
-            <div className='flex gap-5 items-center'>
-              <img className='size-10 object-fil' src={Gopay} alt="" />
-              <p className='font-semibold text-base text-[#222222]'>Gopay</p>
-            </div>
-
-            <label className="w-fit flex items-center cursor-pointer gap-2">
-              <input
-                type="radio"
-                value="gopay"
-                name="paymentMethod"
-                checked={selectedPayment === "gopay"}
-                onChange={handlePaymentMethodChange}
-                className="hidden"
-              />
-              <div className={`w-4 h-4 border border-gray-300 rounded-full flex items-center justify-center ${selectedPayment === "gopay" ? 'bg-red-500 border-red-500' : 'bg-white'}`}>
-                {selectedPayment === "gopay" && (<div className="w-2 h-2 rounded-full bg-white"></div>)}
-              </div>
-            </label>
-
-          </div>
-
-          <div className='flex justify-between'>
-            <div className='flex gap-5 items-center'>
-              <img className='size-10 object-fill' src={POSIndonesia} alt="" />
-              <p className='font-semibold text-base text-[#222222]'>POS Indonesia</p>
-            </div>
-            <label className="w-fit flex items-center cursor-pointer gap-2">
-              <input
-                type="radio"
-                value="pos"
-                name="paymentMethod"
-                checked={selectedPayment === "pos"}
-                onChange={handlePaymentMethodChange}
-                className="hidden"
-              />
-              <div className={`w-4 h-4 border border-gray-300 rounded-full flex items-center justify-center ${selectedPayment === "pos" ? 'bg-red-500 border-red-500' : 'bg-white'}`}>
-                {selectedPayment === "pos" && (<div className="w-2 h-2 rounded-full bg-white"></div>)}
-              </div>
-            </label>
-          </div>
-
-          <div className='flex justify-between'>
-            <div className='flex gap-5 items-center'>
-              <img className='size-10 object-fill' src={Mastercard} alt="" />
-              <p className='font-semibold text-base text-[#222222]'>Mastercard</p>
-            </div>
-            <label className="w-fit flex items-center cursor-pointer gap-2">
-              <input
-                type="radio"
-                value="mastercard"
-                name="paymentMethod"
-                checked={selectedPayment === "mastercard"}
-                onChange={handlePaymentMethodChange}
-                className="hidden"
-              />
-              <div className={`w-4 h-4 border border-gray-300 rounded-full flex items-center justify-center ${selectedPayment === "mastercard" ? 'bg-red-500 border-red-500' : 'bg-white'}`}>
-                {selectedPayment === "mastercard" && (<div className="w-2 h-2 rounded-full bg-white"></div>)}
-              </div>
-            </label>
-          </div>
-
           {paymentMethods.map((method) => (
             <div className='flex justify-between' key={method.method_id}>
               <div className='flex gap-5 items-center'>
-                {/* Replace the images with the corresponding method_name */}
+                <img className='size-10 object-fil' src={paymentImages[method.method_name.toLowerCase().replace(/\s+/g, '')]} alt="" />
                 <p className='font-semibold text-base text-[#222222]'>{method.method_name}</p>
               </div>
               <label className="w-fit flex items-center cursor-pointer gap-2">
                 <input
                   type="radio"
-                  value={method.method_name.toLowerCase().replace(/\s+/g, '')}
+                  value={method.method_name}
                   name="paymentMethod"
-                  checked={selectedPayment === method.method_name.toLowerCase().replace(/\s+/g, '')}
+                  checked={form.selectedPayment === method.method_name}
                   onChange={handlePaymentMethodChange}
                   className="hidden"
                 />
-                <div className={`w-4 h-4 border border-gray-300 rounded-full flex items-center justify-center ${selectedPayment === method.method_name.toLowerCase().replace(/\s+/g, '') ? 'bg-red-500 border-red-500' : 'bg-white'}`}>
-                  {selectedPayment === method.method_name.toLowerCase().replace(/\s+/g, '') && (<div className="w-2 h-2 rounded-full bg-white"></div>)}
+                <div className={`w-4 h-4 border border-gray-300 rounded-full flex items-center justify-center ${form.selectedPayment === method.method_name ? 'bg-red-500 border-red-500' : 'bg-white'}`}>
+                  {form.selectedPayment === method.method_name && (<div className="w-2 h-2 rounded-full bg-white"></div>)}
                 </div>
               </label>
             </div>
           ))}
 
-          <div className='flex justify-between'>
+          {/* <div className='flex justify-between'>
             <div className='flex gap-5 items-center'>
               <img className='size-10 object-fil' src={Gopay} alt="" />
               <p className='font-semibold text-base text-[#222222]'>Gopay</p>
@@ -194,9 +151,9 @@ const Payment = () => {
               </div>
             </label>
 
-          </div>
+          </div> */}
 
-          <div className='flex justify-between'>
+          {/* <div className='flex justify-between'>
             <div className='flex gap-5 items-center'>
               <img className='size-10 object-fill' src={POSIndonesia} alt="" />
               <p className='font-semibold text-base text-[#222222]'>POS Indonesia</p>
@@ -214,9 +171,9 @@ const Payment = () => {
                 {selectedPayment === "pos" && (<div className="w-2 h-2 rounded-full bg-white"></div>)}
               </div>
             </label>
-          </div>
+          </div> */}
 
-          <div className='flex justify-between'>
+          {/* <div className='flex justify-between'>
             <div className='flex gap-5 items-center'>
               <img className='size-10 object-fill' src={Mastercard} alt="" />
               <p className='font-semibold text-base text-[#222222]'>Mastercard</p>
@@ -234,7 +191,7 @@ const Payment = () => {
                 {selectedPayment === "mastercard" && (<div className="w-2 h-2 rounded-full bg-white"></div>)}
               </div>
             </label>
-          </div>
+          </div> */}
 
         </div>
 
@@ -269,7 +226,6 @@ const Payment = () => {
         </div>
         <Button className={"w-32"} text="Buy" onClick={handlePayment} />
       </div>
-
     </div>
   )
 }

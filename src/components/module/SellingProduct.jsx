@@ -7,7 +7,7 @@ import SmallProductThumbnail from '../../assets/Group 1315.svg'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import api from '../../configs/api'
-
+import { toast } from 'react-toastify';
 
 
 const SellingProduct = () => {
@@ -54,13 +54,15 @@ const SellingProduct = () => {
         })
             .then((res) => {
                 console.log(res);
-                alert(`Create Product Success`)
+                toast.success(`Create Product Success`)
+                // alert(`Create Product Success`)
                 resetForm()
 
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response.data.message)
+                toast.error(err.response.data.message)
+                // alert(err.response.data.message)
             })
     }
 

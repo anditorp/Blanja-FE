@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../configs/api'
+import { toast } from 'react-toastify';
 
 const ChooseAddress = ({ onClick, onSelectAddress }) => {
     const [address, setAddress] = useState([])
@@ -8,14 +9,16 @@ const ChooseAddress = ({ onClick, onSelectAddress }) => {
         api.get(`/address`)
             .then((res) => {
                 console.log(res);
-                alert("Get Address Successful")
+                // alert("Get Address Successful")
+                toast.success("Get Address Successful")
                 const result = res.data.data
                 setAddress(result)
 
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response.data.message);
+                toast.error(err.response.data.message)
+                // alert(err.response.data.message);
             })
     }
 

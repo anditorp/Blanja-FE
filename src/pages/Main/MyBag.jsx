@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../../components/base/Button'
 import CartCard from '../../components/base/CartCard'
 import api from '../../configs/api'
+import { toast } from 'react-toastify';
+
 
 
 const MyBag = () => {
@@ -13,14 +15,16 @@ const MyBag = () => {
         api.get(`/order/my-order`)
             .then((res) => {
                 console.log(res);
-                alert("Get Order Successful")
+                // alert("Get Order Successful")
+                toast.success("Get Order Successful")
                 const result = res.data.data
                 setOrder(result)
 
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response.data.message);
+                toast.error(err.response.data.message)
+                // alert(err.response.data.message);
             })
     }
 
@@ -35,12 +39,14 @@ const MyBag = () => {
         Promise.all(updatePromises)
             .then((results) => {
                 console.log(results);
-                alert("Update Orders Successful");
+                toast.success("Update Orders Successful")
+                // alert("Update Orders Successful");
                 navigate('/checkout');
             })
             .catch((err) => {
                 console.log(err.response);
-                alert("Update Orders Failed");
+                toast.error("Update Orders Failed")
+                // alert("Update Orders Failed");
             });
     };
 
@@ -48,12 +54,14 @@ const MyBag = () => {
         api.delete(`/order/${id}`)
             .then((res) => {
                 console.log(res);
-                alert("Delete Order Successful")
+                toast.success("Delete Order Successful")
+                // alert("Delete Order Successful")
                 getOrder()
             })
             .catch((err) => {
                 console.log(err.response);
-                alert("Delete Order Failed")
+                toast.error("Delete Order Failed")
+                // alert("Delete Order Failed")
             })
     }
 
@@ -88,13 +96,13 @@ const MyBag = () => {
     }, [order]);
 
     return (
-        <div className='p-36 px-36'>
+        <div className='p-36 px-36 max-lg:px-6'>
             <div className=' mx-auto flex flex-col gap-8'>
                 <h1 className='font-bold text-4xl text-[#222222]'>My bag</h1>
 
-                <div className='flex w-full gap-12'>
+                <div className='flex w-full gap-12 max-lg:flex-col'>
 
-                    <div className='w-2/3 flex flex-col gap-5'>
+                    <div className='w-2/3 flex flex-col gap-5 max-lg:w-full'>
                         {/* <div className='flex p-6 bg-white rounded-md justify-between gap-5 items-center drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
                             <input type="checkbox" name="" id="" />
                             <div className='flex gap-1 w-full'>
@@ -131,7 +139,7 @@ const MyBag = () => {
                         </div>
                     </div>
 
-                    <div className='w-1/3 h-fit p-6 bg-white flex flex-col gap-8 rounded-md drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
+                    <div className='w-1/3 h-fit p-6 bg-white flex flex-col gap-8 rounded-md drop-shadow-[0_0_8px_rgba(115,115,115,0.25)] max-lg:w-full'>
                         <p className='font-semibold text-base text-[#222222]'>Shopping summary</p>
                         <div className='flex justify-between items-center'>
                             <p className='font-medium text-base text-[#9b9b9b]'>Total Price</p>

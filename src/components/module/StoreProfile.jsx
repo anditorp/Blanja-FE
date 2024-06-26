@@ -4,6 +4,8 @@ import Button from '../../components/base/Button'
 import UserThumbnail from '../../assets/user-thumbnail.png'
 import api from '../../configs/api'
 import FormContainer from '../base/FormContainer'
+import { toast } from 'react-toastify';
+
 
 
 const StoreProfile = () => {
@@ -20,7 +22,8 @@ const StoreProfile = () => {
         api.get(`/store/profile`)
             .then((res) => {
                 console.log(res);
-                alert("Get Profile Successful")
+                toast.success("Get Profile Successful")
+                // alert("Get Profile Successful")
                 const result = res.data.data
 
                 setForm({
@@ -35,7 +38,8 @@ const StoreProfile = () => {
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response.data.message);
+                toast.error(err.response.data.message)
+                // alert(err.response.data.message);
             })
     }
 
@@ -57,12 +61,14 @@ const StoreProfile = () => {
         })
             .then((res) => {
                 console.log(res);
-                alert(`Update Profile Success`)
+                toast.success(`Update Profile Success`)
+                // alert(`Update Profile Success`)
 
             })
             .catch((err) => {
                 console.log(err.response);
-                alert(err.response.data.message)
+                toast.error(err.response.data.message)
+                // alert(err.response.data.message)
             })
     }
 
@@ -91,7 +97,7 @@ const StoreProfile = () => {
             <div className='flex flex-col gap-6'>
                 <div className='bg-[#d4d4d4] h-[1px] w-full'></div>
 
-                <div className='w-full flex gap-6'>
+                <div className='w-full flex gap-6 max-lg:flex-col'>
 
                     <div className='flex flex-col gap-6 w-4/5'>
                         <div className='flex gap-10 items-center'>
@@ -144,12 +150,12 @@ const StoreProfile = () => {
                             />
                         </div>
 
-                        <Button className={"w-32 ml-44"} text='Save' onClick={handleSave} />
+                        <Button className={"w-32 ml-44 max-lg:ml-0 max-lg:w-full"} text='Save' onClick={handleSave} />
                     </div>
 
-                    <div className='bg-[#d4d4d4] h-[200px] w-[1px]'></div>
+                    <div className='bg-[#d4d4d4] h-[200px] w-[1px] max-lg:hidden'></div>
 
-                    <div className='flex flex-col items-center gap-5 w-1/5'>
+                    <div className='flex flex-col items-center gap-5 w-1/5 max-lg:w-full'>
                         <img className='size-28 rounded-full object-cover' src={photo || UserThumbnail} alt="" />
                         <label htmlFor='fileInput' className='w-full p-[15px] bg-white border border-[#9b9b9b] rounded-full font-bold text-base leading-5 text-[#9b9b9b]'>
                             Select Image

@@ -7,6 +7,7 @@ import AddAddress from '../../components/module/AddAddress'
 import Payment from '../../components/module/Payment'
 import api from '../../configs/api'
 import ChooseAddress from '@/components/module/ChooseAddress'
+import { toast } from 'react-toastify';
 
 
 const Checkout = () => {
@@ -20,28 +21,32 @@ const Checkout = () => {
     api.get(`/address`)
       .then((res) => {
         console.log(res);
-        alert("Get Address Successful")
+        // alert("Get Address Successful")
+        toast.success("Get Address Successful")
         const result = res.data.data
         setAddress(result[0])
 
       })
       .catch((err) => {
         console.log(err.response);
-        alert(err.response.data.message);
+        toast.error(err.response.data.message)
+        // alert(err.response.data.message);
       })
   }
 
   const getOrder = () => {
     api.get(`/order/checkout`)
       .then((res) => {
-        alert("Get Order Successful")
+        // alert("Get Order Successful")
+        toast.success("Get Order Successful")
         const result = res.data.data.products
         setOrder(result)
 
       })
       .catch((err) => {
         console.log(err.response);
-        alert(err.response.data.message);
+        toast.error(err.response.data.message)
+        // alert(err.response.data.message);
       })
   }
 
@@ -74,13 +79,13 @@ const Checkout = () => {
   };
 
   return (
-    <div className='p-36 px-36'>
+    <div className='p-36 px-36 max-lg:px-6'>
       <div className=' mx-auto flex flex-col gap-8'>
         <h1 className='font-bold text-4xl text-[#222222]'>Checkout</h1>
 
-        <div className='flex w-full gap-12'>
+        <div className='flex w-full gap-12 max-lg:flex-col'>
 
-          <div className='w-2/3 flex flex-col gap-5'>
+          <div className='w-2/3 flex flex-col gap-5 max-lg:w-full'>
 
             <div className='flex flex-col gap-4'>
               <p className='font-semibold'>Shipping address</p>
@@ -113,9 +118,9 @@ const Checkout = () => {
                     size={item.size}
                     quantity={item.quantity}
                     price={item.product_price}
-                    onDelete={() => handleDelete(item.order_id)}
-                    onIncrement={() => handleIncrement(item.order_id)}
-                    onDecrement={() => handleDecrement(item.order_id)}
+                    // onDelete={() => handleDelete(item.order_id)}
+                    // onIncrement={() => handleIncrement(item.order_id)}
+                    // onDecrement={() => handleDecrement(item.order_id)}
                     editor={false}
                   />
                 ))}
@@ -128,7 +133,7 @@ const Checkout = () => {
             {/* </div> */}
           </div>
 
-          <div className='w-1/3 h-fit p-6 bg-white flex flex-col gap-8 rounded-md drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
+          <div className='w-1/3 h-fit p-6 bg-white flex flex-col gap-8 rounded-md drop-shadow-[0_0_8px_rgba(115,115,115,0.25)] max-lg:w-full'>
             <p className='font-semibold text-base text-[#222222]'>Shopping summary</p>
             <div className='flex flex-col gap-3'>
               <div className='flex justify-between items-center'>

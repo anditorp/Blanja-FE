@@ -3,7 +3,7 @@ import Input from '../../components/base/Input'
 import Button from '../../components/base/Button'
 import api from '../../configs/api'
 import { useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const RegisterSeller = () => {
 
@@ -97,7 +97,6 @@ const RegisterSeller = () => {
         />
       </div>
       <Button className='w-full' onClick={handleRegister} text='Sign up' />
-      <ToastContainer position='bottom-right' />
     </div>
   )
 }
