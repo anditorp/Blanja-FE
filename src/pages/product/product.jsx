@@ -10,6 +10,7 @@ import Button from '../../components/base/button/button';
 import ButtonWhite from '../../components/base/button/buttonwhite';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 // import defaultimage from '../../../public/No-image-available.png';
 
 const Product = () => {
@@ -71,11 +72,11 @@ const Product = () => {
         })
             .then((response) => {
                 console.log(response.data);
-                alert('Add Bag Success!!');
+                toast.success('Add Bag Success!!');
             })
             .catch((error) => {
                 console.error('Failed to add to bag:', error.response ? error.response.data : error.message);
-                alert(`Failed to add to bag: ${error.response ? error.response.data.message : error.message}`);
+                toast.error(`Failed to add to bag`);
             });
     };
 
@@ -98,11 +99,11 @@ const Product = () => {
             .then((response) => {
                 navigate('/mybag')
                 console.log(response.data);
-                alert('Buying Success!!');
+                toast.success('Buying Success!!');
             })
             .catch((error) => {
                 console.error('Failed to add to bag:', error.response ? error.response.data : error.message);
-                alert(`Failed to add to bag: ${error.response ? error.response.data.message : error.message}`);
+                toast.error(`Failed to add to bag`);
             });
     };
 
@@ -176,6 +177,7 @@ const Product = () => {
                             <div className='flex flex-1 flex-row gap-5 text-nowrap font-semibold py-2'>
                                 <p>Size Available: {products.size}</p>
                                 <p>Stock Available: {products.stock}</p>
+                                <p>Color Available: {products.color}</p>
                             </div>
                             <div className='flex flex-row gap-5 text-center z-30'>
                                 <ButtonWhite
@@ -194,6 +196,7 @@ const Product = () => {
                             </div>
                         </div>
                     </div>
+                    <ToastContainer position='bottom-right' />
                 </div>
             </div>
             <div className='flex flex-col py-28 gap-10'>
