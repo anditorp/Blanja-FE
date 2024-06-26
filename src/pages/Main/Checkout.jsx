@@ -76,7 +76,7 @@ const Checkout = () => {
   return (
     <div className='p-36 px-36'>
       <div className=' mx-auto flex flex-col gap-8'>
-        <h1 className='font-bold text-4xl text-[#222222]'>My bag</h1>
+        <h1 className='font-bold text-4xl text-[#222222]'>Checkout</h1>
 
         <div className='flex w-full gap-12'>
 
