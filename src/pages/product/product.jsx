@@ -33,12 +33,10 @@ const Product = () => {
 
     const handleSizeChange = (increment) => {
         setSize(prevSize => Math.max(0, prevSize + increment));
-        console.log(handleSizeChange, '<<<<<handleSizeChange');
     }
 
     const handleQuantityChange = (increment) => {
         setQuantity(prevQuantity => Math.max(0, prevQuantity + increment));
-        console.log(handleQuantityChange, "<<<<<<<<<<<handleQuantityChange")
     }
 
     useEffect(() => {
@@ -46,16 +44,13 @@ const Product = () => {
             method: "GET",
             url: `${import.meta.env.VITE_URL_BLANJA}/products/${id}`,
         })
-        .then((res) => {
-            const result = res.data.data;
-            setProducts(result);
-            setSize(result.size || 0);
-            setQuantity(result.stock || 0);
-            console.log(result, '<<<<<<<<<<<<<<<<<<result');
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then((res) => {
+                const result = res.data.data;
+                setProducts(result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, [id])
 
     const handleAddBag = () => {
@@ -74,14 +69,14 @@ const Product = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        .then((response) => {
-            console.log(response.data);
-            alert('Add Bag Success!!');
-        })
-        .catch((error) => {
-            console.error('Failed to add to bag:', error.response ? error.response.data : error.message);
-            alert(`Failed to add to bag: ${error.response ? error.response.data.message : error.message}`);
-        });
+            .then((response) => {
+                console.log(response.data);
+                alert('Add Bag Success!!');
+            })
+            .catch((error) => {
+                console.error('Failed to add to bag:', error.response ? error.response.data : error.message);
+                alert(`Failed to add to bag: ${error.response ? error.response.data.message : error.message}`);
+            });
     };
 
     const handleBuyNow = () => {
@@ -100,15 +95,15 @@ const Product = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        .then((response) => {
-            navigate('/mybag')
-            console.log(response.data);
-            alert('Buying Success!!');
-        })
-        .catch((error) => {
-            console.error('Failed to add to bag:', error.response ? error.response.data : error.message);
-            alert(`Failed to add to bag: ${error.response ? error.response.data.message : error.message}`);
-        });
+            .then((response) => {
+                navigate('/mybag')
+                console.log(response.data);
+                alert('Buying Success!!');
+            })
+            .catch((error) => {
+                console.error('Failed to add to bag:', error.response ? error.response.data : error.message);
+                alert(`Failed to add to bag: ${error.response ? error.response.data.message : error.message}`);
+            });
     };
 
     const imageDefault = '/notfound.png';
@@ -125,7 +120,7 @@ const Product = () => {
                     {images.map((image, index) => (
                         <img
                             key={index}
-                            src={products.image || imageDefault }
+                            src={products.image || imageDefault}
                             alt={`thumbnail ${index + 1}`}
                             className='thumbnail'
                             onClick={() => setMainImage(image)}
@@ -178,18 +173,22 @@ const Product = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='flex flex-row gap-5 text-center'>
-                                <ButtonWhite 
+                            <div className='flex flex-1 flex-row gap-5 text-nowrap font-semibold py-2'>
+                                <p>Size Available: {products.size}</p>
+                                <p>Stock Available: {products.stock}</p>
+                            </div>
+                            <div className='flex flex-row gap-5 text-center z-30'>
+                                <ButtonWhite
                                     className="bg-white w-36 text-gray-700 hover:text-white"
                                     name="Chat"
                                 />
-                                <ButtonWhite 
+                                <ButtonWhite
                                     className="bg-white w-36 text-gray-700 hover:text-white"
                                     name="Add bag"
                                     onClick={handleAddBag}
                                 />
-                                <Button 
-                                    name="Buy Now" 
+                                <Button
+                                    name="Buy Now"
                                     onClick={handleBuyNow}
                                 />
                             </div>
@@ -205,7 +204,7 @@ const Product = () => {
                     <Review />
                 </div>
                 <div className='relative top-96'>
-                    <hr className='w-286'/>
+                    <hr className='w-286' />
                     <div className='py-5'>
                         <Recommend />
                     </div>
