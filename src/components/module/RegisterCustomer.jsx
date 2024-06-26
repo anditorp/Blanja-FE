@@ -3,6 +3,7 @@ import Input from '../../components/base/Input'
 import Button from '../../components/base/Button'
 import api from '../../configs/api'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 
 const RegisterCustomer = () => {
@@ -17,6 +18,10 @@ const RegisterCustomer = () => {
   const handleRegister = (e) => {
     e.preventDefault()
     // console.log(form);
+    if (!form.name || !form.email || !form.password) {
+      toast.error('All fields are required');
+      return
+    }
     api.post('/register/customers', {
       email: form.email,
       password: form.password,
@@ -24,13 +29,15 @@ const RegisterCustomer = () => {
     })
       .then((res) => {
         console.log(res.response);
-        alert(`Register berhasil dengan email ${form.email} dan password ${form.password}. Silakan Login`)
+        toast.success("Register success")
+        // alert(`Register berhasil dengan email ${form.email} dan password ${form.password}. Silakan Login`)
         navigate('/auth/login')
       })
       .catch((err) => {
         console.log(err.response);
         const error = err.response.data
-        alert(`Anda gagal register - ${error.message}`)
+        toast.error(`Register failed - ${error.message}`)
+        // alert(`Anda gagal register - ${error.message}`)
       })
   }
 
@@ -70,7 +77,7 @@ const RegisterCustomer = () => {
           placeholder="Masukkan password"
         />
       </div>
-      <Button className='w-full' onClick={handleRegister} text='Daftar' />
+      <Button className='w-full' onClick={handleRegister} text='Sign up' />
     </div>
   )
 }

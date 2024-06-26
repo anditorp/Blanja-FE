@@ -13,15 +13,15 @@ const SellerProfile = () => {
     return (
         <div className='bg-[#f5f5f5] mx-auto'>
 
-            <div className='flex '>
+            <div className='flex max-lg:flex-col'>
 
-                <div className='py-36 pl-24 pr-8 bg-white'>
+                <div className='py-36 pl-24 pr-8 bg-white max-lg:pl-4 max-lg:pr-4'>
 
                     <SellerSidebar />
 
                 </div>
 
-                <div className='p-36 w-3/4 flex flex-col gap-8'>
+                <div className='p-36 w-3/4 flex flex-col gap-8 max-lg:p-4 max-lg:w-full'>
 
                     <Outlet />
 

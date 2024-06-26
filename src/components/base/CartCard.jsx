@@ -7,7 +7,7 @@ const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "St
 
 
     return (
-        <div className='flex p-6 bg-white rounded-md justify-between items-center drop-shadow-[0_0_8px_rgba(115,115,115,0.25)]'>
+        <div className='flex p-6 bg-white rounded-md justify-between items-center drop-shadow-[0_0_8px_rgba(115,115,115,0.25)] max-lg:flex-col max-lg:gap-6'>
 
 
             <div className='flex gap-5'>
@@ -24,7 +24,7 @@ const CartCard = ({ photo = ProductThumbnail, name = "Product Name", store = "St
                 </div>
             </div>
 
-            <div className='flex gap-12 items-center'>
+            <div className='flex gap-12 items-center max-lg:flex-col max-lg:items-start max-lg:w-full max-lg:gap-6'>
                 <div className='flex gap-4 items-center'>
                     <img className={editor === true ? 'size-9' : "invisible"} src={Remove} onClick={onDecrement}/>
                     <p className='font-medium text-base text-[#222222]'>{quantity}</p>

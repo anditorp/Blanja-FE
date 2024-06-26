@@ -3,6 +3,7 @@ import Button from '../base/Button'
 import Input from '../base/Input'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../../configs/api'
+import { toast } from 'react-toastify';
 
 
 
@@ -30,13 +31,15 @@ const AddAddress = ({ onClose }) => {
     })
       .then((res) => {
         console.log(res);
-        alert(`Add Address Success`)
+        toast.success(`Add Address Success`)
+        // alert(`Add Address Success`)
         onClose()
         resetForm()
       })
       .catch((err) => {
         console.log(err.response);
-        alert(err.response.data.message)
+        toast(err.response.data.message)
+        // alert(err.response.data.message)
       })
   }
 
