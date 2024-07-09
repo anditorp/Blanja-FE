@@ -140,3 +140,8 @@ setup server:
 💻 [@crossxjonathan](https://github.com/crossxjonathan) as front end
 
 💻 [@naufandarmawan](https://github.com/naufandarmawan) as front end
+
+
+## License :
+
+-This project is licensed under the MIT License. Please refer to the [LICENSE](./LICENSE) file for further details
