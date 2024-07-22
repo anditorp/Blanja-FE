@@ -44,11 +44,11 @@ Welcome to Blanja, your premier destination for all things e-commerce. Blanja of
 
 ✨ Seller can add their products to sell to customers
 
-✨ Users/Customers can add the products to their cart for later transaction
+✨ Customers can add the products to their cart for later transaction
 
-✨ Users/Customers can update their profile picture & profile bio
+✨ Seller / Customers can update their profile picture & profile bio
 
-✨ Users/Customers can create their address, update address & delete address
+✨ Customers can create their address, update address & delete address
 
 ✨ And etc
 
